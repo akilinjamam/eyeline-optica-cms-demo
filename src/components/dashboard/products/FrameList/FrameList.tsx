@@ -126,11 +126,13 @@ const sampleData: Frame[] = [
   { id: 89, name: "Classic Eyeglasses", type: "Eyeglasses", material: "Metal", shape: "Rectangle", color: "Silver", size: "Large", price: 150, quantity: 30 },
   { id: 90, name: "Trendy Frames", type: "Eyeglasses", material: "Plastic", shape: "Oval", color: "Red", size: "Small", price: 120, quantity: 20 },
 
+
   // add more sample data here...
 ];
 
 const ITEMS_PER_PAGE = 10;
-const ITEMS_PER_SLOT = 5
+const ITEMS_PER_SLOT = 5;
+
 
 const FrameList = () => {
   const [frames, setFrames] = useState(sampleData);
@@ -160,7 +162,7 @@ const FrameList = () => {
       return matchSearch && matchType && matchMaterial && matchShape;
     });
   }, [frames, search, filterType, filterMaterial, filterShape]);
-
+  
   const totalPages = Math.max(1, Math.ceil(filteredFrames?.length / ITEMS_PER_PAGE));
 
   const paginatedFrames = filteredFrames.slice((ITEMS_PER_PAGE * page) - ITEMS_PER_PAGE, ITEMS_PER_PAGE * page)
@@ -182,10 +184,10 @@ const FrameList = () => {
     setPortion((prev) => prev - 1);
   }
 
-// ((portion * ITEMS_PER_PAGE) - ITEMS_PER_PAGE), (portion * ITEMS_PER_PAGE)
 
-  const arrayData = Array.from({ length: totalPages })?.map((_, item) => ({id: item+1}));
-  console.log(arrayData)
+const arrayData = Array.from({ length: totalPages })?.map((_, item) => ({id: item+1}));
+
+console.log(Math.ceil(totalPages/ITEMS_PER_SLOT))
 
   return (
     <div className="p-4 bg-gray-50 min-h-screen">
@@ -360,7 +362,7 @@ const FrameList = () => {
     <Button size="sm" disabled={page === totalPages} onClick={handleNext}>Next</Button>
     <Button size="sm" disabled={page === totalPages} onClick={() => {
       setPage(totalPages)
-      setPortion(totalPages/ITEMS_PER_PAGE)
+      setPortion(Math.ceil(totalPages/ITEMS_PER_SLOT))
     }}>Last</Button>
         </div>
     </div>
