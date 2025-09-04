@@ -15,7 +15,7 @@ const productCategories = [
 const ProductsLanding = () => {
   return (
     <div className="w-full h-full p-5 bg-gray-50">
-      <div className="lg:h-[100vh] h-[500px] p-2 overflow-y-scroll hide-scrollbar">
+      <div className="lg:h-[100vh] h-[90vh] p-2 overflow-y-scroll hide-scrollbar">
         <h2 className="text-2xl font-bold mb-6 text-gray-800">Products</h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">

@@ -17,7 +17,7 @@ const Landing = () => {
         Welcome to the Dashboard
       </h2>
 
-      <div className="lg:h-[100vh] h-[500px] p-2 overflow-y-scroll hide-scrollbar hide-scrollbar">
+      <div className="lg:h-[100vh] h-[90vh] p-2 overflow-y-scroll hide-scrollbar hide-scrollbar">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
             {services.map((service) => (
             <Link to={service.path}>
