@@ -35,10 +35,10 @@ interface Frame {
 }
 
 const sampleData: Frame[] = [
-  { id: 1, name: "Stylish Sunglasses", type: "Sunglasses", material: "Acetate", shape: "Round", color: "Black", size: "Medium", price: 200, quantity: 50 },
+  { id: 1, name: "Stylish Sunglasses", type: "Sunglasses", material: "Acetate", shape: "Round", color: "Black", size: "Large", price: 200, quantity: 50 },
   { id: 2, name: "Classic Eyeglasses", type: "Eyeglasses", material: "Metal", shape: "Rectangle", color: "Silver", size: "Large", price: 150, quantity: 30 },
   { id: 3, name: "Trendy Frames", type: "Eyeglasses", material: "Plastic", shape: "Oval", color: "Red", size: "Small", price: 120, quantity: 20 },
-  { id: 4, name: "Stylish Sunglasses", type: "Sunglasses", material: "Acetate", shape: "Round", color: "Black", size: "Medium", price: 200, quantity: 50 },
+  { id: 4, name: "Stylish Sunglasses", type: "Sunglasses", material: "Acetate", shape: "Oval", color: "Black", size: "Medium", price: 200, quantity: 50 },
   { id: 5, name: "Classic Eyeglasses", type: "Eyeglasses", material: "Metal", shape: "Rectangle", color: "Silver", size: "Large", price: 150, quantity: 30 },
   { id: 6, name: "Trendy Frames", type: "Eyeglasses", material: "Plastic", shape: "Oval", color: "Red", size: "Small", price: 120, quantity: 20 },
   { id: 7, name: "Stylish Sunglasses", type: "Sunglasses", material: "Acetate", shape: "Round", color: "Black", size: "Medium", price: 200, quantity: 50 },
@@ -129,7 +129,8 @@ const sampleData: Frame[] = [
   // add more sample data here...
 ];
 
-const ITEMS_PER_PAGE = 5;
+const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_SLOT = 5
 
 const FrameList = () => {
   const [frames, setFrames] = useState(sampleData);
@@ -172,7 +173,7 @@ const FrameList = () => {
   };
 
   const handleNext = () => {
-    if((portion * ITEMS_PER_PAGE) > totalPages) return
+    if((portion * ITEMS_PER_SLOT) > totalPages) return
     setPortion((prev) => prev + 1);
   }
 
@@ -335,24 +336,32 @@ const FrameList = () => {
 
       {/* Pagination */}
         <div className="flex flex-wrap justify-center gap-2 mt-2">
-    <Button size="sm"  onClick={() => setPage(1)}>First</Button>
-    <Button size="sm"  onClick={handlePrev}>Prev</Button>
+        <Button size="sm"  onClick={() => {
+          setPage(1)
+          setPortion(1)
+        }}>First</Button>
+        <Button size="sm"  onClick={handlePrev}>Prev</Button>
 
-    {arrayData?.slice((portion * ITEMS_PER_PAGE) - ITEMS_PER_PAGE , (portion * ITEMS_PER_PAGE) )?.map((item, i) => {
-        return (
-            <Button
-                key={i}
-                size="sm"
-                variant={page === item.id ? "default" : "outline"}
-                onClick={() => setPage(item.id)}
-            >
-                {item.id}
-            </Button>
-        )
-    })}
+        {arrayData?.slice((portion * ITEMS_PER_SLOT) - ITEMS_PER_SLOT , (portion * ITEMS_PER_SLOT) )?.map((item, i) => {
+            return (
+                <Button
+                    key={i}
+                    size="sm"
+                    variant={page === item.id ? "default" : "outline"}
+                    onClick={() => setPage(item.id)}
+                >
+                    {item.id}
+                </Button>
+            )
+        })}
+
+    <Button>Total Pages ...{totalPages}</Button>
 
     <Button size="sm" disabled={page === totalPages} onClick={handleNext}>Next</Button>
-    <Button size="sm" disabled={page === totalPages} onClick={() => setPage(totalPages)}>Last</Button>
+    <Button size="sm" disabled={page === totalPages} onClick={() => {
+      setPage(totalPages)
+      setPortion(totalPages/ITEMS_PER_PAGE)
+    }}>Last</Button>
         </div>
     </div>
   );
