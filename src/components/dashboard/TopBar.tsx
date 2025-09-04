@@ -5,7 +5,8 @@ import { motion } from "framer-motion";
 // Map route paths to friendly titles
 const routeTitles: Record<string, string> = {
   "/": "Dashboard",
-  "/product": "Product",
+  "/dashboard/product": "Product",
+  "/dashboard/add_frame": "Add Frame",
   "/settings": "Settings",
   "/sales": "Sales",
   "/products": "Products",
