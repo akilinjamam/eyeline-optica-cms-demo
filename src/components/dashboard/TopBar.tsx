@@ -1,0 +1,50 @@
+import { useLocation } from "react-router-dom";
+import { Bell} from "lucide-react";
+import { motion } from "framer-motion";
+
+// Map route paths to friendly titles
+const routeTitles: Record<string, string> = {
+  "/": "Dashboard",
+  "/product": "Product",
+  "/settings": "Settings",
+  "/sales": "Sales",
+  "/products": "Products",
+  // Add more routes as needed
+};
+
+const TopBar = () => {
+  const location = useLocation();
+  const title = routeTitles[location.pathname] || "Page";
+
+  return (
+    <motion.header
+      className="sticky top-0 z-20 bg-white/70 backdrop-blur-lg shadow-sm border-b border-gray-200 flex items-center justify-between px-4 md:px-3 h-16"
+      initial={{ y: -60, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+    //   transition={{ type: "spring", stiffness: 80 }}
+    >
+      {/* Left Section - Dynamic Page Title */}
+      <h1 className="text-lg md:text-xl font-semibold  text-gray-800 tracking-tight ml-10 lg:ml-0">
+        {title}
+      </h1>
+
+      
+
+      {/* Right Section - Icons */}
+      <div className="flex items-center gap-4">
+        {/* Notification Bell */}
+        <button className="relative p-2 rounded-full hover:bg-gray-100 transition">
+          <Bell className="w-5 h-5 text-gray-700" />
+          <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" />
+        </button>
+
+        {/* Profile Avatar */}
+        <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-white font-semibold cursor-pointer shadow-md">
+          A
+        </div>
+      </div>
+    </motion.header>
+  );
+};
+
+export default TopBar;
