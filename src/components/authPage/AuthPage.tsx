@@ -70,7 +70,7 @@ const AuthPage = () => {
             exit="exit"
           >
             <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-              {isLogin ? "Welcome Back" : "Create Account"}
+              {isLogin ? "Welcome to Eyeline Optica CMS" : "Create Account"}
             </h2>
 
             <form className="space-y-4" onSubmit={handleSubmit}>

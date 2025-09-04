@@ -3,6 +3,7 @@ import Layout from "./components/dashboard/Layout"
 import Landing from "./components/dashboard/Landing"
 import ProductsLanding from "./components/dashboard/products/ProductsLanding"
 import AuthPage from "./components/authPage/AuthPage"
+import AddFrame from "./components/dashboard/products/AddFrame/AddFrame"
 
 function App() {
   const router = createBrowserRouter([
@@ -18,6 +19,10 @@ function App() {
         {
           path: 'product',
           element: <ProductsLanding/>
+        },
+        {
+          path: 'add_frame',
+          element: <AddFrame/>
         }
       ]
     },

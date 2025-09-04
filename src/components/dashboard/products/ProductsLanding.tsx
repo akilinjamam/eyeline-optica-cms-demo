@@ -4,7 +4,7 @@ import { Box, Layers, Circle, Eye } from "lucide-react";
 import { Link } from 'react-router-dom';
 
 const productCategories = [
-  { title: "Add Frame", icon: <Box className="w-8 h-8" />, color: "from-indigo-500 to-purple-500", path: '/dashboard/product' },
+  { title: "Add Frame", icon: <Box className="w-8 h-8" />, color: "from-indigo-500 to-purple-500", path: '/dashboard/add_frame' },
   { title: "Frame List", icon: <Layers className="w-8 h-8" />, color: "from-blue-400 to-indigo-400", path: '/dashboard/product' },
   { title: "Add Lens", icon: <Circle className="w-8 h-8" />, color: "from-green-400 to-teal-400", path: '/dashboard/product' },
   { title: "Lens List", icon: <Circle className="w-8 h-8" />, color: "from-yellow-400 to-orange-400", path: '/dashboard/product' },

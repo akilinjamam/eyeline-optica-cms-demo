@@ -24,11 +24,11 @@ const Sidebar = ({ isOpen, setIsOpen, isDesktop }: SidebarProps) => {
   }, [isOpen]);
 
   const links = [
-    { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
-    { name: "Products", path: "/dashboard/product", icon: ShoppingCart },
-    { name: "Customers", path: "/customers", icon: Users },
-    { name: "Settings", path: "/settings", icon: Settings },
-    { name: "Logout", path: "/", icon: LogOut },
+    { name: "Dashboard", path: ["/dashboard"], icon: LayoutDashboard },
+    { name: "Products", path: ["/dashboard/product", "/dashboard/add_frame" ], icon: ShoppingCart },
+    { name: "Customers", path: ["/customers"], icon: Users },
+    { name: "Settings", path: ["/settings"], icon: Settings },
+    { name: "Logout", path: ["/"], icon: LogOut },
   ];
 
   return (
@@ -74,11 +74,11 @@ const Sidebar = ({ isOpen, setIsOpen, isDesktop }: SidebarProps) => {
         {/* Navigation */}
         <nav className="flex flex-col p-4 gap-3 relative">
           {links.map(({ name, path, icon: Icon }) => {
-            const isActive = location.pathname === path;
+            const isActive = path.includes(location.pathname);
             return (
               <Link
                 key={name}
-                to={path}
+                to={path[0]}
                 className={`relative flex items-center gap-3 p-3 rounded-xl group transition-colors duration-200 
                   ${isActive ? "text-blue-600 font-medium" : "text-gray-700 hover:bg-white/50"}`}
                 onClick={() => setMobileOpen(false)}
