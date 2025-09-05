@@ -10,7 +10,7 @@ import type { TableColumn } from "../types/type";
 
 const Table = ({ paginatedData, handleDelete, handleEdit, column }: ITableInfo) => {
   return (
-    <ScrollArea className="h-[calc(100vh-390px)] lg:h-[calc(100vh-280px)]">
+    <ScrollArea className="h-[calc(100vh-390px)] lg:h-[calc(100vh-200px)]">
       {/* Desktop / Tablet Table */}
       <div className="hidden md:block">
         <Card className="rounded-3xl shadow-lg">
