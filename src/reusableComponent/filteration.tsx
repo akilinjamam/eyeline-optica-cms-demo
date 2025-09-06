@@ -48,7 +48,7 @@ const Filteration = ({
     <Accordion type="single" collapsible className="mb-4 border border-gray-200 rounded-md px-2">
       <AccordionItem value="filters">
         <AccordionTrigger className="text-lg font-medium flex items-center gap-2">
-          <Search className="w-4 h-4" />
+          <div><Search className="w-4 h-4" /></div>
           <span className="text-sm text-gray-500">{filterSummary ?? "Filters"}</span>
         </AccordionTrigger>
         <AccordionContent>
