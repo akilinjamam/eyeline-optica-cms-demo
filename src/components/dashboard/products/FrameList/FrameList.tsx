@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
-
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 import { Button } from "../../../ui/button";
 import { Input } from "../../../ui/input";
 import {
@@ -19,6 +20,57 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "..
 import {Search} from 'lucide-react'
 
 const FrameList = () => {
+
+    const handleDownloadPDF = () => {
+    const doc = new jsPDF();
+
+     const pageWidth = doc.internal.pageSize.getWidth();
+
+    // 🏪 Shop Name
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(20);
+    doc.text("Eyeline Optica", pageWidth / 2, 15, { align: "center" });
+
+    // 📅 Current Date
+    const today = new Date().toLocaleDateString();
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text(`Date: ${today}`, pageWidth / 2, 22, { align: "center" });
+
+    // Title
+    doc.setFontSize(18);
+    doc.text("Frame List", 14, 15);
+
+    
+
+    // Table data
+    const tableData = filteredFrames.map((frame) => [
+      frame.id,
+      frame.name,
+      frame.type,
+      frame.material,
+      frame.shape,
+      frame.color,
+      frame.size,
+      frame.price,
+      frame.quantity,
+    ]);
+
+    // Generate table
+    autoTable(doc, {
+      head: [["SL", "Name", "Type", "Material", "Shape", "Color", "Size", "Price", "Qty"]],
+      body: tableData,
+      startY: 25,
+      styles: { halign: "center", fontSize: 10 },
+      headStyles: { fillColor: [66, 66, 66] },
+    });
+
+    // Save the PDF
+    doc.save("frame-list.pdf");
+  };
+
+
+
 
   const columns: TableColumn[] = [
   { key: "id", label: "SL", align: "center" },
@@ -103,7 +155,7 @@ const FrameList = () => {
         <div className="flex items-center justify-between">
           <h2 className="text-2xl font-bold mb-4">Frame List</h2>
           <div className="flex justify-end mb-2">
-              <Button size="sm">Download PDF</Button>
+              <Button onClick={handleDownloadPDF} size="sm">Download PDF</Button>
           </div>
         </div>
 
