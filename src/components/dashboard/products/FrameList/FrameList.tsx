@@ -2,22 +2,12 @@ import { useState, useMemo, useEffect } from "react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { Button } from "../../../ui/button";
-import { Input } from "../../../ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../../../ui/select";
-
 import type { Frame } from "../../../../types/interface";
 import Pagination from "../../../../reusableComponent/Pagination";
 import Table from "../../../../reusableComponent/Table";
 import { sampleData } from "../../../../dummyData/dummyData";
 import type { TableColumn } from "../../../../types/type";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../../../ui/accordion";
-import {Search} from 'lucide-react'
+import Filteration from "../../../../reusableComponent/filteration";
 
 const FrameList = () => {
 
@@ -85,7 +75,6 @@ const FrameList = () => {
   // { key: "actions", label: "Actions", align: "center" },
 ];
 
-
   const [frames, setFrames] = useState(sampleData);
   const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState("all");
@@ -94,8 +83,9 @@ const FrameList = () => {
   const [paginatedData, setPaginatedData] = useState<Frame[]>([])
   const [page, setPage] = useState(1);
 
-   const [minPrice, setMinPrice] = useState(""); // New state
-    const [maxPrice, setMaxPrice] = useState(""); // New state
+  const [minPrice, setMinPrice] = useState(""); // New state
+  const [maxPrice, setMaxPrice] = useState(""); // New state
+  const [color, setColor] = useState("all");
 
 
   // Reset page when filters/search change
@@ -113,14 +103,15 @@ const FrameList = () => {
       const matchType = filterType === "all" ? true : frame.type === filterType;
       const matchMaterial = filterMaterial === "all" ? true : frame.material === filterMaterial;
       const matchShape = filterShape === "all" ? true : frame.shape === filterShape;
+      const matchColor = color === "all" ? true : frame.color === color
 
        const matchPrice =
         (minPrice === "" || frame.price >= Number(minPrice)) &&
         (maxPrice === "" || frame.price <= Number(maxPrice));
 
-      return matchSearch && matchType && matchMaterial && matchShape && matchPrice;
+      return matchSearch && matchType && matchMaterial && matchShape && matchPrice && matchColor;
     });
-  }, [frames, search, filterType, filterMaterial, filterShape, minPrice, maxPrice]);
+  }, [frames, search, filterType, filterMaterial, filterShape, minPrice, maxPrice, color]);
   
 
   const handleEdit = (id: number) => console.log("Edit", id);
@@ -149,6 +140,51 @@ const FrameList = () => {
       : "No filters applied";
 
 
+  const filters = [
+    {
+      label: "Type",
+      placeholder: "Filter by Type",
+      options: [
+        { value: "all", label: "All Types" },
+        { value: "Sunglasses", label: "Sunglasses" },
+        { value: "Eyeglasses", label: "Eyeglasses" },
+      ],
+      onChange: setFilterType,
+    },
+    {
+      label: "Material",
+      placeholder: "Filter by Material",
+      options: [
+        { value: "all", label: "All Materials" },
+        { value: "Acetate", label: "Acetate" },
+        { value: "Metal", label: "Metal" },
+        { value: "Plastic", label: "Plastic" },
+      ],
+      onChange: setFilterMaterial,
+    },
+    {
+      label: "Shape",
+      placeholder: "Filter by Shape",
+      options: [
+        { value: "all", label: "All Shapes" },
+        { value: "Round", label: "Round" },
+        { value: "Rectangle", label: "Rectangle" },
+        { value: "Oval", label: "Oval" },
+      ],
+      onChange: setFilterShape,
+    },
+    {
+      label: "Color",
+      placeholder: "Filter by Color",
+      options: [
+        { value: "all", label: "All Shapes" },
+        { value: "Silver", label: "Silver" },
+        { value: "Red", label: "Red" },
+        { value: "Black", label: "Black" },
+      ],
+      onChange: setColor,
+    },
+  ]
 
   return (
     <div className="px-4 py-2 bg-gray-50 min-h-screen">
@@ -162,89 +198,14 @@ const FrameList = () => {
   
       <div className="w-full h-[70vh] overflow-y-scroll overflow-x-hidden hide-scrollbar ">
         {/* Accordion for Search + Filters */}
-        <Accordion type="single" collapsible className="mb-4 bg-gray-100 rounded-md px-2">
-          <AccordionItem value="filters">
-            <AccordionTrigger className="text-lg font-medium">
-              <span><Search/></span>
-               <span className="text-sm text-gray-500">{filterSummary}</span>
-            </AccordionTrigger>
-            <AccordionContent>
-              <div className="p-2">
-                {/* Search */}
-                <Input
-                  placeholder="Search by name, type, color..."
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  className="w-full mb-2"
-                />
-
-                {/* Filters */}
-                <div className="flex flex-wrap gap-2">
-                  <Select onValueChange={setFilterType}>
-                    <SelectTrigger className="w-full lg:w-40 md:w-40">
-                      <SelectValue placeholder="Filter by Type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Types</SelectItem>
-                      <SelectItem value="Sunglasses">Sunglasses</SelectItem>
-                      <SelectItem value="Eyeglasses">Eyeglasses</SelectItem>
-                    </SelectContent>
-                  </Select>
-
-                  <Select onValueChange={setFilterMaterial}>
-                    <SelectTrigger className="lg:w-40 md:w-40 w-full">
-                      <SelectValue placeholder="Filter by Material" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Materials</SelectItem>
-                      <SelectItem value="Acetate">Acetate</SelectItem>
-                      <SelectItem value="Metal">Metal</SelectItem>
-                      <SelectItem value="Plastic">Plastic</SelectItem>
-                    </SelectContent>
-                  </Select>
-
-                  <Select onValueChange={setFilterShape}>
-                    <SelectTrigger className="lg:w-40 md:w-40 w-full">
-                      <SelectValue placeholder="Filter by Shape" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Shapes</SelectItem>
-                      <SelectItem value="Round">Round</SelectItem>
-                      <SelectItem value="Rectangle">Rectangle</SelectItem>
-                      <SelectItem value="Oval">Oval</SelectItem>
-                    </SelectContent>
-                  </Select>
-
-                  {/* Price Range */}
-                  <div className="flex items-center gap-2">
-                    <Input
-                      type="number"
-                      placeholder="Min Price"
-                      value={minPrice}
-                      onChange={(e) => setMinPrice(e.target.value)}
-                      className="w-30"
-                    />
-                    <span>-</span>
-                    <Input
-                      type="number"
-                      placeholder="Max Price"
-                      value={maxPrice}
-                      onChange={(e) => setMaxPrice(e.target.value)}
-                      className="w-30"
-                    />
-                  </div>
-                </div>
-              </div>
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
+       <Filteration filterSummary={filterSummary} search={search} setSearch={setSearch} setMaxPrice={setMaxPrice} setMinPrice={setMinPrice} maxPrice={maxPrice} minPrice={minPrice} filters={filters} showPriceRange={true}/>
 
         {/* Table */}
         <Table column={columns} paginatedData={paginatedData} handleEdit={handleEdit} handleDelete={handleDelete} />
       </div>
         {/* Pagination */}
        <Pagination page={page} setPage={setPage} filteredFrames={filteredFrames} setPaginatedData={setPaginatedData}/>
-    </div>
+      </div>
   );
 };
 

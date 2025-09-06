@@ -36,7 +36,7 @@ const Pagination = ({filteredFrames, ITEMS_PER_PAGE=10,page, setPage, setPaginat
     const arrayData = Array.from({ length: totalPages })?.map((_, item) => ({id: item+1}));
 
     return (
-         <div className="flex flex-wrap justify-center gap-2 mt-2">
+         <div className="flex flex-wrap justify-center gap-2 mt-6">
         <Button size="sm"  onClick={() => {
           setPage(1)
           setPortion(1)
