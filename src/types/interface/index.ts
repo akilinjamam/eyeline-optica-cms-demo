@@ -1,4 +1,4 @@
-import type { TableColumn, THandler } from "../type";
+import type { ActionColumn, TableColumn } from "../type";
 
 export interface Frame {
   id: number;
@@ -14,7 +14,6 @@ export interface Frame {
 
 export interface ITableInfo {
   paginatedData: Frame[];
-  handleEdit: THandler;
-  handleDelete: THandler;
   column: TableColumn[];
+  actionColumn: ActionColumn[];
 }

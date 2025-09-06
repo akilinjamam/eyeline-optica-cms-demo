@@ -4,11 +4,10 @@ import { Card, CardContent } from "../components/ui/card";
 import { ScrollArea } from "../components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../components/ui/tooltip";
 import { Button } from "../components/ui/button";
-import { Edit, Trash2 } from "lucide-react";
 import type { Frame, ITableInfo } from "../types/interface";
-import type { TableColumn } from "../types/type";
+import type { ActionColumn, TableColumn } from "../types/type";
 
-const Table = ({ paginatedData, handleDelete, handleEdit, column }: ITableInfo) => {
+const Table = ({ paginatedData, column, actionColumn }: ITableInfo) => {
   return (
     <ScrollArea className="h-[calc(100vh-390px)] lg:h-[calc(100vh-200px)]">
       {/* Desktop / Tablet Table */}
@@ -43,23 +42,22 @@ const Table = ({ paginatedData, handleDelete, handleEdit, column }: ITableInfo) 
                       {/* Actions column */}
                       <td className="px-4 py-2 flex justify-center gap-2">
                         <TooltipProvider>
-                          <Tooltip>
+                         {
+                          actionColumn.map((action:ActionColumn) => {
+                            return (
+                               <Tooltip>
                             <TooltipTrigger asChild>
-                              <Button variant="ghost" size="sm" onClick={() => handleEdit(row.id)}>
-                                <Edit className="w-4 h-4" />
+                              <Button variant="ghost" size="sm" onClick={() => action.render(row.id)}>
+                                {action.logo}
                               </Button>
                             </TooltipTrigger>
                             <TooltipContent>Edit</TooltipContent>
                           </Tooltip>
+                            )
+                          })
+                         }
 
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <Button variant="ghost" size="sm" onClick={() => handleDelete(row.id)}>
-                                <Trash2 className="w-4 h-4 text-red-500" />
-                              </Button>
-                            </TooltipTrigger>
-                            <TooltipContent>Delete</TooltipContent>
-                          </Tooltip>
+                         
                         </TooltipProvider>
                       </td>
                     </tr>
@@ -85,12 +83,14 @@ const Table = ({ paginatedData, handleDelete, handleEdit, column }: ITableInfo) 
                 ))}
 
                 <div className="flex gap-2 mt-2">
-                  <Button variant="ghost" size="sm" onClick={() => handleEdit(row.id)}>
-                    <Edit className="w-4 h-4" />
+                  {
+                    actionColumn.map((action:ActionColumn) => (
+                      <Button variant="ghost" size="sm" onClick={() => action.render(row.id)}>
+                    {action.logo}
                   </Button>
-                  <Button variant="ghost" size="sm" onClick={() => handleDelete(row.id)}>
-                    <Trash2 className="w-4 h-4 text-red-500" />
-                  </Button>
+                    ))
+                  }
+                 
                 </div>
               </div>
             </CardContent>

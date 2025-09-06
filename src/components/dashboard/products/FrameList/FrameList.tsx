@@ -6,8 +6,9 @@ import type { Frame } from "../../../../types/interface";
 import Pagination from "../../../../reusableComponent/Pagination";
 import Table from "../../../../reusableComponent/Table";
 import { sampleData } from "../../../../dummyData/dummyData";
-import type { TableColumn } from "../../../../types/type";
+import type { ActionColumn, TableColumn } from "../../../../types/type";
 import Filteration from "../../../../reusableComponent/filteration";
+import { Edit, Trash2 } from "lucide-react";
 
 const FrameList = () => {
 
@@ -59,9 +60,6 @@ const FrameList = () => {
     doc.save("frame-list.pdf");
   };
 
-
-
-
   const columns: TableColumn[] = [
   { key: "id", label: "SL", align: "center" },
   { key: "name", label: "Name", align: "center" },
@@ -83,12 +81,10 @@ const FrameList = () => {
   const [paginatedData, setPaginatedData] = useState<Frame[]>([])
   const [page, setPage] = useState(1);
 
-  const [minPrice, setMinPrice] = useState(""); // New state
-  const [maxPrice, setMaxPrice] = useState(""); // New state
+  const [minPrice, setMinPrice] = useState(""); 
+  const [maxPrice, setMaxPrice] = useState("");
   const [color, setColor] = useState("all");
 
-
-  // Reset page when filters/search change
   useEffect(() => {
     setPage(1);
   }, [search, filterType, filterMaterial, filterShape]);
@@ -186,6 +182,19 @@ const FrameList = () => {
     },
   ]
 
+  const actionColumns: ActionColumn[] = [
+  {
+    logo: <Edit className="w-4 h-4 text-green-800"/>,
+    type: "edit",
+    render: handleEdit
+  },
+  {
+    logo: <Trash2 className="w-4 h-4 text-red-800"/>,
+    type: "delete",
+    render: handleDelete
+  },
+]
+
   return (
     <div className="px-4 py-2 bg-gray-50 min-h-screen">
         <div className="flex items-center justify-between">
@@ -201,7 +210,7 @@ const FrameList = () => {
        <Filteration filterSummary={filterSummary} search={search} setSearch={setSearch} setMaxPrice={setMaxPrice} setMinPrice={setMinPrice} maxPrice={maxPrice} minPrice={minPrice} filters={filters} showPriceRange={true}/>
 
         {/* Table */}
-        <Table column={columns} paginatedData={paginatedData} handleEdit={handleEdit} handleDelete={handleDelete} />
+        <Table column={columns} paginatedData={paginatedData}  actionColumn={actionColumns}/>
       </div>
         {/* Pagination */}
        <Pagination page={page} setPage={setPage} filteredFrames={filteredFrames} setPaginatedData={setPaginatedData}/>
