@@ -9,13 +9,13 @@ import type { ActionColumn, TableColumn } from "../types/type";
 
 const Table = ({ paginatedData, column, actionColumn }: ITableInfo<ContactLens | Lens | Frame>) => {
   const handleRow = (row:any, col:any) => {
-    if(col.key === "uvProtection"){
-        if(row[col.key]){
+    if (typeof row[col.key] === "boolean") {
+        if (row[col.key]) {
           return 'Yes'
-        }else{
+        } else {
           return 'No'
         }
-    }else{
+    } else {
       return row[col.key]
     }
 

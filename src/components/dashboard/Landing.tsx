@@ -25,7 +25,7 @@ const Landing = () => {
                     key={service.title}
                     whileHover={{ scale: 1.05, y: -4 }}
                     className={`cursor-pointer flex flex-col items-center justify-center p-6 rounded-2xl shadow-lg bg-gradient-to-tr ${service.color} text-white transition-transform`}
-            >
+                    >
                     <div className="mb-4">{service.icon}</div>
                     <h3 className="text-lg font-semibold">{service.title}</h3>
                 </motion.div>
