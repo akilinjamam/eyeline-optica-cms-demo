@@ -25,7 +25,7 @@ const Sidebar = ({ isOpen, setIsOpen, isDesktop }: SidebarProps) => {
 
   const links = [
     { name: "Dashboard", path: ["/dashboard"], icon: LayoutDashboard },
-    { name: "Products", path: ["/dashboard/product", "/dashboard/add_frame", "/dashboard/frame_list" ], icon: ShoppingCart },
+    { name: "Products", path: ["/dashboard/product", "/dashboard/add_frame", "/dashboard/frame_list", "/dashboard/add_lens", "/dashboard/lens_list", "/dashboard/add_contact_lens" ], icon: ShoppingCart },
     { name: "Customers", path: ["/customers"], icon: Users },
     { name: "Settings", path: ["/settings"], icon: Settings },
     { name: "Logout", path: ["/"], icon: LogOut },

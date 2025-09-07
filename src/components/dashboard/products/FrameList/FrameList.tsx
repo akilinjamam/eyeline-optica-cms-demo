@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useMemo, useEffect } from "react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
@@ -35,7 +36,7 @@ const FrameList = () => {
     
 
     // Table data
-    const tableData = filteredFrames.map((frame) => [
+    const tableData = filteredFrames.map((frame:any) => [
       frame.id,
       frame.name,
       frame.type,
@@ -89,8 +90,9 @@ const FrameList = () => {
     setPage(1);
   }, [search, filterType, filterMaterial, filterShape]);
 
-  const filteredFrames = useMemo(() => {
-    return frames.filter(frame => {
+ const filteredFrames = useMemo(() => {
+
+    const filteredData:any = frames.filter(frame => {
       const matchSearch =
         frame.name.toLowerCase().includes(search.toLowerCase()) ||
         frame.type.toLowerCase().includes(search.toLowerCase()) ||
@@ -107,6 +109,10 @@ const FrameList = () => {
 
       return matchSearch && matchType && matchMaterial && matchShape && matchPrice && matchColor;
     });
+
+    const addingIdWithFiltered:any = filteredData.map((filtered:any, index:number) => ({id:index+1, ...filtered}))
+
+    return addingIdWithFiltered
   }, [frames, search, filterType, filterMaterial, filterShape, minPrice, maxPrice, color]);
   
 

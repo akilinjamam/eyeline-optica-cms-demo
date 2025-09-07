@@ -1,8 +1,7 @@
-import type { Frame } from "../types/interface";
+import type { ContactLens, Frame, Lens } from "../types/interface";
 
 export const sampleData: Frame[] = [
   {
-    id: 1,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -13,7 +12,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 2,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -24,7 +22,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 3,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -35,7 +32,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 4,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -46,7 +42,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 5,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -57,7 +52,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 6,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -68,7 +62,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 7,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -79,7 +72,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 8,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -90,7 +82,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 9,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -101,7 +92,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 10,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -112,7 +102,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 11,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -123,7 +112,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 12,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -134,7 +122,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 13,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -145,7 +132,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 14,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -156,7 +142,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 15,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -167,7 +152,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 16,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -178,7 +162,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 17,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -189,7 +172,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 18,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -200,7 +182,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 19,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -211,7 +192,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 20,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -222,7 +202,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 21,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -233,7 +212,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 22,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -244,7 +222,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 23,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -255,7 +232,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 24,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -266,7 +242,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 25,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -277,7 +252,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 26,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -288,7 +262,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 27,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -299,7 +272,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 28,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -310,7 +282,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 29,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -321,7 +292,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 30,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -332,7 +302,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 31,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -343,7 +312,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 32,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -354,7 +322,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 33,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -365,7 +332,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 34,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -376,7 +342,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 35,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -387,7 +352,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 36,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -398,7 +362,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 37,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -409,7 +372,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 38,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -420,7 +382,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 39,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -431,7 +392,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 40,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -442,7 +402,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 41,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -453,7 +412,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 42,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -464,7 +422,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 43,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -475,7 +432,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 44,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -486,7 +442,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 45,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -497,7 +452,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 46,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -508,7 +462,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 47,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -519,7 +472,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 48,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -530,7 +482,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 49,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -541,7 +492,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 50,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -552,7 +502,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 51,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -563,7 +512,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 52,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -574,7 +522,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 53,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -585,7 +532,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 54,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -596,7 +542,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 55,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -607,7 +552,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 56,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -618,7 +562,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 57,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -629,7 +572,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 58,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -640,7 +582,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 59,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -651,7 +592,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 60,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -662,7 +602,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 61,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -673,7 +612,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 62,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -684,7 +622,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 63,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -695,7 +632,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 64,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -706,7 +642,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 65,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -717,7 +652,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 66,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -728,7 +662,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 67,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -739,7 +672,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 68,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -750,7 +682,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 69,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -761,7 +692,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 70,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -772,7 +702,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 71,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -783,7 +712,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 72,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -794,7 +722,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 73,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -805,7 +732,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 74,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -816,7 +742,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 75,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -827,7 +752,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 76,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -838,7 +762,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 77,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -849,7 +772,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 78,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -860,7 +782,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 79,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -871,7 +792,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 80,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -882,7 +802,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 81,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -893,7 +812,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 82,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -904,7 +822,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 83,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -915,7 +832,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 84,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -926,7 +842,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 85,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -937,7 +852,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 86,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -948,7 +862,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 87,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -959,7 +872,6 @@ export const sampleData: Frame[] = [
     quantity: 20,
   },
   {
-    id: 88,
     name: "Stylish Sunglasses",
     type: "Sunglasses",
     material: "Acetate",
@@ -970,7 +882,6 @@ export const sampleData: Frame[] = [
     quantity: 50,
   },
   {
-    id: 89,
     name: "Classic Eyeglasses",
     type: "Eyeglasses",
     material: "Metal",
@@ -981,7 +892,6 @@ export const sampleData: Frame[] = [
     quantity: 30,
   },
   {
-    id: 90,
     name: "Trendy Frames",
     type: "Eyeglasses",
     material: "Plastic",
@@ -993,4 +903,496 @@ export const sampleData: Frame[] = [
   },
 
   // add more sample data here...
+];
+
+export const sampleLenseData: Lens[] = [
+  {
+    name: "Anti-Glare Single Vision Lens",
+    description: "Durable single vision lens with anti-reflective coating.",
+    purchasePrice: 120,
+    salesPrice: 120,
+    stock: 50,
+    category: "lens",
+    brand: "Essilor",
+    images: [
+      "https://res.cloudinary.com/dw57lx7qa/image/upload/v1756815990/products/ok6dj04cmjasmtqjdl2r.jpg",
+      "https://res.cloudinary.com/dw57lx7qa/image/upload/v1756815991/products/gnrdak8vpa8j1uf3plei.jpg",
+    ],
+    lensType: "single vision",
+    material: "polycarbonate",
+    coatings: ["anti-reflective", "UV protection"],
+    prescriptionRange: "+6.00 to -6.00",
+    index: 1.6,
+    thickness: "Thin cut",
+    color: "clear",
+    diameter: 70,
+    warranty: "1 year",
+    deliveryTime: "3-5 business days",
+    offer: 10,
+    rating: 4.5,
+  },
+  {
+    name: "Blue Light Blocking Lens",
+    description: "Protects eyes from digital screen blue light.",
+    purchasePrice: 150,
+    salesPrice: 200,
+    stock: 40,
+    category: "lens",
+    brand: "Hoya",
+    images: [
+      "https://res.cloudinary.com/dw57lx7qa/image/upload/v1756817001/products/bluelight1.jpg",
+      "https://res.cloudinary.com/dw57lx7qa/image/upload/v1756817002/products/bluelight2.jpg",
+    ],
+    lensType: "single vision",
+    material: "trivex",
+    coatings: ["blue light filter", "scratch-resistant"],
+    prescriptionRange: "+4.00 to -4.00",
+    index: 1.56,
+    thickness: "Standard",
+    color: "clear",
+    diameter: 65,
+    warranty: "1 year",
+    deliveryTime: "4-6 business days",
+    offer: 15,
+    rating: 4.8,
+  },
+  {
+    name: "Photochromic Transition Lens",
+    description: "Automatically darkens under sunlight for comfort.",
+    purchasePrice: 150,
+    salesPrice: 180,
+    stock: 30,
+    category: "lens",
+    brand: "Zeiss",
+    images: [
+      "https://res.cloudinary.com/dw57lx7qa/image/upload/v1756817101/products/photochromic1.jpg",
+      "https://res.cloudinary.com/dw57lx7qa/image/upload/v1756817102/products/photochromic2.jpg",
+    ],
+    lensType: "progressive",
+    material: "polycarbonate",
+    coatings: ["photochromic", "anti-reflective"],
+    prescriptionRange: "+5.00 to -5.00",
+    index: 1.6,
+    thickness: "Thin cut",
+    color: "clear to grey",
+    diameter: 70,
+    warranty: "2 years",
+    deliveryTime: "5-7 business days",
+    offer: 12,
+    rating: 4.6,
+  },
+  {
+    name: "Polarized Sunglass Lens",
+    description: "Blocks glare and enhances outdoor vision.",
+    purchasePrice: 100,
+    salesPrice: 120,
+    stock: 25,
+    category: "lens",
+    brand: "Ray-Ban",
+    images: [
+      "https://res.cloudinary.com/dw57lx7qa/image/upload/v1756817201/products/polarized1.jpg",
+      "https://res.cloudinary.com/dw57lx7qa/image/upload/v1756817202/products/polarized2.jpg",
+    ],
+    lensType: "sunglass",
+    material: "polycarbonate",
+    coatings: ["polarized", "scratch-resistant"],
+    prescriptionRange: "+2.00 to -2.00",
+    index: 1.5,
+    thickness: "Standard",
+    color: "dark grey",
+    diameter: 70,
+    warranty: "6 months",
+    deliveryTime: "3-5 business days",
+    offer: 5,
+    rating: 4.4,
+  },
+  {
+    name: "High-Index 1.67 Lens",
+    description: "Ultra-thin lens ideal for strong prescriptions.",
+    purchasePrice: 220,
+    salesPrice: 250,
+    stock: 20,
+    category: "lens",
+    brand: "Essilor",
+    images: [
+      "https://res.cloudinary.com/dw57lx7qa/image/upload/v1756817301/products/highindex1.jpg",
+      "https://res.cloudinary.com/dw57lx7qa/image/upload/v1756817302/products/highindex2.jpg",
+    ],
+    lensType: "single vision",
+    material: "high-index",
+    coatings: ["anti-reflective", "UV protection"],
+    prescriptionRange: "+8.00 to -8.00",
+    index: 1.67,
+    thickness: "Ultra thin",
+    color: "clear",
+    diameter: 70,
+    warranty: "2 years",
+    deliveryTime: "7-10 business days",
+    offer: 20,
+    rating: 4.9,
+  },
+  {
+    name: "Bifocal Lens",
+    description: "Traditional bifocal design with two segments.",
+    purchasePrice: 120,
+    salesPrice: 160,
+    stock: 35,
+    category: "lens",
+    brand: "Hoya",
+    images: [
+      "https://res.cloudinary.com/dw57lx7qa/image/upload/v1756817401/products/bifocal1.jpg",
+      "https://res.cloudinary.com/dw57lx7qa/image/upload/v1756817402/products/bifocal2.jpg",
+    ],
+    lensType: "bifocal",
+    material: "trivex",
+    coatings: ["anti-scratch", "UV protection"],
+    prescriptionRange: "+5.00 to -5.00",
+    index: 1.56,
+    thickness: "Standard",
+    color: "clear",
+    diameter: 70,
+    warranty: "1 year",
+    deliveryTime: "4-6 business days",
+    offer: 8,
+    rating: 4.3,
+  },
+  {
+    name: "Kids Impact-Resistant Lens",
+    description: "Extra durable lenses for children’s eyewear.",
+    purchasePrice: 100,
+    salesPrice: 190,
+    stock: 45,
+    category: "lens",
+    brand: "Essilor Junior",
+    images: [
+      "https://res.cloudinary.com/dw57lx7qa/image/upload/v1756817501/products/kidslens1.jpg",
+      "https://res.cloudinary.com/dw57lx7qa/image/upload/v1756817502/products/kidslens2.jpg",
+    ],
+    lensType: "single vision",
+    material: "polycarbonate",
+    coatings: ["scratch-resistant", "UV protection"],
+    prescriptionRange: "+3.00 to -3.00",
+    index: 1.5,
+    thickness: "Standard",
+    color: "clear",
+    diameter: 65,
+    warranty: "1 year",
+    deliveryTime: "3-5 business days",
+    offer: 10,
+    rating: 4.7,
+  },
+  {
+    name: "Aspheric Lens",
+    description: "Slim design reduces distortion for a natural look.",
+    purchasePrice: 120,
+    salesPrice: 190,
+    stock: 28,
+    category: "lens",
+    brand: "Zeiss",
+    images: [
+      "https://res.cloudinary.com/dw57lx7qa/image/upload/v1756817601/products/aspheric1.jpg",
+      "https://res.cloudinary.com/dw57lx7qa/image/upload/v1756817602/products/aspheric2.jpg",
+    ],
+    lensType: "single vision",
+    material: "high-index",
+    coatings: ["anti-reflective", "scratch-resistant"],
+    prescriptionRange: "+6.00 to -6.00",
+    index: 1.6,
+    thickness: "Thin cut",
+    color: "clear",
+    diameter: 70,
+    warranty: "2 years",
+    deliveryTime: "5-7 business days",
+    offer: 10,
+    rating: 4.6,
+  },
+  {
+    name: "Progressive Lens",
+    description: "No-line multifocal lenses for all-day vision comfort.",
+    purchasePrice: 190,
+    salesPrice: 280,
+    stock: 15,
+    category: "lens",
+    brand: "Hoya",
+    images: [
+      "https://res.cloudinary.com/dw57lx7qa/image/upload/v1756817701/products/progressive1.jpg",
+      "https://res.cloudinary.com/dw57lx7qa/image/upload/v1756817702/products/progressive2.jpg",
+    ],
+    lensType: "progressive",
+    material: "trivex",
+    coatings: ["anti-reflective", "UV protection"],
+    prescriptionRange: "+5.00 to -5.00",
+    index: 1.6,
+    thickness: "Thin cut",
+    color: "clear",
+    diameter: 70,
+    warranty: "2 years",
+    deliveryTime: "7-10 business days",
+    offer: 18,
+    rating: 4.9,
+  },
+  {
+    name: "Sports Performance Lens",
+    description: "Designed for athletes with impact resistance.",
+    purchasePrice: 190,
+    salesPrice: 320,
+    stock: 22,
+    category: "lens",
+    brand: "Oakley",
+    images: [
+      "https://res.cloudinary.com/dw57lx7qa/image/upload/v1756817801/products/sports1.jpg",
+      "https://res.cloudinary.com/dw57lx7qa/image/upload/v1756817802/products/sports2.jpg",
+    ],
+    lensType: "sunglass",
+    material: "polycarbonate",
+    coatings: ["polarized", "scratch-resistant"],
+    prescriptionRange: "+4.00 to -4.00",
+    index: 1.5,
+    thickness: "Standard",
+    color: "brown tint",
+    diameter: 68,
+    warranty: "1 year",
+    deliveryTime: "3-5 business days",
+    offer: 12,
+    rating: 4.8,
+  },
+  {
+    name: "Tinted Fashion Lens",
+    description: "Stylish tinted lenses for a trendy look.",
+    purchasePrice: 120,
+    salesPrice: 190,
+    stock: 38,
+    category: "lens",
+    brand: "Generic",
+    images: [
+      "https://res.cloudinary.com/dw57lx7qa/image/upload/v1756817901/products/tinted1.jpg",
+      "https://res.cloudinary.com/dw57lx7qa/image/upload/v1756817902/products/tinted2.jpg",
+    ],
+    lensType: "fashion",
+    material: "plastic",
+    coatings: ["scratch-resistant"],
+    prescriptionRange: "Plano",
+    index: 1.5,
+    thickness: "Standard",
+    color: "light pink",
+    diameter: 65,
+    warranty: "6 months",
+    deliveryTime: "3-5 business days",
+    offer: 5,
+    rating: 4.2,
+  },
+];
+
+export const contactLenses: ContactLens[] = [
+  {
+    name: "Acuvue Oasys 1-Day",
+    brand: "Acuvue",
+    type: "daily disposable",
+    material: "Senofilcon A",
+    waterContent: "38%",
+    diameter: 14.3,
+    baseCurve: 8.5,
+    powerRange: "-12.00 to +8.00",
+    uvProtection: true,
+    purchasePrice: 20,
+    salesPrice: 55,
+    stock: 120,
+    offer: 10,
+    rating: 4.7,
+    description:
+      "Comfortable daily disposable lenses with UV protection and moisture lock technology.",
+    images: [
+      "https://res.cloudinary.com/demo/image/upload/contactlens/acuvue_oasys_1day_1.jpg",
+      "https://res.cloudinary.com/demo/image/upload/contactlens/acuvue_oasys_1day_2.jpg",
+    ],
+  },
+  {
+    name: "Bausch + Lomb Ultra",
+    brand: "Bausch + Lomb",
+    type: "monthly",
+    material: "Samfilcon A",
+    waterContent: "46%",
+    diameter: 14.2,
+    baseCurve: 8.6,
+    powerRange: "-12.00 to +6.00",
+    uvProtection: false,
+    purchasePrice: 20,
+    salesPrice: 60,
+    stock: 80,
+    offer: 15,
+    rating: 4.5,
+    description:
+      "Monthly contact lenses with MoistureSeal technology for all-day comfort.",
+    images: [
+      "https://res.cloudinary.com/demo/image/upload/contactlens/bausch_ultra_1.jpg",
+    ],
+  },
+  {
+    name: "Air Optix HydraGlyde",
+    brand: "Alcon",
+    type: "monthly",
+    material: "Lotrafilcon B",
+    waterContent: "33%",
+    diameter: 14.2,
+    baseCurve: 8.6,
+    powerRange: "-10.00 to +6.00",
+    uvProtection: false,
+    purchasePrice: 20,
+    salesPrice: 70,
+    stock: 95,
+    offer: 5,
+    rating: 4.6,
+    description:
+      "Breathable monthly lenses with HydraGlyde moisture matrix for long-lasting hydration.",
+    images: [
+      "https://res.cloudinary.com/demo/image/upload/contactlens/airoptix_hydraglyde_1.jpg",
+    ],
+  },
+  {
+    name: "Dailies AquaComfort Plus",
+    brand: "Alcon",
+    type: "daily disposable",
+    material: "Nelfilcon A",
+    waterContent: "69%",
+    diameter: 14.0,
+    baseCurve: 8.7,
+    powerRange: "-15.00 to +8.00",
+    uvProtection: false,
+    purchasePrice: 20,
+    salesPrice: 80,
+    stock: 150,
+    offer: 0,
+    rating: 4.4,
+    description:
+      "Daily lenses with blink-activated moisture technology for consistent comfort.",
+    images: [
+      "https://res.cloudinary.com/demo/image/upload/contactlens/dailies_aquacomfort_1.jpg",
+    ],
+  },
+  {
+    name: "CooperVision Biofinity",
+    brand: "CooperVision",
+    type: "monthly",
+    material: "Comfilcon A",
+    waterContent: "48%",
+    diameter: 14.0,
+    baseCurve: 8.6,
+    powerRange: "-12.00 to +8.00",
+    uvProtection: false,
+    purchasePrice: 20,
+    salesPrice: 100,
+    stock: 110,
+    offer: 12,
+    rating: 4.8,
+    description:
+      "Highly breathable silicone hydrogel lenses for extended wear comfort.",
+    images: [
+      "https://res.cloudinary.com/demo/image/upload/contactlens/biofinity_1.jpg",
+    ],
+  },
+  {
+    name: "Acuvue Vita",
+    brand: "Acuvue",
+    type: "monthly",
+    material: "Senofilcon C",
+    waterContent: "41%",
+    diameter: 14.0,
+    baseCurve: 8.4,
+    powerRange: "-12.00 to +8.00",
+    uvProtection: true,
+    purchasePrice: 20,
+    salesPrice: 40,
+    stock: 70,
+    offer: 8,
+    rating: 4.3,
+    description:
+      "Monthly contact lens with HydraMax technology for all-month comfort.",
+    images: [
+      "https://res.cloudinary.com/demo/image/upload/contactlens/acuvue_vita_1.jpg",
+    ],
+  },
+  {
+    name: "Clariti 1 Day",
+    brand: "CooperVision",
+    type: "daily disposable",
+    material: "Somofilcon A",
+    waterContent: "56%",
+    diameter: 14.1,
+    baseCurve: 8.6,
+    powerRange: "-10.00 to +8.00",
+    uvProtection: true,
+    purchasePrice: 20,
+    salesPrice: 75,
+    stock: 130,
+    offer: 0,
+    rating: 4.5,
+    description:
+      "Affordable daily contact lens with silicone hydrogel and UV blocking.",
+    images: [
+      "https://res.cloudinary.com/demo/image/upload/contactlens/clariti_1day_1.jpg",
+    ],
+  },
+  {
+    name: "FreshLook Colorblends",
+    brand: "Alcon",
+    type: "monthly (colored)",
+    material: "Phemfilcon A",
+    waterContent: "55%",
+    diameter: 14.5,
+    baseCurve: 8.6,
+    powerRange: "Plano to -8.00",
+    uvProtection: false,
+    purchasePrice: 20,
+    salesPrice: 55,
+    stock: 60,
+    offer: 20,
+    rating: 4.2,
+    description:
+      "Enhance or change your eye color with natural-looking shades.",
+    images: [
+      "https://res.cloudinary.com/demo/image/upload/contactlens/freshlook_colorblends_1.jpg",
+    ],
+  },
+  {
+    name: "SofLens Daily Disposable",
+    brand: "Bausch + Lomb",
+    type: "daily disposable",
+    material: "Hilafilcon B",
+    waterContent: "59%",
+    diameter: 14.2,
+    baseCurve: 8.6,
+    powerRange: "-9.00 to +6.50",
+    uvProtection: false,
+    purchasePrice: 20,
+    salesPrice: 55,
+    stock: 200,
+    offer: 5,
+    rating: 4.1,
+    description:
+      "Comfortable daily contact lens with high-definition optics for crisp vision.",
+    images: [
+      "https://res.cloudinary.com/demo/image/upload/contactlens/soflens_daily_1.jpg",
+    ],
+  },
+  {
+    name: "MyDay Daily Disposable",
+    brand: "CooperVision",
+    type: "daily disposable",
+    material: "Stenfilcon A",
+    waterContent: "54%",
+    diameter: 14.2,
+    baseCurve: 8.4,
+    powerRange: "-12.00 to +8.00",
+    uvProtection: true,
+    purchasePrice: 20,
+    salesPrice: 59,
+    stock: 90,
+    offer: 0,
+    rating: 4.6,
+    description:
+      "Premium daily disposable lens with Smart Silicone chemistry for breathability.",
+    images: [
+      "https://res.cloudinary.com/demo/image/upload/contactlens/myday_1day_1.jpg",
+    ],
+  },
 ];

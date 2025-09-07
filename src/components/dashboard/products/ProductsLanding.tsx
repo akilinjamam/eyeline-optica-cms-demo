@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom';
 const productCategories = [
   { title: "Add Frame", icon: <Box className="w-8 h-8" />, color: "from-indigo-500 to-purple-500", path: '/dashboard/add_frame' },
   { title: "Frame List", icon: <Layers className="w-8 h-8" />, color: "from-blue-400 to-indigo-400", path: '/dashboard/frame_list' },
-  { title: "Add Lens", icon: <Circle className="w-8 h-8" />, color: "from-green-400 to-teal-400", path: '/dashboard/product' },
-  { title: "Lens List", icon: <Circle className="w-8 h-8" />, color: "from-yellow-400 to-orange-400", path: '/dashboard/product' },
-  { title: "Add Contact Lens", icon: <Eye className="w-8 h-8" />, color: "from-red-400 to-pink-400", path: '/dashboard/product' },
+  { title: "Add Lens", icon: <Circle className="w-8 h-8" />, color: "from-green-400 to-teal-400", path: '/dashboard/add_lens' },
+  { title: "Lens List", icon: <Circle className="w-8 h-8" />, color: "from-yellow-400 to-orange-400", path: '/dashboard/lens_list' },
+  { title: "Add Contact Lens", icon: <Eye className="w-8 h-8" />, color: "from-red-400 to-pink-400", path: '/dashboard/add_contact_lens' },
   { title: "Contact Lens List", icon: <Eye className="w-8 h-8" />, color: "from-pink-400 to-purple-400", path: '/dashboard/product' },
 ];
 
