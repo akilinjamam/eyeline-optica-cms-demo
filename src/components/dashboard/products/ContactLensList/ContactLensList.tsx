@@ -3,36 +3,36 @@ import { useState, useMemo, useEffect } from "react";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { Button } from "../../../ui/button";
-import type { Frame, Lens } from "../../../../types/interface";
+import type { ContactLens, Frame } from "../../../../types/interface";
 import Pagination from "../../../../reusableComponent/Pagination";
 import Table from "../../../../reusableComponent/Table";
-import { sampleLenseData } from "../../../../dummyData/dummyData";
+import { contactLenses } from "../../../../dummyData/dummyData";
 import type { ActionColumn, TableColumn } from "../../../../types/type";
 import Filteration from "../../../../reusableComponent/filteration";
 import { Edit, Trash2 } from "lucide-react";
 
-const LensList = () => {
+const ContactLensList = () => {
 
 
 
-  const columns: TableColumn[] = [
+ const columns: TableColumn[] = [
   { key: "id", label: "SL", align: "center" },
   { key: "name", label: "Name", align: "center" },
-  { key: "lensType", label: "Lens Type", align: "center" },
+  { key: "brand", label: "Brand", align: "center" },
+  { key: "type", label: "Type", align: "center" },
   { key: "material", label: "Material", align: "center" },
-  { key: "index", label: "Index", align: "center" },
-  { key: "thickness", label: "Thickness", align: "center" },
+  { key: "waterContent", label: "Water %", align: "center" },
   { key: "diameter", label: "Diameter (mm)", align: "center" },
-  { key: "color", label: "Color", align: "center" },
-  { key: "purchasePrice", label: "Purchase Price", align: "center" },
+  { key: "baseCurve", label: "Base Curve", align: "center" },
+  { key: "powerRange", label: "Power Range", align: "center" },
+  { key: "uvProtection", label: "UV Protection", align: "center" },
   { key: "salesPrice", label: "Sales Price", align: "center" },
   { key: "stock", label: "Stock", align: "center" },
-  { key: "brand", label: "Brand", align: "center" },
   { key: "offer", label: "Offer (%)", align: "center" },
   { key: "rating", label: "Rating", align: "center" },
 ];
 
-  const [frames, setFrames] = useState(sampleLenseData);
+  const [frames, setFrames] = useState(contactLenses);
   const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState("all");
   const [filterMaterial, setFilterMaterial] = useState("all");
@@ -48,22 +48,22 @@ const LensList = () => {
     setPage(1);
   }, [search, filterType, filterMaterial]);
 
-  const filteredFrames = useMemo(() => {
+  const filteredContactLens = useMemo(() => {
 
-    const filteredData:Lens[] = frames.filter(lens => {
+    const filteredData:ContactLens[] = frames.filter(clens => {
       const matchSearch =
-        lens.name.toLowerCase().includes(search.toLowerCase()) ||
-        lens.lensType.toLowerCase().includes(search.toLowerCase()) ||
-        lens.color.toLowerCase().includes(search.toLowerCase());
+        clens.name.toLowerCase().includes(search.toLowerCase()) ||
+        clens.type.toLowerCase().includes(search.toLowerCase()) ||
+        clens.color.toLowerCase().includes(search.toLowerCase());
 
-      const matchType = filterType === "all" ? true : lens.lensType === filterType;
-      const matchMaterial = filterMaterial === "all" ? true : lens.material === filterMaterial;
-      const matchColor = color === "all" ? true : lens.color === color
-      const matchBrand = brand === "all" ? true : lens.brand === brand
+      const matchType = filterType === "all" ? true : clens.type === filterType;
+      const matchMaterial = filterMaterial === "all" ? true : clens.material === filterMaterial;
+      const matchColor = color === "all" ? true : clens.color === color
+      const matchBrand = brand === "all" ? true : clens.brand === brand
 
        const matchPrice =
-        (minPrice === "" || lens.salesPrice >= Number(minPrice)) &&
-        (maxPrice === "" || lens.salesPrice <= Number(maxPrice));
+        (minPrice === "" || clens.salesPrice >= Number(minPrice)) &&
+        (maxPrice === "" || clens.salesPrice <= Number(maxPrice));
 
       return matchSearch && matchType && matchMaterial  && matchPrice && matchColor && matchBrand;
     });
@@ -77,7 +77,7 @@ const LensList = () => {
   const handleEdit = (id: number) => console.log("Edit", id);
   const handleDelete = (id: number) => {
     if (confirm("Are you sure to delete this frame?")) {
-      setFrames(filteredFrames.filter((f:any) => f.id !== id));
+      setFrames(filteredContactLens.filter((f:any) => f.id !== id));
     }
   };
 
@@ -188,15 +188,15 @@ const LensList = () => {
 
     
     // Table data
-    const tableData = filteredFrames.map((lens:Lens) => [
-      lens.id,
-      lens.name,
-      lens.lensType,
-      lens.material,
-      lens.index,
-      lens.color,
-      lens.salesPrice,
-      lens.stock,
+    const tableData = filteredContactLens.map((clens:ContactLens) => [
+      clens.id,
+      clens.name,
+      clens.type,
+      clens.material,
+      clens.baseCurve,
+      clens.color,
+      clens.salesPrice,
+      clens.stock,
     ]);
 
     // Generate table
@@ -215,7 +215,7 @@ const LensList = () => {
   return (
     <div className="px-4 py-2 bg-gray-50 min-h-screen">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-bold mb-4">Lens List</h2>
+          <h2 className="text-2xl font-bold mb-4">Contact Lens List</h2>
           <div className="flex justify-end mb-2">
               <Button onClick={handleDownloadPDF} size="sm">Download PDF</Button>
           </div>
@@ -230,9 +230,9 @@ const LensList = () => {
         <Table column={columns} paginatedData={paginatedData}  actionColumn={actionColumns}/>
       </div>
         {/* Pagination */}
-       <Pagination page={page} setPage={setPage} filteredProduct={filteredFrames} setPaginatedData={setPaginatedData}/>
+       <Pagination page={page} setPage={setPage} filteredProduct={filteredContactLens} setPaginatedData={setPaginatedData}/>
       </div>
   );
 };
 
-export default LensList;
+export default ContactLensList;

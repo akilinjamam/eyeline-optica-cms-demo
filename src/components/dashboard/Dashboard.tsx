@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Menu, LayoutDashboard, ShoppingCart, Users, Settings, LogOut } from "lucide-react";
+import { Menu, LayoutDashboard, ShoppingCart, Users,  LogOut, ShoppingBag } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 
 interface SidebarProps {
@@ -25,9 +25,10 @@ const Sidebar = ({ isOpen, setIsOpen, isDesktop }: SidebarProps) => {
 
   const links = [
     { name: "Dashboard", path: ["/dashboard"], icon: LayoutDashboard },
-    { name: "Products", path: ["/dashboard/product", "/dashboard/add_frame", "/dashboard/frame_list", "/dashboard/add_lens", "/dashboard/lens_list", "/dashboard/add_contact_lens" ], icon: ShoppingCart },
-    { name: "Customers", path: ["/customers"], icon: Users },
-    { name: "Settings", path: ["/settings"], icon: Settings },
+    { name: "Products", path: ["/dashboard/product", "/dashboard/add_frame", "/dashboard/frame_list", "/dashboard/add_lens", "/dashboard/lens_list", "/dashboard/add_contact_lens", "/dashboard/contact_lens_list" ], icon: ShoppingCart },
+    { name: "Customers", path: ["/dashboard/customer"], icon: Users },
+    { name: "Orders", path: ["/dashboard/orders"], icon: ShoppingBag },
+    // { name: "Settings", path: ["/settings"], icon: Settings },
     { name: "Logout", path: ["/"], icon: LogOut },
   ];
 

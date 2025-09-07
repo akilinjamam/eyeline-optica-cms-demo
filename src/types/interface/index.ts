@@ -12,8 +12,8 @@ export interface Frame {
   quantity: number;
 }
 
-export interface ITableInfo {
-  paginatedData: Frame[];
+export interface ITableInfo<T> {
+  paginatedData: T[];
   column: TableColumn[];
   actionColumn: ActionColumn[];
 }
@@ -47,6 +47,7 @@ export type ContactLens = {
   id?: string;
   name: string;
   brand: string;
+  color: string;
   type: "daily disposable" | "monthly" | "monthly (colored)" | string; // extendable
   material: string;
   waterContent: string; // e.g. "38%" (kept as string for flexibility)

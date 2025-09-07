@@ -4,10 +4,22 @@ import { Card, CardContent } from "../components/ui/card";
 import { ScrollArea } from "../components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../components/ui/tooltip";
 import { Button } from "../components/ui/button";
-import type { Frame, ITableInfo } from "../types/interface";
+import type { ContactLens, Frame, ITableInfo, Lens } from "../types/interface";
 import type { ActionColumn, TableColumn } from "../types/type";
 
-const Table = ({ paginatedData, column, actionColumn }: ITableInfo) => {
+const Table = ({ paginatedData, column, actionColumn }: ITableInfo<ContactLens | Lens | Frame>) => {
+  const handleRow = (row:any, col:any) => {
+    if(col.key === "uvProtection"){
+        if(row[col.key]){
+          return 'Yes'
+        }else{
+          return 'No'
+        }
+    }else{
+      return row[col.key]
+    }
+
+  }
   return (
     <ScrollArea className="h-[calc(100vh-390px)] lg:h-[calc(100vh-200px)] text-sm">
       {/* Desktop / Tablet Table */}
@@ -35,7 +47,9 @@ const Table = ({ paginatedData, column, actionColumn }: ITableInfo) => {
                     <tr key={row.id} className="hover:bg-gray-50">
                       {column.map((col: TableColumn) => (
                         <td key={col.key} className={`px-4 py-2 text-${col.align || "left"}`}>
-                          {row[col.key]}
+                          {
+                            handleRow(row,col)
+                          }
                         </td>
                       ))}
 

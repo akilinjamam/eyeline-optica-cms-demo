@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 
 const services = [
   { title: "Products", icon: <Box className="w-8 h-8" />, color: "from-indigo-500 to-purple-500", path: "/dashboard/product" },
-  { title: "Customers", icon: <Users className="w-8 h-8" />, color: "from-green-400 to-teal-400", path: "/dashboard/product" },
-  { title: "Orders", icon: <ShoppingCart className="w-8 h-8" />, color: "from-yellow-400 to-orange-400", path: "/dashboard/product" },
+  { title: "Customers", icon: <Users className="w-8 h-8" />, color: "from-green-400 to-teal-400", path: "/dashboard/customer" },
+  { title: "Orders", icon: <ShoppingCart className="w-8 h-8" />, color: "from-yellow-400 to-orange-400", path: "/dashboard/orders" },
   { title: "Settings", icon: <Settings className="w-8 h-8" />, color: "from-red-400 to-pink-400", path: "/dashboard/product" },
 ];
 

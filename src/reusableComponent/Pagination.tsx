@@ -5,19 +5,19 @@ import type { Frame } from "../types/interface";
 type PortionSetter = React.Dispatch<React.SetStateAction<number>>;
 type PaginatedDataSetter = React.Dispatch<React.SetStateAction<Frame[]>>
 interface IPagination {
-    filteredFrames: Frame[];
+    filteredProduct: Frame[];
     ITEMS_PER_PAGE?: number;
     page:number;
     setPage: PortionSetter;
     setPaginatedData: PaginatedDataSetter
 }
 
-const Pagination = ({filteredFrames, ITEMS_PER_PAGE=10,page, setPage, setPaginatedData}: IPagination) => {
+const Pagination = ({filteredProduct, ITEMS_PER_PAGE=10,page, setPage, setPaginatedData}: IPagination) => {
 
 
       const [portion, setPortion] = useState(1);
     const ITEMS_PER_SLOT = 5;
-    const totalPages = Math.max(1, Math.ceil(filteredFrames?.length / ITEMS_PER_PAGE));
+    const totalPages = Math.max(1, Math.ceil(filteredProduct?.length / ITEMS_PER_PAGE));
      const handleNext = () => {
         if((portion * ITEMS_PER_SLOT) > totalPages) return
         setPortion((prev) => prev + 1);
@@ -29,9 +29,9 @@ const Pagination = ({filteredFrames, ITEMS_PER_PAGE=10,page, setPage, setPaginat
       }
     
     useEffect(() => {
-         const paginatedFrames = filteredFrames.slice((ITEMS_PER_PAGE * page) - ITEMS_PER_PAGE, ITEMS_PER_PAGE * page)
+         const paginatedFrames = filteredProduct.slice((ITEMS_PER_PAGE * page) - ITEMS_PER_PAGE, ITEMS_PER_PAGE * page)
          setPaginatedData(paginatedFrames)
-    },[ITEMS_PER_PAGE,filteredFrames, page, setPaginatedData])
+    },[ITEMS_PER_PAGE,filteredProduct, page, setPaginatedData])
     
     const arrayData = Array.from({ length: totalPages })?.map((_, item) => ({id: item+1}));
 

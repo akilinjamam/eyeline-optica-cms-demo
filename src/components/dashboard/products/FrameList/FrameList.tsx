@@ -219,7 +219,7 @@ const FrameList = () => {
         <Table column={columns} paginatedData={paginatedData}  actionColumn={actionColumns}/>
       </div>
         {/* Pagination */}
-       <Pagination page={page} setPage={setPage} filteredFrames={filteredFrames} setPaginatedData={setPaginatedData}/>
+       <Pagination page={page} setPage={setPage} filteredProduct={filteredFrames} setPaginatedData={setPaginatedData}/>
       </div>
   );
 };
