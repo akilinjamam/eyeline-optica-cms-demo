@@ -17,7 +17,7 @@ const Pagination = ({filteredProduct, ITEMS_PER_PAGE=10,page, setPage, setPagina
 
       const [portion, setPortion] = useState(1);
     const ITEMS_PER_SLOT = 5;
-    const totalPages = Math.max(1, Math.ceil(filteredProduct?.length / ITEMS_PER_PAGE));
+    const totalPages = Math.max(1, Math?.ceil(filteredProduct?.length / ITEMS_PER_PAGE));
      const handleNext = () => {
         if((portion * ITEMS_PER_SLOT) > totalPages) return
         setPortion((prev) => prev + 1);
@@ -29,7 +29,7 @@ const Pagination = ({filteredProduct, ITEMS_PER_PAGE=10,page, setPage, setPagina
       }
     
     useEffect(() => {
-         const paginatedFrames = filteredProduct.slice((ITEMS_PER_PAGE * page) - ITEMS_PER_PAGE, ITEMS_PER_PAGE * page)
+         const paginatedFrames = filteredProduct?.slice((ITEMS_PER_PAGE * page) - ITEMS_PER_PAGE, ITEMS_PER_PAGE * page)
          setPaginatedData(paginatedFrames)
     },[ITEMS_PER_PAGE,filteredProduct, page, setPaginatedData])
     
@@ -48,10 +48,10 @@ const Pagination = ({filteredProduct, ITEMS_PER_PAGE=10,page, setPage, setPagina
                 <Button
                     key={i}
                     size="sm"
-                    variant={page === item.id ? "default" : "outline"}
-                    onClick={() => setPage(item.id)}
+                    variant={page === item?.id ? "default" : "outline"}
+                    onClick={() => setPage(item?.id)}
                 >
-                    {item.id}
+                    {item?.id}
                 </Button>
             )
         })}
@@ -61,7 +61,7 @@ const Pagination = ({filteredProduct, ITEMS_PER_PAGE=10,page, setPage, setPagina
     <Button size="sm" disabled={page === totalPages} onClick={handleNext}>Next</Button>
     <Button size="sm" disabled={page === totalPages} onClick={() => {
       setPage(totalPages)
-      setPortion(Math.ceil(totalPages/ITEMS_PER_SLOT))
+      setPortion(Math?.ceil(totalPages/ITEMS_PER_SLOT))
     }}>Last</Button>
         </div>
     );

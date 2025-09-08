@@ -43,9 +43,9 @@ const Table = ({ paginatedData, column, actionColumn }: ITableInfo<ContactLens |
                 </thead>
 
                 <tbody className="divide-y divide-gray-200">
-                  {paginatedData.map((row: Frame | any) => (
+                  {paginatedData?.map((row: Frame | any) => (
                     <tr key={row.id} className="hover:bg-gray-50">
-                      {column.map((col: TableColumn) => (
+                      {column?.map((col: TableColumn) => (
                         <td key={col.key} className={`px-4 py-2 text-${col.align || "left"}`}>
                           {
                             handleRow(row,col)
@@ -57,7 +57,7 @@ const Table = ({ paginatedData, column, actionColumn }: ITableInfo<ContactLens |
                       <td className="px-4 py-2 flex justify-center gap-2">
                         <TooltipProvider>
                          {
-                          actionColumn.map((action:ActionColumn) => {
+                          actionColumn?.map((action:ActionColumn) => {
                             return (
                                <Tooltip>
                             <TooltipTrigger asChild>
@@ -85,11 +85,11 @@ const Table = ({ paginatedData, column, actionColumn }: ITableInfo<ContactLens |
 
       {/* Mobile Cards */}
       <div className="md:hidden space-y-4">
-        {paginatedData.map((row: Frame | any) => (
+        {paginatedData?.map((row: Frame | any) => (
           <Card key={row.id} className="rounded-2xl shadow-lg">
             <CardContent>
               <div className="flex flex-col gap-2">
-                {column.map((col: TableColumn) => (
+                {column?.map((col: TableColumn) => (
                   <div key={col.key}>
                     <span className="font-semibold">{col.label}:</span>{" "}
                     {row[col.key]}
@@ -98,7 +98,7 @@ const Table = ({ paginatedData, column, actionColumn }: ITableInfo<ContactLens |
 
                 <div className="flex gap-2 mt-2">
                   {
-                    actionColumn.map((action:ActionColumn) => (
+                    actionColumn?.map((action:ActionColumn) => (
                       <Button variant="ghost" size="sm" onClick={() => action.render(row.id)}>
                     {action.logo}
                   </Button>
