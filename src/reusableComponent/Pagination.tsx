@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import { Button } from "../components/ui/button";
-import type { Frame } from "../types/interface";
+import type { Frame} from "../types/interface";
 
 type PortionSetter = React.Dispatch<React.SetStateAction<number>>;
 type PaginatedDataSetter = React.Dispatch<React.SetStateAction<Frame[]>>
 interface IPagination {
-    filteredProduct: Frame[];
+    filteredProduct: any;
     ITEMS_PER_PAGE?: number;
     page:number;
     setPage: PortionSetter;

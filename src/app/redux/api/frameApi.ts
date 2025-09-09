@@ -20,7 +20,7 @@ export const frameApi = baseApi.injectEndpoints({
   endpoints: (builder) => {
     return {
       getAllFrames: builder.query<IFrame, string>({
-        query: () => `products/`,
+        query: () => `products`,
       }),
     };
   },
