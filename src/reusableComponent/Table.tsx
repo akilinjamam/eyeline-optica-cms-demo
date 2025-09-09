@@ -4,10 +4,10 @@ import { Card, CardContent } from "../components/ui/card";
 import { ScrollArea } from "../components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../components/ui/tooltip";
 import { Button } from "../components/ui/button";
-import type { ContactLens, Frame, ITableInfo, Lens } from "../types/interface";
+import type { ContactLens, Frame, ILens, ITableInfo } from "../types/interface";
 import type { ActionColumn, TableColumn } from "../types/type";
 
-const Table = ({ paginatedData, column, actionColumn }: ITableInfo<ContactLens | Lens | Frame>) => {
+const Table = ({ paginatedData, column, actionColumn }: ITableInfo<ContactLens | ILens | Frame>) => {
   const handleRow = (row:any, col:any) => {
     if (typeof row[col.key] === "boolean") {
         if (row[col.key]) {

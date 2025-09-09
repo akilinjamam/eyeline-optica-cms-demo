@@ -7,20 +7,24 @@ import { useGetAllFramesQuery } from "../../../../app/redux/api/frameApi";
 const useFrameList = () => {
 
     const {data:allData, isLoading} = useGetAllFramesQuery('')
-    console.log(allData?.data?.data)
+    console.log(allData?.data?.data);
+
+    const allFrameData = allData?.data?.data as IFrame[] | undefined;
+
+    
     
 
   const columns: TableColumn[] = [
-  { key: "id", label: "SL", align: "center" },
-  { key: "name", label: "Name", align: "center" },
-  { key: "type", label: "Type", align: "center" },
-  { key: "materialsCategory", label: "Material", align: "center" },
-  { key: "shapeCategory", label: "Shape", align: "center" },
-  { key: "color", label: "Color", align: "center" },
-  { key: "sizeCategory", label: "Size", align: "center" },
-  { key: "salesPrice", label: "Price", align: "center" },
-  { key: "quantity", label: "Qty", align: "center" },
-  // { key: "actions", label: "Actions", align: "center" },
+  { key: "id", label: "SL", align: "left" },
+  { key: "name", label: "Name", align: "left" },
+  { key: "type", label: "Type", align: "left" },
+  { key: "materialsCategory", label: "Material", align: "left" },
+  { key: "shapeCategory", label: "Shape", align: "left" },
+  { key: "color", label: "Color", align: "left" },
+  { key: "sizeCategory", label: "Size", align: "left" },
+  { key: "salesPrice", label: "Price", align: "left" },
+  { key: "quantity", label: "Qty", align: "left" },
+  // { key: "actions", label: "Actions", align: "left" },
 ];
 
   const [frames, setFrames] = useState<IFrame[]>([]);
@@ -44,6 +48,16 @@ const useFrameList = () => {
             setFrames(allData.data.data);
         }
     }, [allData]);
+
+
+    const typeCategory = [...new Set(allFrameData?.map((p: IFrame) => p?.type))]
+  .map(type => ({ value: type, label: type }));
+    const shapeCategory = [...new Set(allFrameData?.map((p: IFrame) => p?.shapeCategory))]
+  .map(type => ({ value: type, label: type }));
+    const materialCategory = [...new Set(allFrameData?.map((p: IFrame) => p?.materialsCategory))].map(type => ({ value: type, label: type }));
+    const colorCategory = [...new Set(allFrameData?.map((p: IFrame) => p?.color))]
+  .map(type => ({ value: type, label: type }));
+  console.log(typeCategory)
 
     const filteredData = useMemo(() => {
 
@@ -107,8 +121,7 @@ const useFrameList = () => {
       placeholder: "Filter by Type",
       options: [
         { value: "all", label: "All Types" },
-        { value: "Sunglasses", label: "Sunglasses" },
-        { value: "Eyeglasses", label: "Eyeglasses" },
+        ...typeCategory
       ],
       onChange: setFilterType,
     },
@@ -117,9 +130,7 @@ const useFrameList = () => {
       placeholder: "Filter by Material",
       options: [
         { value: "all", label: "All Materials" },
-        { value: "Acetate", label: "Acetate" },
-        { value: "Metal", label: "Metal" },
-        { value: "Plastic", label: "Plastic" },
+        ...materialCategory
       ],
       onChange: setFilterMaterial,
     },
@@ -128,9 +139,7 @@ const useFrameList = () => {
       placeholder: "Filter by Shape",
       options: [
         { value: "all", label: "All Shapes" },
-        { value: "Round", label: "Round" },
-        { value: "Rectangle", label: "Rectangle" },
-        { value: "Oval", label: "Oval" },
+        ...shapeCategory
       ],
       onChange: setFilterShape,
     },
@@ -139,9 +148,7 @@ const useFrameList = () => {
       placeholder: "Filter by Color",
       options: [
         { value: "all", label: "All Shapes" },
-        { value: "Silver", label: "Silver" },
-        { value: "Red", label: "Red" },
-        { value: "Black", label: "Black" },
+        ...colorCategory
       ],
       onChange: setColor,
     },

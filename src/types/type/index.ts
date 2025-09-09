@@ -11,3 +11,18 @@ export type ActionColumn = {
   type: string;
   render: (value: any) => void;
 };
+
+export type ApiDataType<T> = {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: {
+    data: T;
+    meta: {
+      limit: number;
+      page: number;
+      total: number;
+      totalPage: number;
+    };
+  };
+};
