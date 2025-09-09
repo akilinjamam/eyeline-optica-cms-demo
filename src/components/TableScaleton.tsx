@@ -12,6 +12,7 @@ const TableScaleton = ({numberOfRow=10}:{numberOfRow?:number}) => {
                   <div className="h-6 flex-1 bg-gray-300 rounded"></div>
                   <div className="h-6 w-20 bg-gray-300 rounded"></div>
                   <div className="h-6 w-24 bg-gray-300 rounded"></div>
+                  
               </div>
           ))}
         </div>
