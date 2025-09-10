@@ -7,6 +7,7 @@ export type TableColumn = {
 };
 
 export type ActionColumn = {
+  key?: any;
   logo: any;
   type: string;
   render: (value: any) => void;

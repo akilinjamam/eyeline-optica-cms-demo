@@ -6,7 +6,7 @@ export const lensApi = baseApi.injectEndpoints({
   endpoints: (builder) => {
     return {
       getAllContactLens: builder.query<ApiDataType<ContactLens>, string>({
-        query: () => `contactLens`,
+        query: () => `contact-lens`,
       }),
     };
   },

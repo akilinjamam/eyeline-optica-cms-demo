@@ -1,0 +1,94 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Check, X } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
+import { useState } from "react";
+import type { TableColumn } from "../types/type";
+
+type TColumnManager = {
+    columns:TableColumn[];
+    dynamicColumns:TableColumn[];
+    setDynamicColumns:any;
+}
+
+const ColumnManager = ({columns, dynamicColumns, setDynamicColumns}: TColumnManager) => {
+
+    const restColumn = columns?.slice(8)
+  
+    const [removedColumns, setRemoveColumns] = useState<TableColumn[]>(restColumn);
+      
+      const [removeSelectValue, setRemoveSelectValue] = useState<
+        string | undefined
+      >(undefined);
+
+
+    const addColumn = (key:string) => {
+    if(dynamicColumns.length >= 8) return; // max 8 columns
+    const newColumn = removedColumns?.find(col => col.key === key)
+    setRemoveColumns(removedColumns?.filter(col => col.key !== key))
+    if(newColumn){
+        setDynamicColumns((add:TableColumn[]) => [...add, newColumn]);
+    }
+};
+
+const removeColumn = (key: string) => {
+  if (dynamicColumns.length <= 1) return; // at least 1 column
+
+  // remove column from dynamic
+  setDynamicColumns(dynamicColumns.filter(col => col.key !== key));
+
+  // add removed column back
+  const addRemovedColumn = dynamicColumns.find(col => col.key === key);
+  if (addRemovedColumn) {
+    setRemoveColumns(prev => [...prev, addRemovedColumn]);
+  }
+
+  // reset select back to placeholder (fix)
+  setRemoveSelectValue(undefined);
+};
+
+
+    return (
+        <div className="flex">
+            <div className="ml-3">
+                <Select disabled={dynamicColumns?.length >= 8} value={removeSelectValue}  onValueChange={(val) => {
+                  addColumn(val)
+                  setRemoveSelectValue("");
+                }}>
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Add Fields"  />
+                  </SelectTrigger>
+                  <SelectContent >
+                    {removedColumns?.map(col => (
+                      <SelectItem className="block" key={col.key} value={col.key}>
+                        <Check/> {col.label}
+                      </SelectItem>
+                    ))}
+                    
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="ml-3">
+                <Select 
+                  value={removeSelectValue}
+                    onValueChange={(val) => {
+                      removeColumn(val);        // remove column
+                      setRemoveSelectValue(""); // reset so placeholder shows again
+                    }}
+                  >
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue  placeholder="Remove Fields"/>
+                  </SelectTrigger>
+                  <SelectContent>
+                    {dynamicColumns?.map(col => (
+                      <SelectItem className={`${col.key === 'id' ? 'hidden' : ''}`} key={col.key} value={col.key}>
+                        <X className={`mr-2 h-4 w-4`} /> {col.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+        </div>
+    );
+};
+
+export default ColumnManager;

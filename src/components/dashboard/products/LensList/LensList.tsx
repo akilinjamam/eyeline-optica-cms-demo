@@ -8,10 +8,11 @@ import Filteration from "../../../../reusableComponent/filteration";
 
 import useLenseList from "./useLenseList";
 import usePdfDownloader from "../../../../pdfDownloader/usePdfDownloader";
+import TableSkeleton from "../../../TableScaleton";
 
 const LensList = () => {
 
-  const {actionColumns, columns, filterSummary, filteredDataa, filters, maxPrice, setMaxPrice, minPrice,setMinPrice, page, setPage, paginatedData, search, setPaginatedData, setSearch, } = useLenseList();
+  const {actionColumns, columns, filterSummary, filteredDataa, filters, maxPrice, setMaxPrice, minPrice,setMinPrice, page, setPage, paginatedData, search, setPaginatedData, setSearch, isLoading} = useLenseList();
 
    // Table data
     const tableData = filteredDataa.map((lens:any) => [
@@ -41,10 +42,18 @@ const LensList = () => {
   
       <div className="w-full h-[70vh] overflow-y-scroll overflow-x-hidden hide-scrollbar ">
         {/* Accordion for Search + Filters */}
-       <Filteration filterSummary={filterSummary} search={search} setSearch={setSearch} setMaxPrice={setMaxPrice} setMinPrice={setMinPrice} maxPrice={maxPrice} minPrice={minPrice} filters={filters} showPriceRange={true}/>
+        {
+          isLoading
+          ?  
+          <TableSkeleton/> // loading scheleton
+          :
+          <>
+            <Filteration filterSummary={filterSummary} search={search} setSearch={setSearch} setMaxPrice={setMaxPrice} setMinPrice={setMinPrice} maxPrice={maxPrice} minPrice={minPrice} filters={filters} showPriceRange={true}/>
 
-        {/* Table */}
-        <Table column={columns} paginatedData={paginatedData}  actionColumn={actionColumns}/>
+            {/* Table */}
+            <Table column={columns} paginatedData={paginatedData}  actionColumn={actionColumns}/>
+          </>
+        }
       </div>
         {/* Pagination */}
        <Pagination page={page} setPage={setPage} filteredProduct={filteredDataa} setPaginatedData={setPaginatedData}/>

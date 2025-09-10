@@ -8,7 +8,7 @@ import { useGetAllLensQuery } from "../../../../app/redux/api/lensApi";
 
 const useLenseList = () => {
 
-  const {data:allData} = useGetAllLensQuery('');
+  const {data:allData, isLoading} = useGetAllLensQuery('');
   console.log(allData?.data?.data)
 
 
@@ -21,7 +21,7 @@ const useLenseList = () => {
   { key: "thickness", label: "Thickness", align: "left" },
   { key: "diameter", label: "Diameter (mm)", align: "left" },
   { key: "color", label: "Color", align: "left" },
-  { key: "price", label: "Purchase Price", align: "left" },
+  { key: "price", label: "Sales Price", align: "left" },
   { key: "stock", label: "Stock", align: "left" },
   { key: "brand", label: "Brand", align: "left" },
   { key: "offer", label: "Offer (%)", align: "left" },
@@ -164,7 +164,7 @@ const useLenseList = () => {
   },
 ]
 
-    return {columns, setSearch, search, actionColumns, filterSummary, paginatedData, setPaginatedData, minPrice, setMinPrice, maxPrice, setMaxPrice, filters, page, setPage, filteredDataa}
+    return {columns, setSearch, search, actionColumns, filterSummary, paginatedData, setPaginatedData, minPrice, setMinPrice, maxPrice, setMaxPrice, filters, page, setPage, filteredDataa, isLoading}
 
 };
 

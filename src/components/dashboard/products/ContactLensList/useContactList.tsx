@@ -1,30 +1,35 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useMemo, useState } from "react";
 import type { ActionColumn, TableColumn } from "../../../../types/type";
-import { contactLenses } from "../../../../dummyData/dummyData";
 import type { ContactLens, Frame } from "../../../../types/interface";
 import { Edit, Trash2 } from "lucide-react";
+import { useGetAllContactLensQuery } from "../../../../app/redux/api/contactLensApi";
 
 
 const useContactList = () => {
+
+  const {data:allData, isLoading} = useGetAllContactLensQuery('')
+
+  console.log(allData?.data?.data)
+
     const columns: TableColumn[] = [
-  { key: "id", label: "SL", align: "center" },
-  { key: "name", label: "Name", align: "center" },
-  { key: "brand", label: "Brand", align: "center" },
-  { key: "type", label: "Type", align: "center" },
-  { key: "material", label: "Material", align: "center" },
-  { key: "waterContent", label: "Water %", align: "center" },
-  { key: "diameter", label: "Diameter (mm)", align: "center" },
-  { key: "baseCurve", label: "Base Curve", align: "center" },
-  { key: "powerRange", label: "Power Range", align: "center" },
-  { key: "uvProtection", label: "UV Protection", align: "center" },
-  { key: "salesPrice", label: "Sales Price", align: "center" },
-  { key: "stock", label: "Stock", align: "center" },
-  { key: "offer", label: "Offer (%)", align: "center" },
-  { key: "rating", label: "Rating", align: "center" },
+  { key: "id", label: "SL", align: "left" },
+  { key: "name", label: "Name", align: "left" },
+  { key: "brand", label: "Brand", align: "left" },
+  { key: "type", label: "Type", align: "left" },
+  { key: "material", label: "Material", align: "left" },
+  { key: "waterContent", label: "Water %", align: "left" },
+  { key: "diameter", label: "Diameter (mm)", align: "left" },
+  { key: "baseCurve", label: "Base Curve", align: "left" },
+  { key: "powerRange", label: "Power Range", align: "left" },
+  { key: "uvProtection", label: "UV Protection", align: "left" },
+  { key: "salesPrice", label: "Sales Price", align: "left" },
+  { key: "stock", label: "Stock", align: "left" },
+  { key: "offer", label: "Offer (%)", align: "left" },
+  { key: "rating", label: "Rating", align: "left" },
 ];
 
-  const [frames, setFrames] = useState(contactLenses);
+  const [contactLens, setContactLens] = useState<ContactLens[]>([]);
   const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState("all");
   const [filterMaterial, setFilterMaterial] = useState("all");
@@ -37,12 +42,18 @@ const useContactList = () => {
   const [brand, setBrand] = useState("all")
 
   useEffect(() => {
+    if(allData?.data?.data && Array.isArray(allData?.data?.data)){
+      setContactLens(allData?.data?.data)
+    }
+  },[allData])
+
+  useEffect(() => {
     setPage(1);
   }, [search, filterType, filterMaterial]);
 
   const filteredData = useMemo(() => {
 
-    const filteredData:ContactLens[] = frames.filter(clens => {
+    const filteredData:ContactLens[] = contactLens.filter(clens => {
       const matchSearch =
         clens.name.toLowerCase().includes(search.toLowerCase()) ||
         clens.type.toLowerCase().includes(search.toLowerCase()) ||
@@ -63,13 +74,13 @@ const useContactList = () => {
     const addingIdWithFiltered:any = filteredData.map((filtered:any, index:number) => ({id:index+1, ...filtered}))
 
     return addingIdWithFiltered
-  }, [frames, search, filterType, filterMaterial, minPrice, maxPrice, color, brand]);
+  }, [contactLens, search, filterType, filterMaterial, minPrice, maxPrice, color, brand]);
   
 
   const handleEdit = (id: number) => console.log("Edit", id);
   const handleDelete = (id: number) => {
     if (confirm("Are you sure to delete this frame?")) {
-      setFrames(filteredData.filter((f:any) => f.id !== id));
+      setContactLens(filteredData.filter((f:any) => f.id !== id));
     }
   };
 
@@ -91,16 +102,22 @@ const useContactList = () => {
       : "No filters applied";
 
 
+  const typeCategory = [...new Set(contactLens?.map((p) => p?.type))]
+    .map(type => ({ value: type, label: type }));
+  const materialCategory = [...new Set(contactLens?.map((p) => p?.material))].map(type => ({ value: type, label: type }));
+  const colorCategory = [...new Set(contactLens?.map((p) => p?.color))]
+    .map(type => ({ value: type, label: type }));
+  const brandCategory = [...new Set(contactLens?.map((p) => p?.brand))]
+    .map(type => ({ value: type, label: type }));
+   
+
   const filters = [
     {
       label: "Type",
       placeholder: "Filter by Lens Type",
       options: [
         { value: "all", label: "All Lens Types" },
-        { value: "singleVision", label: "Single Vision" },
-        { value: "progressive", label: "Progressive" },
-        { value: "sunglass", label: "Sunglass" },
-        { value: "bifocal", label: "Bifocal" },
+        ...typeCategory
       ],
       onChange: setFilterType,
     },
@@ -109,9 +126,7 @@ const useContactList = () => {
       placeholder: "Filter by Material",
       options: [
         { value: "all", label: "All Materials" },
-        { value: "polycarbonate", label: "Polycarbonate" },
-        { value: "high-index", label: "High-Index" },
-        { value: "trivex", label: "Trivex" },
+        ...materialCategory
       ],
       onChange: setFilterMaterial,
     },
@@ -121,11 +136,7 @@ const useContactList = () => {
       placeholder: "Filter by Color",
       options: [
         { value: "all", label: "All Shapes" },
-        { value: "clear", label: "Clear" },
-        { value: "clear to gray", label: "Clear to Gray" },
-        { value: "dark gray", label: "Dark Gray" },
-        { value: "brown tint", label: "Brown Tint" },
-        { value: "light", label: "Light Pink" },
+        ...colorCategory
       ],
       onChange: setColor,
     },
@@ -134,11 +145,7 @@ const useContactList = () => {
       placeholder: "Filter by Brand",
       options: [
         { value: "all", label: "All Brands" },
-        { value: "Essilor", label: "Essilor" },
-        { value: "Hoya", label: "Hoya" },
-        { value: "Zeiss", label: "Zeiss" },
-        { value: "Oakley", label: "Oakley" },
-        { value: "Generic", label: "Generic" },
+        ...brandCategory
       ],
       onChange: setBrand,
     },
@@ -157,7 +164,7 @@ const useContactList = () => {
   },
 ]
 
-  return {columns, setSearch, search, actionColumns, filterSummary, paginatedData, setPaginatedData, minPrice, setMinPrice, maxPrice, setMaxPrice, filters, page, setPage, filteredData}
+  return {columns, setSearch, search, actionColumns, filterSummary, paginatedData, setPaginatedData, minPrice, setMinPrice, maxPrice, setMaxPrice, filters, page, setPage, filteredData, isLoading}
 };
 
 export default useContactList;
