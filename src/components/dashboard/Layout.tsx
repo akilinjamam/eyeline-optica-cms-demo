@@ -45,7 +45,7 @@ const Layout = () => {
             initial="initial"
             animate="animate"
             exit="exit"
-            transition={{ type: "tween" as const, ease: "easeInOut", duration: 0.3 }}
+            transition={{ type: "tween" as const, ease: "easeInOut", duration: 0.1 }}
             className="absolute top-16 left-0 w-full h-full"
           >
             

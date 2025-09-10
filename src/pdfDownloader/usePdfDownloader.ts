@@ -33,7 +33,7 @@ const usePdfDownloader = (tableData: any, header: any, title: string) => {
       head: [header],
       body: tableData,
       startY: 25,
-      styles: { halign: "center", fontSize: 10 },
+      styles: { halign: "left", fontSize: 10 },
       headStyles: { fillColor: [66, 66, 66] },
     });
 
