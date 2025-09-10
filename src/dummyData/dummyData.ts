@@ -1,4 +1,4 @@
-import type { ContactLens, Frame, Lens } from "../types/interface";
+import type { ContactLens, Frame } from "../types/interface";
 
 export const sampleData: Frame[] = [
   {
@@ -905,7 +905,7 @@ export const sampleData: Frame[] = [
   // add more sample data here...
 ];
 
-export const sampleLenseData: Lens[] = [
+export const sampleLenseData = [
   {
     name: "Anti-Glare Single Vision Lens",
     description: "Durable single vision lens with anti-reflective coating.",

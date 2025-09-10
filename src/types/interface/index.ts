@@ -20,10 +20,6 @@ export interface ITableInfo<T> {
 
 // src/types/lens.type.ts
 
-export type LensType = "single vision" | "bifocal" | "progressive" | "reading";
-
-export type LensMaterial = "plastic" | "polycarbonate" | "high-index" | "glass";
-
 export interface ILens {
   name: string;
   description?: string;
@@ -32,8 +28,8 @@ export interface ILens {
   category: string;
   brand?: string;
   images: string[];
-  lensType: LensType;
-  material: LensMaterial;
+  lensType: string;
+  material: string;
   coatings?: string[];
   prescriptionRange?: string;
   index?: number;

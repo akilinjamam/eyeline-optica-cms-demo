@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useMemo, useState } from "react";
 import type { ActionColumn, TableColumn } from "../../../../types/type";
-import { sampleLenseData } from "../../../../dummyData/dummyData";
 import type {  ILens } from "../../../../types/interface";
 import { Edit, Trash2 } from "lucide-react";
 import { useGetAllLensQuery } from "../../../../app/redux/api/lensApi";
@@ -10,7 +9,7 @@ import { useGetAllLensQuery } from "../../../../app/redux/api/lensApi";
 const useLenseList = () => {
 
   const {data:allData} = useGetAllLensQuery('');
-  console.log(allData)
+  console.log(allData?.data?.data)
 
 
     const columns: TableColumn[] = [
@@ -29,7 +28,7 @@ const useLenseList = () => {
   { key: "rating", label: "Rating", align: "left" },
 ];
 
-  const [lens, setLens] = useState(sampleLenseData);
+  const [lens, setLens] = useState<ILens[]>([]);
   const [search, setSearch] = useState("");
   const [filterType, setFilterType] = useState("all");
   const [filterMaterial, setFilterMaterial] = useState("all");
@@ -53,7 +52,7 @@ const useLenseList = () => {
 
   const filteredDataa = useMemo(() => {
 
-    const filteredData:ILens[] = lens.filter((lens:ILens) => {
+    const filteredData:ILens[] = lens?.filter((lens) => {
       const matchSearch =
         lens?.name?.toLowerCase().includes(search.toLowerCase()) ||
         lens?.lensType?.toLowerCase().includes(search.toLowerCase()) ||
