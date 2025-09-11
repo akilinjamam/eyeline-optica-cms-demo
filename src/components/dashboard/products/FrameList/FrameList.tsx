@@ -7,44 +7,39 @@ import useFrameList from "./useFrameList";
 import usePdfDownloader from "../../../../pdfDownloader/usePdfDownloader";
 import type { IFrame } from "../../../../types/interface";
 import TableScaleton from "../../../TableScaleton";
+import { useState } from "react";
+import type { TableColumn } from "../../../../types/type";
+import ColumnManager from "../../../../reusableComponent/ColumnManager";
 
 const FrameList = () => {
 
-  const header = [
-          "SL",
-          "Name",
-          "Type",
-          "Material",
-          "Shape",
-          "Color",
-          "Size",
-          "Price",
-          "Qty",
-        ];
-        
         const {actionColumns, columns, filterSummary, filters, maxPrice, setMaxPrice, minPrice, setMinPrice, page, setPage, paginatedData, search, setSearch, setPaginatedData,filteredData, isLoading} = useFrameList();
 
-        // Table data
-        const tableData = filteredData.map((frame: IFrame) => [
-          frame.id,
-          frame.name,
-          frame.type,
-          frame.materialsCategory,
-          frame.shapeCategory,
-          frame.color,
-          frame.sizeCategory,
-          frame.salesPrice,
-          frame.quantity,
-        ]);
-
+        const defaultColumn = columns?.slice(0,8)
+       
+         const [dynamicColumns, setDynamicColumns] = useState<TableColumn[]>(defaultColumn); // initially your normal columns
         
-        const {handleDownloadPDF} = usePdfDownloader(tableData,header, "Frame-List")
+         // Table data
+         const tableData = filteredData.map((clens: IFrame) =>
+           dynamicColumns.map(item => clens[item.key as keyof IFrame])
+         );
+     
+         // Header
+         const header = dynamicColumns.map(item => item.label);
+     
+         // PDF hook
+         const { handleDownloadPDF } = usePdfDownloader(tableData, header, "Frame-List");
+     
+       
         return (
         <div className="px-4 py-2 bg-gray-50 min-h-screen">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold mb-4">Frame List</h2>
+            {/* <h2 className="text-2xl font-bold mb-4">Frame List</h2> */}
             <div className="flex justify-end mb-2">
-              <Button onClick={handleDownloadPDF} size="sm">Download PDF</Button>
+             <div className="flex mb-2">
+                <Button className="ml-0" onClick={handleDownloadPDF} size="sm">Download PDF</Button>
+                <ColumnManager columns={columns} dynamicColumns={dynamicColumns} setDynamicColumns={setDynamicColumns} />
+            </div>
             </div>
           </div>
 
@@ -64,7 +59,7 @@ const FrameList = () => {
                   filters={filters}
                   showPriceRange={true}
                 />
-                <Table column={columns} paginatedData={paginatedData} actionColumn={actionColumns} />
+                <Table column={dynamicColumns} paginatedData={paginatedData} actionColumn={actionColumns} />
               </>
             )}
           </div>
