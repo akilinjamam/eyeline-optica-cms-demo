@@ -3,6 +3,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import Sidebar from "./Dashboard";
 import TopBar from "./TopBar";
+import { ToastContainer} from 'react-toastify';
+import VarticalDrawer from "../../reusableComponent/VarticalDrawer";
+import Modal from "../../reusableComponent/Modal";
 
 const Layout = () => {
   const location = useLocation();
@@ -38,6 +41,7 @@ const Layout = () => {
         transition={{ type: "spring", stiffness: 120, damping: 20 }}
       > 
         <TopBar/>
+        <ToastContainer className="mt-14"/>
         <AnimatePresence>
           <motion.div
             key={location.pathname} // Trigger animation per route
@@ -50,6 +54,8 @@ const Layout = () => {
           >
             
             <Outlet />
+            <VarticalDrawer/>
+            <Modal/>
           </motion.div>
         </AnimatePresence>
       </motion.div>

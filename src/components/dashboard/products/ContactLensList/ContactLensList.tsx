@@ -12,8 +12,6 @@ import ColumnManager from "../../../../reusableComponent/ColumnManager";
 
 const ContactLensList = () => {
 
-  
-  
   const {actionColumns, columns, filterSummary, filteredData, filters, maxPrice, minPrice, page, paginatedData, search, setSearch, setMaxPrice, setMinPrice, setPaginatedData, setPage,isLoading} = useContactList()
     const defaultColumn = columns?.slice(0,8)
   
@@ -39,7 +37,6 @@ const ContactLensList = () => {
           <div className="flex mb-2">
               <Button className="ml-0" onClick={handleDownloadPDF} size="sm">Download PDF</Button>
               <ColumnManager columns={columns} dynamicColumns={dynamicColumns} setDynamicColumns={setDynamicColumns} />
-              
           </div>
         </div>
         

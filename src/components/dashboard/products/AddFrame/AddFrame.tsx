@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useForm, Controller } from "react-hook-form";
 import { Input } from "../../../ui/input";
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
@@ -10,57 +11,114 @@ import { Button } from "../../../ui/button";
 import { Label } from "../../../ui/label";
 import { Switch } from "../../../ui/switch";
 import { ImagePlus, X, Plus } from "lucide-react";
+import { useCreateFrameMutation } from "../../../../app/redux/api/frameApi";
+import { toast } from "react-toastify";
 
 const availableFeatures = ["UV Protection", "Polarized", "Blue Light Filter", "Anti-Glare"];
+const brands = ["raybon", "Alex Perry", "Oakley"];
+const badges = ["popular", "new", "premium", "luxury", "best", "trending", "budget"];
+
+type FrameFormData = {
+  name: string;
+  images: File[];
+  type: "sunglasses" | "eye glasses" | "special glasses" | "power sunglasses" | "progressive lense";
+  materialsCategory: "metal" | "plastic" | "acetate" | "titanium" | "wood" | "texture";
+  frameCategory: "full-rim" | "half rim" | "rimless";
+  sizeCategory: "small" | "medium" | "large";
+  shapeCategory: "oval" | "round" | "square" | "cats eye" | "rectangle" | "avietor" | "browline" | "horn";
+  biologyCategory: "men" | "women" | "kids";
+  color: string;
+  purchase: number;
+  salesPrice: number;
+  discount: number;
+  quantity: number;
+  features: string[];
+  brand: "raybon" | "Alex Perry" | "Oakley";
+  badge?: "popular" | "new" | "premium" | "luxury" | "best" | "trending" | "budget";
+  description?: string;
+  weeklyDeals: boolean;
+  frameMeasurements?: string;
+  frameDetails?: string;
+  prescriptionDetails?: string;
+};
 
 const AddFrame = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    images: [] as string[],
-    type: "",
-    materialsCategory: "",
-    frameCategory: "",
-    sizeCategory: "",          // ✅ Restored
-    shapeCategory: "",         // ✅ Restored
-    biologyCategory: "",
-    color: "",
-    purchase: "",
-    salesPrice: "",
-    discount: "",
-    features: [] as string[],
-    brand: "",
-    barcode: "",
-    badge: "",
-    description: "",
-    weeklyDeals: false,
-    frameMeasurements: "",
-    frameDetails: "",
-    prescriptionDetails: "",
+  const { register, handleSubmit, control, setValue, watch, reset } = useForm<FrameFormData>({
+    defaultValues: {
+      name: "",
+      images: [],
+      type: "sunglasses",
+      materialsCategory: "metal",
+      frameCategory: "full-rim",
+      sizeCategory: "medium",
+      shapeCategory: "round",
+      biologyCategory: "men",
+      color: "",
+      purchase: 0,
+      salesPrice: 0,
+      discount: 0,
+      quantity: 1,
+      features: [],
+      brand: "raybon",
+      badge: "popular",
+      description: "",
+      weeklyDeals: false,
+      frameMeasurements: "",
+      frameDetails: "",
+      prescriptionDetails: "",
+    },
   });
 
-  const handleChange = (key: string, value: any) =>
-    setFormData((p) => ({ ...p, [key]: value }));
+  const [previewImages, setPreviewImages] = useState<string[]>([]);
+  const [createFrame, { isLoading, error }] = useCreateFrameMutation();
+  console.log(isLoading)
+  console.log(error)
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
-    const urls = Array.from(e.target.files).map((f) => URL.createObjectURL(f));
-    setFormData((p) => ({ ...p, images: [...p.images, ...urls] }));
+    const files = Array.from(e.target.files);
+    const current = watch("images") || [];
+    setValue("images", [...current, ...files]);
+    setPreviewImages((prev) => [...prev, ...files.map((f) => URL.createObjectURL(f))]);
   };
 
-  const removeImage = (index: number) =>
-    setFormData((p) => ({ ...p, images: p.images.filter((_, i) => i !== index) }));
+  const removeImage = (index: number) => {
+    const currentFiles = watch("images") || [];
+    setValue("images", currentFiles.filter((_, i) => i !== index));
+    setPreviewImages((prev) => prev.filter((_, i) => i !== index));
+  };
 
-  const toggleFeature = (feature: string) =>
-    setFormData((p) => ({
-      ...p,
-      features: p.features.includes(feature)
-        ? p.features.filter((f) => f !== feature)
-        : [...p.features, feature],
-    }));
+  const toggleFeature = (feature: string) => {
+    const current = watch("features") || [];
+    if (current.includes(feature)) setValue("features", current.filter((f) => f !== feature));
+    else setValue("features", [...current, feature]);
+  };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Frame Data:", formData);
+  const onSubmit = async (data: FrameFormData) => {
+    const barcode = `${Date.now()}`;
+    const {images, ...remaining} = data;
+    console.log(data)
+    const formData = {
+      data: {...remaining, barcode},
+      images
+    }
+
+    try {
+      const response = await createFrame(formData as any).unwrap();
+       console.log("Frame created:", response);
+       if(response.success){
+        toast.success(response.message)
+        reset();  
+        setPreviewImages([]); 
+       }
+    } catch (err:any) {
+      if (err?.data?.message) {
+        alert(err.data.message); 
+      }
+    }
+    
+    console.log(isLoading, error)
+
   };
 
   return (
@@ -69,146 +127,186 @@ const AddFrame = () => {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="w-full mx-auto bg-white rounded-3xl shadow-xl p-6 flex flex-col h-[90%] "
+        className="w-full mx-auto bg-white rounded-3xl shadow-xl p-6 flex flex-col h-[90%]"
       >
         <h2 className="text-2xl font-bold mb-4">Add New Frame</h2>
-
-        {/* Scrollable form */}
-        <form
-          onSubmit={handleSubmit}
-          className="overflow-y-auto p-2 md:p-4 flex-1 hide-scrollbar"
-        >
-          {/* Grid */}
+        <form onSubmit={handleSubmit(onSubmit)} className="overflow-y-auto p-2 md:p-4 flex-1 hide-scrollbar">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-            {/* NAME */}
             <div className="space-y-3">
-              <Label className="mb-2">Frame Name</Label>
-              <Input
-                placeholder="Stylish Sunglasses"
-                value={formData.name}
-                onChange={(e) => handleChange("name", e.target.value)}
+              <Label>Frame Name</Label>
+              <Input placeholder="Stylish Sunglasses" {...register("name")} required />
+            </div>
+
+            <div className="space-y-3">
+              <Label>Type</Label>
+              <Controller
+                name="type"
+                control={control}
+                render={({ field }) => (
+                  <Select  onValueChange={field.onChange} value={field.value} required>
+                    <SelectTrigger className="w-full"><SelectValue placeholder="Select type" /></SelectTrigger>
+                    <SelectContent className="w-full">
+                      <SelectItem value="sunglasses">Sunglasses</SelectItem>
+                      <SelectItem value="eye glasses">Eye Glasses</SelectItem>
+                      <SelectItem value="special glasses">Special Glasses</SelectItem>
+                      <SelectItem value="power sunglasses">Power Sunglasses</SelectItem>
+                      <SelectItem value="progressive lense">Progressive Lense</SelectItem>
+                    </SelectContent>
+                  </Select>
+                )}
               />
             </div>
 
-            {/* TYPE */}
             <div className="space-y-3">
-              <Label className="mb-2">Type</Label>
-              <Select onValueChange={(v) => handleChange("type", v)}>
-                <SelectTrigger><SelectValue placeholder="Select type" /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="sunglasses">Sunglasses</SelectItem>
-                  <SelectItem value="eyeglasses">Eyeglasses</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            {/* MATERIAL */}
-            <div className="space-y-3">
-              <Label className="mb-2">Material</Label>
-              <Select onValueChange={(v) => handleChange("materialsCategory", v)}>
-                <SelectTrigger><SelectValue placeholder="Select material" /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="acetate">Acetate</SelectItem>
-                  <SelectItem value="metal">Metal</SelectItem>
-                  <SelectItem value="mixed">Mixed</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            {/* FRAME CATEGORY */}
-            <div className="space-y-3">
-              <Label className="mb-2">Frame Category</Label>
-              <Select onValueChange={(v) => handleChange("frameCategory", v)}>
-                <SelectTrigger><SelectValue placeholder="Select frame category" /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="full-rim">Full-rim</SelectItem>
-                  <SelectItem value="half-rim">Half-rim</SelectItem>
-                  <SelectItem value="rimless">Rimless</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            {/* ✅ SIZE CATEGORY (restored) */}
-            <div className="space-y-3">
-              <Label className="mb-2">Size Category</Label>
-              <Select onValueChange={(v) => handleChange("sizeCategory", v)}>
-                <SelectTrigger><SelectValue placeholder="Select size" /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="small">Small</SelectItem>
-                  <SelectItem value="medium">Medium</SelectItem>
-                  <SelectItem value="large">Large</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            {/* ✅ SHAPE CATEGORY (restored) */}
-            <div className="space-y-3">
-              <Label className="mb-2">Shape Category</Label>
-              <Select onValueChange={(v) => handleChange("shapeCategory", v)}>
-                <SelectTrigger><SelectValue placeholder="Select shape" /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="round">Round</SelectItem>
-                  <SelectItem value="square">Square</SelectItem>
-                  <SelectItem value="rectangle">Rectangle</SelectItem>
-                  <SelectItem value="aviator">Aviator</SelectItem>
-                  <SelectItem value="cat-eye">Cat-eye</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            {/* BIOLOGY */}
-            <div className="space-y-3">
-              <Label className="mb-2">Biology Category</Label>
-              <Select onValueChange={(v) => handleChange("biologyCategory", v)}>
-                <SelectTrigger><SelectValue placeholder="Select audience" /></SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="men">Men</SelectItem>
-                  <SelectItem value="women">Women</SelectItem>
-                  <SelectItem value="unisex">Unisex</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            {/* COLOR */}
-            <div className="space-y-3">
-              <Label className="mb-2">Color</Label>
-              <Input
-                placeholder="black"
-                value={formData.color}
-                onChange={(e) => handleChange("color", e.target.value)}
+              <Label>Material</Label>
+              <Controller
+                name="materialsCategory"
+                control={control}
+                render={({ field }) => (
+                  <Select onValueChange={field.onChange} value={field.value} required>
+                    <SelectTrigger className="w-full"><SelectValue placeholder="Select material" /></SelectTrigger>
+                    <SelectContent>
+                      {["metal","plastic","acetate","titanium","wood","texture"].map((m) => (
+                        <SelectItem key={m} value={m}>{m}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                )}
               />
             </div>
 
-            {/* PURCHASE */}
             <div className="space-y-3">
-              <Label className="mb-2">Purchase Price</Label>
-              <Input
-                type="number"
-                placeholder="100"
-                value={formData.purchase}
-                onChange={(e) => handleChange("purchase", e.target.value)}
+              <Label>Frame Category</Label>
+              <Controller
+                name="frameCategory"
+                control={control}
+                render={({ field }) => (
+                  <Select onValueChange={field.onChange} value={field.value} required>
+                    <SelectTrigger className="w-full"><SelectValue placeholder="Select frame category" /></SelectTrigger>
+                    <SelectContent>
+                      {["full-rim","half rim","rimless"].map((c) => (
+                        <SelectItem key={c} value={c}>{c}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                )}
               />
             </div>
 
-            {/* SALES PRICE */}
             <div className="space-y-3">
-              <Label className="mb-2">Sales Price</Label>
-              <Input
-                type="number"
-                placeholder="200"
-                value={formData.salesPrice}
-                onChange={(e) => handleChange("salesPrice", e.target.value)}
+              <Label>Size Category</Label>
+              <Controller
+                name="sizeCategory"
+                control={control}
+                render={({ field }) => (
+                  <Select onValueChange={field.onChange} value={field.value} required>
+                    <SelectTrigger className="w-full"><SelectValue placeholder="Select size" /></SelectTrigger>
+                    <SelectContent>
+                      {["small","medium","large"].map((s) => <SelectItem key={s} value={s}>{s}</SelectItem>)}
+                    </SelectContent>
+                  </Select>
+                )}
+              />
+            </div>
+
+            <div className="space-y-3">
+              <Label>Shape Category</Label>
+              <Controller
+                name="shapeCategory"
+                control={control}
+                render={({ field }) => (
+                  <Select onValueChange={field.onChange} value={field.value} required>
+                    <SelectTrigger className="w-full"><SelectValue placeholder="Select shape" /></SelectTrigger>
+                    <SelectContent>
+                      {["oval","round","square","cats eye","rectangle","avietor","browline","horn"].map((s) => (
+                        <SelectItem key={s} value={s}>{s}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                )}
+              />
+            </div>
+
+            <div className="space-y-3">
+              <Label>Biology Category</Label>
+              <Controller
+                name="biologyCategory"
+                control={control}
+                render={({ field }) => (
+                  <Select onValueChange={field.onChange} value={field.value} required>
+                    <SelectTrigger className="w-full"><SelectValue placeholder="Select audience" /></SelectTrigger>
+                    <SelectContent>
+                      {["men","women","kids"].map((b) => <SelectItem key={b} value={b}>{b}</SelectItem>)}
+                    </SelectContent>
+                  </Select>
+                )}
+              />
+            </div>
+
+            <div className="space-y-3">
+              <Label>Color</Label>
+              <Input {...register("color")} placeholder="Black" required />
+            </div>
+
+            <div className="space-y-3">
+              <Label>Purchase Price</Label>
+              <Input type="number" {...register("purchase", { valueAsNumber: true })} required/>
+            </div>
+
+            <div className="space-y-3">
+              <Label>Sales Price</Label>
+              <Input type="number" {...register("salesPrice", { valueAsNumber: true })} required/>
+            </div>
+
+            <div className="space-y-3">
+              <Label>Discount</Label>
+              <Input type="number" {...register("discount", { valueAsNumber: true })} required />
+            </div>
+
+            <div className="space-y-3">
+              <Label>Quantity</Label>
+              <Input type="number" {...register("quantity", { valueAsNumber: true })} required/>
+            </div>
+
+            <div className="space-y-3">
+              <Label>Brand</Label>
+              <Controller
+                name="brand"
+                control={control}
+                render={({ field }) => (
+                  <Select onValueChange={field.onChange} value={field.value} required>
+                    <SelectTrigger className="w-full"><SelectValue placeholder="Select brand" /></SelectTrigger>
+                    <SelectContent>
+                      {brands.map((b) => <SelectItem key={b} value={b}>{b}</SelectItem>)}
+                    </SelectContent>
+                  </Select>
+                )}
+              />
+            </div>
+
+            <div className="space-y-3">
+              <Label>Badge</Label>
+              <Controller
+                name="badge"
+                control={control}
+                render={({ field }) => (
+                  <Select onValueChange={field.onChange} value={field.value} required>
+                    <SelectTrigger className="w-full"><SelectValue placeholder="Select badge" /></SelectTrigger>
+                    <SelectContent>
+                      {badges.map((b) => <SelectItem key={b} value={b}>{b}</SelectItem>)}
+                    </SelectContent>
+                  </Select>
+                )}
               />
             </div>
           </div>
 
-          {/* FEATURES */}
+          {/* Features */}
           <div className="mt-6 space-y-3">
-            <Label className="mb-2">Features</Label>
+            <Label>Features</Label>
             <div className="flex flex-wrap gap-2">
               {availableFeatures.map((feature) => {
-                const active = formData.features.includes(feature);
+                const active = watch("features").includes(feature);
                 return (
                   <button
                     key={feature}
@@ -227,37 +325,29 @@ const AddFrame = () => {
             </div>
           </div>
 
-          {/* WEEKLY DEALS */}
+          {/* Weekly Deals */}
           <div className="mt-2 flex items-center gap-3">
-            <Switch
-              checked={formData.weeklyDeals}
-              onCheckedChange={(v) => handleChange("weeklyDeals", v)}
+            <Controller
+              name="weeklyDeals"
+              control={control}
+              render={({ field }) => <Switch checked={field.value} onCheckedChange={field.onChange} />}
             />
             <span className="text-gray-700">Weekly Deals</span>
           </div>
 
-          {/* DESCRIPTION */}
+          {/* Description */}
           <div className="mt-4 space-y-3">
-            <Label className="mb-2">Description</Label>
-            <Textarea
-              placeholder="Best sunglasses in 2025"
-              value={formData.description}
-              onChange={(e) => handleChange("description", e.target.value)}
-            />
+            <Label>Description</Label>
+            <Textarea placeholder="Optional description" {...register("description")} required/>
           </div>
 
-          {/* IMAGES */}
+          {/* Images */}
           <div className="mt-4 space-y-3">
-            <Label className="mb-2">Upload Images</Label>
-            <label className="flex flex-col items-center justify-center w-full p-6 border-2 border-dashed rounded-2xl cursor-pointer hover:bg-gray-50 transition">
-              <ImagePlus className="w-8 h-8 text-gray-500" />
-              <span className="mt-2 text-gray-600 text-sm">Click to upload images</span>
-              <input type="file" className="hidden" multiple onChange={handleImageUpload} />
-            </label>
-
-            {formData.images.length > 0 && (
+            
+            <Label>Upload Images</Label>
+            {previewImages.length > 0 && (
               <div className="flex gap-3 mt-3 flex-wrap">
-                {formData.images.map((img, idx) => (
+                {previewImages.map((img, idx) => (
                   <div key={idx} className="relative">
                     <img src={img} alt="preview" className="w-20 h-20 object-cover rounded-lg border" />
                     <button
@@ -271,11 +361,17 @@ const AddFrame = () => {
                 ))}
               </div>
             )}
+            <label className="flex flex-col items-center justify-center w-full p-6 border-2 border-dashed rounded-2xl cursor-pointer hover:bg-gray-50 transition">
+              <ImagePlus className="w-8 h-8 text-gray-500" />
+              <span className="mt-2 text-gray-600 text-sm">Click to upload images</span>
+              <input type="file" className="hidden" multiple onChange={handleImageUpload} />
+            </label>
           </div>
 
-          {/* SUBMIT */}
           <div className="mt-6">
-            <Button type="submit" className="w-full md:w-auto bg-blue-600"><Plus/> Add Frame</Button>
+            <Button type="submit" className="w-full md:w-auto bg-blue-600">
+              <Plus /> Add Frame
+            </Button>
           </div>
         </form>
       </motion.div>

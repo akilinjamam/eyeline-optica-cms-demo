@@ -1,35 +1,49 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { ContactLens, IFrame, ILens } from "../../../types/interface";
 
-export interface CounterState {
-  value: number;
+interface FrameUIState {
+  editProductName: string;
+  isEditOpen: boolean;
+  isOpenModal: boolean;
+  editableData: Partial<IFrame | ILens | ContactLens>;
 }
 
-const initialState: CounterState = {
-  value: 0,
+const initialState: FrameUIState = {
+  isEditOpen: false,
+  isOpenModal: false,
+  editProductName: "",
+  editableData: {},
 };
 
-export const modalSlice = createSlice({
-  name: "counter",
+const frameUISlice = createSlice({
+  name: "modal",
   initialState,
   reducers: {
-    increment: (state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1;
+    openEdit(
+      state,
+      action: PayloadAction<{
+        name: string;
+        data: IFrame | ILens | ContactLens | any;
+      }>
+    ) {
+      const { name, data } = action.payload;
+      state.isEditOpen = true;
+      state.editableData = data;
+      state.editProductName = name;
     },
-    decrement: (state) => {
-      state.value -= 1;
+    openModal(state) {
+      state.isOpenModal = true;
     },
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-      state.value += action.payload;
+    closeModal(state) {
+      state.isOpenModal = false;
+    },
+    closeEdit(state) {
+      state.isEditOpen = false;
     },
   },
 });
 
-// Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = modalSlice.actions;
-
-export default modalSlice.reducer;
+export const { openEdit, closeEdit, openModal, closeModal } =
+  frameUISlice.actions;
+export default frameUISlice.reducer;

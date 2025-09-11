@@ -3,6 +3,9 @@ import type { ActionColumn, TableColumn } from "../../../../types/type";
 import { useEffect, useMemo, useState } from "react";
 import type { Frame, IFrame} from "../../../../types/interface";
 import { useGetAllFramesQuery } from "../../../../app/redux/api/frameApi";
+import { useDispatch, useSelector } from "react-redux";
+import { openEdit, openModal } from "../../../../app/redux/features/modalSlice";
+import type { RootState } from "../../../../app/store";
 
 const useFrameList = () => {
 
@@ -86,14 +89,22 @@ const useFrameList = () => {
     return addingIdWithFiltered
     } , [frames, search, filterType, filterMaterial, filterShape, minPrice, maxPrice, color]);
 
-     
+  const dispatch = useDispatch()
   
+  const {editableData} = useSelector((state:RootState) => state.modal);
+  console.log(editableData)
 
-  const handleEdit = (id: number) => console.log("Edit", id);
+  const handleEdit = (id: string) => {
+    const findData = filteredData?.find((item:IFrame) => item?._id === id)
+    console.log("Edit", id);
+    dispatch(openEdit({name: 'frame',data:findData }));
+  }
   const handleDelete = (id: number) => {
-    if (confirm("Are you sure to delete this frame?")) {
-      setFrames(filteredData.filter((f:IFrame) => f.id !== id));
-    }
+    
+      console.log('delete-id:',id);
+      dispatch(openModal())
+      // setFrames(filteredData.filter((f:IFrame) => f.id !== id));
+    
   };
 
    // ------------------------

@@ -61,7 +61,7 @@ const Table = ({ paginatedData, column, actionColumn }: ITableInfo<ContactLens |
                             return (
                                <Tooltip>
                             <TooltipTrigger asChild>
-                              <Button variant="ghost" size="sm" onClick={() => action.render(row.id)}>
+                              <Button variant="ghost" size="sm" onClick={() => action.render(row._id)}>
                                 {action.logo}
                               </Button>
                             </TooltipTrigger>

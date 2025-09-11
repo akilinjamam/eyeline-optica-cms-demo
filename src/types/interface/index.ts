@@ -106,6 +106,7 @@ export type Badge =
 export type Brand = "raybon" | "Alex Perry" | "Oakley";
 
 export interface IFrame {
+  _id?: string;
   id?: number;
   name: string;
   images: string[];
