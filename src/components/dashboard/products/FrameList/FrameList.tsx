@@ -13,7 +13,7 @@ import ColumnManager from "../../../../reusableComponent/ColumnManager";
 
 const FrameList = () => {
 
-        const {actionColumns, columns, filterSummary, filters, maxPrice, setMaxPrice, minPrice, setMinPrice, page, setPage, paginatedData, search, setSearch, setPaginatedData,filteredData, isLoading} = useFrameList();
+        const {actionColumns, columns, filterSummary, filters, maxPrice, setMaxPrice, minPrice, setMinPrice, page, setPage, paginatedData, search, setSearch, setPaginatedData,filteredData, isLoading, showCheck} = useFrameList();
 
         const defaultColumn = columns?.slice(0,8)
        
@@ -59,7 +59,7 @@ const FrameList = () => {
                   filters={filters}
                   showPriceRange={true}
                 />
-                <Table column={dynamicColumns} paginatedData={paginatedData} actionColumn={actionColumns} />
+                <Table column={dynamicColumns} paginatedData={paginatedData} actionColumn={actionColumns} showCheck={showCheck}/>
               </>
             )}
           </div>

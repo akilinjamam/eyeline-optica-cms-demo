@@ -3,6 +3,10 @@ import { Check, X } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
 import { useState } from "react";
 import type { TableColumn } from "../types/type";
+import { Button } from "../components/ui/button";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "../app/store";
+import { openModal } from "../app/redux/features/modalSlice";
 
 type TColumnManager = {
     columns:TableColumn[];
@@ -12,13 +16,17 @@ type TColumnManager = {
 
 const ColumnManager = ({columns, dynamicColumns, setDynamicColumns}: TColumnManager) => {
 
+    const {ids} = useSelector((state:RootState) => state.modal)
+
     const restColumn = columns?.slice(8)
   
     const [removedColumns, setRemoveColumns] = useState<TableColumn[]>(restColumn);
       
-      const [removeSelectValue, setRemoveSelectValue] = useState<
+    const [removeSelectValue, setRemoveSelectValue] = useState<
         string | undefined
       >(undefined);
+
+    const dispatch = useDispatch();
 
 
     const addColumn = (key:string) => {
@@ -86,6 +94,9 @@ const removeColumn = (key: string) => {
                     ))}
                   </SelectContent>
                 </Select>
+              </div>
+              <div onClick={() => dispatch(openModal())} className="ml-3 ">
+                  {ids.length > 0 && <Button className="cursor-pointer">Delete {ids.length}</Button>}
               </div>
         </div>
     );

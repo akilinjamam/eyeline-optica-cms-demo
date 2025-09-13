@@ -14,9 +14,7 @@ const useFrameList = () => {
 
     const allFrameData = allData?.data?.data as IFrame[] | undefined;
 
-    
-    
-
+  console.log(openModal)
   const columns: TableColumn[] = [
   { key: "id", label: "SL", align: "left" },
   { key: "name", label: "Name", align: "left" },
@@ -27,7 +25,6 @@ const useFrameList = () => {
   { key: "sizeCategory", label: "Size", align: "left" },
   { key: "salesPrice", label: "Price", align: "left" },
   { key: "quantity", label: "Qty", align: "left" },
-  // { key: "actions", label: "Actions", align: "left" },
 ];
 
   const [frames, setFrames] = useState<IFrame[]>([]);
@@ -41,6 +38,7 @@ const useFrameList = () => {
   const [minPrice, setMinPrice] = useState(""); 
   const [maxPrice, setMaxPrice] = useState("");
   const [color, setColor] = useState("all");
+  const [showCheck, setShowCheck] = useState(false);
 
     useEffect(() => {
         setPage(1);
@@ -100,9 +98,9 @@ const useFrameList = () => {
     dispatch(openEdit({name: 'frame',data:findData }));
   }
   const handleDelete = (id: number) => {
-    
+      setShowCheck(!showCheck)
       console.log('delete-id:',id);
-      dispatch(openModal())
+      // dispatch(openModal())
       // setFrames(filteredData.filter((f:IFrame) => f.id !== id));
     
   };
@@ -178,7 +176,7 @@ const useFrameList = () => {
   },
 ]
 
-return {actionColumns,filters,filterSummary, setMinPrice, minPrice, setMaxPrice, maxPrice, search,setSearch, setPaginatedData, paginatedData,page, setPage, columns, filteredData, isLoading}
+return {actionColumns,filters,filterSummary, setMinPrice, minPrice, setMaxPrice, maxPrice, search,setSearch, setPaginatedData, paginatedData,page, setPage, columns, filteredData, isLoading, showCheck}
 
 };
 

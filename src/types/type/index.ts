@@ -11,6 +11,7 @@ export type ActionColumn = {
   logo: any;
   type: string;
   render: (value: any) => void;
+  renderId?: (value: any) => void;
 };
 
 export type ApiDataType<T> = {

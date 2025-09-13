@@ -7,6 +7,8 @@ interface FrameUIState {
   isEditOpen: boolean;
   isOpenModal: boolean;
   editableData: Partial<IFrame | ILens | ContactLens>;
+  ids: string[];
+  deleteProductName: string;
 }
 
 const initialState: FrameUIState = {
@@ -14,6 +16,8 @@ const initialState: FrameUIState = {
   isOpenModal: false,
   editProductName: "",
   editableData: {},
+  ids: [],
+  deleteProductName: "",
 };
 
 const frameUISlice = createSlice({
@@ -37,13 +41,23 @@ const frameUISlice = createSlice({
     },
     closeModal(state) {
       state.isOpenModal = false;
+      state.ids = [];
+      state.editProductName = "";
     },
     closeEdit(state) {
       state.isEditOpen = false;
     },
+    deletableIds(
+      state,
+      action: PayloadAction<{ data: string[]; name: string }>
+    ) {
+      const { data, name } = action.payload;
+      state.ids = data;
+      state.deleteProductName = name;
+    },
   },
 });
 
-export const { openEdit, closeEdit, openModal, closeModal } =
+export const { openEdit, closeEdit, openModal, closeModal, deletableIds } =
   frameUISlice.actions;
 export default frameUISlice.reducer;

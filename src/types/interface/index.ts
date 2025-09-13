@@ -16,6 +16,7 @@ export interface ITableInfo<T> {
   paginatedData: T[];
   column: TableColumn[];
   actionColumn: ActionColumn[];
+  showCheck?: boolean;
 }
 
 // src/types/lens.type.ts

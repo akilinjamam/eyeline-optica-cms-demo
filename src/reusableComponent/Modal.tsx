@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../app/store";
 import { closeModal } from "../app/redux/features/modalSlice";
+import { useDeleteFramesMutation } from "../app/redux/api/frameApi";
+import { toast } from "react-toastify";
 
 interface ModalProps {
   title?: string;
@@ -18,7 +20,21 @@ export default function Modal({
 
     const dispatch = useDispatch()
 
-    const {isOpenModal} = useSelector((state:RootState) => state.modal)
+    const {isOpenModal, deleteProductName, ids} = useSelector((state:RootState) => state.modal);
+
+   const [deleteFrames, {isLoading, error}] = useDeleteFramesMutation();
+
+    const handleDelete = async() => {
+      if(deleteProductName === 'frame'){
+        const res =  await deleteFrames(ids).unwrap();
+        if(res.success){
+          toast.success(res.message)
+          dispatch(closeModal())
+        }else{
+          toast.error(error as string)
+        }
+      }
+    }
     
 
   return (
@@ -52,10 +68,10 @@ export default function Modal({
                 Cancel
               </button>
               <button
-                
+                onClick={handleDelete}
                 className="px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 shadow-md transition"
               >
-                Confirm
+                {isLoading ? 'Deleting': 'Confirm'}
               </button>
             </div>
           </motion.div>
