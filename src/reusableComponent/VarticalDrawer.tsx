@@ -19,7 +19,7 @@ const VarticalDrawer = () => {
                 animate={{ y: 0 }}
                 exit={{ y: "100%" }}
                 transition={{ duration: 0.4 }}
-                className="absolute bottom-0 left-0 w-full h-[100vh] bg-white shadow-2xl  z-50 p-4 overflow-y-auto"
+                className="absolute bottom-0 left-0 w-full h-[100vh] bg-white shadow-2xl  z-50 p-4 overflow-y-auto hide-scrollbar"
             >
                 {/* Close Button */}
                 <button

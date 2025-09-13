@@ -27,3 +27,55 @@ export type ApiDataType<T> = {
     };
   };
 };
+
+export type FrameFormData = {
+  _id: string;
+  name: string;
+  images: File[] | string[]; // string[] if editing with existing image URLs
+  newImages?: File[];
+  type:
+    | "sunglasses"
+    | "eye glasses"
+    | "special glasses"
+    | "power sunglasses"
+    | "progressive lense";
+  materialsCategory:
+    | "metal"
+    | "plastic"
+    | "acetate"
+    | "titanium"
+    | "wood"
+    | "texture";
+  frameCategory: "full-rim" | "half rim" | "rimless";
+  sizeCategory: "small" | "medium" | "large";
+  shapeCategory:
+    | "oval"
+    | "round"
+    | "square"
+    | "cats eye"
+    | "rectangle"
+    | "avietor"
+    | "browline"
+    | "horn";
+  biologyCategory: "men" | "women" | "kids";
+  color: string;
+  purchase: number;
+  salesPrice: number;
+  discount: number;
+  quantity: number;
+  features: string[];
+  brand: "raybon" | "Alex Perry" | "Oakley";
+  badge?:
+    | "popular"
+    | "new"
+    | "premium"
+    | "luxury"
+    | "best"
+    | "trending"
+    | "budget";
+  description?: string;
+  weeklyDeals: boolean;
+  frameMeasurements?: string;
+  frameDetails?: string;
+  prescriptionDetails?: string;
+};

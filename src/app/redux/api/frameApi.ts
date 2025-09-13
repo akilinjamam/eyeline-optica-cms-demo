@@ -38,8 +38,8 @@ export const frameApi = baseApi.injectEndpoints({
       >({
         query: ({ id, data, images }) => {
           const formData = new FormData();
-          formData.append("data", JSON.stringify(data));
           images?.forEach((file) => formData.append("images", file));
+          formData.append("data", JSON.stringify(data));
 
           return {
             url: `products/update-product/${id}`,
@@ -62,4 +62,9 @@ export const frameApi = baseApi.injectEndpoints({
   },
 });
 
-export const { useGetAllFramesQuery, useCreateFrameMutation } = frameApi;
+export const {
+  useGetAllFramesQuery,
+  useCreateFrameMutation,
+  useUpdateFrameMutation,
+  useDeleteFramesMutation,
+} = frameApi;

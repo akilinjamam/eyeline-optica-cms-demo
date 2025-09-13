@@ -14,47 +14,28 @@ import { Textarea } from "../../../ui/textarea";
 import { Button } from "../../../ui/button";
 import { Label } from "../../../ui/label";
 import { Switch } from "../../../ui/switch";
-import { ImagePlus, X, Plus } from "lucide-react";
-import { useCreateFrameMutation } from "../../../../app/redux/api/frameApi";
+import { ImagePlus, X, Edit } from "lucide-react";
+import {  useUpdateFrameMutation } from "../../../../app/redux/api/frameApi";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../../../app/store";
+import type { FrameFormData } from "../../../../types/type";
+import { closeEdit } from "../../../../app/redux/features/modalSlice";
 
 const availableFeatures = ["UV Protection", "Polarized", "Blue Light Filter", "Anti-Glare"];
 const brands = ["raybon", "Alex Perry", "Oakley"];
 const badges = ["popular", "new", "premium", "luxury", "best", "trending", "budget"];
 
-export type FrameFormData = {
-  name: string;
-  images: File[] | string[]; // string[] if editing with existing image URLs
-  type: "sunglasses" | "eye glasses" | "special glasses" | "power sunglasses" | "progressive lense";
-  materialsCategory: "metal" | "plastic" | "acetate" | "titanium" | "wood" | "texture";
-  frameCategory: "full-rim" | "half rim" | "rimless";
-  sizeCategory: "small" | "medium" | "large";
-  shapeCategory: "oval" | "round" | "square" | "cats eye" | "rectangle" | "avietor" | "browline" | "horn";
-  biologyCategory: "men" | "women" | "kids";
-  color: string;
-  purchase: number;
-  salesPrice: number;
-  discount: number;
-  quantity: number;
-  features: string[];
-  brand: "raybon" | "Alex Perry" | "Oakley";
-  badge?: "popular" | "new" | "premium" | "luxury" | "best" | "trending" | "budget";
-  description?: string;
-  weeklyDeals: boolean;
-  frameMeasurements?: string;
-  frameDetails?: string;
-  prescriptionDetails?: string;
-};
+
 
 const EditFrame = () => {
 const {editableData:initialData} = useSelector((state:RootState) => state.modal)
-console.log(initialData)
-const { register, handleSubmit, control, setValue, watch, reset } = useForm<FrameFormData>({
+
+const { register, handleSubmit, control, setValue, watch} = useForm<FrameFormData>({
     defaultValues: initialData as FrameFormData || {
     name: "",
     images: [],
+    newImages:[],
     type: "sunglasses",
     materialsCategory: "metal",
     frameCategory: "full-rim",
@@ -78,7 +59,8 @@ const { register, handleSubmit, control, setValue, watch, reset } = useForm<Fram
   });
 
   const [previewImages, setPreviewImages] = useState<string[]>([]);
-  const [createFrame, { isLoading, error }] = useCreateFrameMutation();
+  const [editFrame, { isLoading, error }] = useUpdateFrameMutation();
+  const dispatch = useDispatch();
   console.log(isLoading)
   console.log(error)
   // Load initial images if editing
@@ -94,8 +76,7 @@ const { register, handleSubmit, control, setValue, watch, reset } = useForm<Fram
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return;
     const files = Array.from(e.target.files);
-    const current = watch("images") || [];
-    setValue("images", [...current as any, ...files]);
+    setValue("newImages", [...files]);
     setPreviewImages((prev) => [...prev, ...files.map((f) => URL.createObjectURL(f))]);
   };
 
@@ -112,18 +93,19 @@ const { register, handleSubmit, control, setValue, watch, reset } = useForm<Fram
   };
 
   const onSubmit = async (data: FrameFormData) => {
-    const barcode = `${Date.now()}`;
-    const { images, ...remaining } = data;
+    const {_id ,images, newImages,  ...remaining } = data;
+    
     const formData = {
-      data: { ...remaining, barcode },
-      images,
+      id:_id,
+      data: {...remaining, images},
+      images:newImages,
     };
-
+    console.log(formData)
     try {
-      const response = await createFrame(formData as any).unwrap();
+      const response = await editFrame(formData as any).unwrap();
       if (response.success) {
-        toast.success(response.message);
-        reset();  
+        dispatch(closeEdit())
+        toast.success(response.message);  
         setPreviewImages([]); 
       }
     } catch (err: any) {
@@ -382,7 +364,7 @@ const { register, handleSubmit, control, setValue, watch, reset } = useForm<Fram
          
                    <div className="mt-6">
                      <Button type="submit" className="w-full md:w-auto bg-blue-600">
-                       <Plus /> Add Frame
+                       <Edit /> Edit Frame
                      </Button>
                    </div>
         </form>
