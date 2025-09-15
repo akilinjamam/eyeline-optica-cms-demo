@@ -224,7 +224,7 @@ const EditContactLens = () => {
           {/* SUBMIT */}
           <div className="mt-6">
             <Button disabled={isLoading ? true : false} type="submit" className="w-full md:w-auto bg-blue-600">
-              {!isLoading && <Edit />} {isLoading ? 'Editing' : 'Edit Contact Lens'}
+              <Edit /> {isLoading ? 'Editing' : 'Edit Contact Lens'}
             </Button>
           </div>
         </form>

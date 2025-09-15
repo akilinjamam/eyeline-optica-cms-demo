@@ -97,7 +97,7 @@ const { register, handleSubmit, control, setValue, watch} = useForm<FrameFormDat
     }
   };
 
-  return {register, handleSubmit, control, previewImages, handleImageUpload, removeImage, toggleFeature, onSubmit, watch}
+  return {register, handleSubmit, control, previewImages, handleImageUpload, removeImage, toggleFeature, onSubmit, watch, isLoading}
 
 };
 

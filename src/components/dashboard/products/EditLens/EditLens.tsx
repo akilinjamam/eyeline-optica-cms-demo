@@ -4,7 +4,7 @@ import { Input } from '../../../ui/input';
 import { Controller } from 'react-hook-form';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../../ui/select';
 import { Textarea } from '../../../ui/textarea';
-import { ImagePlus, Plus, X } from 'lucide-react';
+import { Edit, ImagePlus, X } from 'lucide-react';
 import { Button } from '../../../ui/button';
 import useEditLens from './useEditLens';
 
@@ -255,7 +255,7 @@ const EditLens = () => {
                       className="w-full md:w-auto bg-blue-600"
                       disabled={isLoading ? true : false}
                     >
-                      {isLoading ? '' : <Plus />} {isLoading ? 'Adding' : 'Edit Lens'}
+                     <Edit /> {isLoading ? 'Editing' : 'Edit Lens'}
                     </Button>
                   </div>
                 </form>

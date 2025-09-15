@@ -21,7 +21,7 @@ const badges = ["popular", "new", "premium", "luxury", "best", "trending", "budg
 
 const EditFrame = () => {
 
- const {control, handleImageUpload, handleSubmit, onSubmit, previewImages, register, removeImage, toggleFeature, watch} = useEditFrame()
+ const {control, handleImageUpload, handleSubmit, onSubmit, previewImages, register, removeImage, toggleFeature, watch, isLoading} = useEditFrame()
 
   return (
     <div className="p-4 bg-gray-50 h-screen overflow-y-scroll hide-scrollbar">
@@ -271,8 +271,8 @@ const EditFrame = () => {
                    </div>
          
                    <div className="mt-6">
-                     <Button type="submit" className="w-full md:w-auto bg-blue-600">
-                       <Edit /> Edit Frame
+                     <Button disabled={isLoading ? true : false} type="submit" className="w-full md:w-auto bg-blue-600">
+                       <Edit /> {isLoading ? 'Editing' : 'Edit Frame'}
                      </Button>
                    </div>
         </form>
