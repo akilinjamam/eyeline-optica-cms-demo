@@ -61,7 +61,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
           animate="center"
           exit="exit"
           transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.3 } }}
-          className="absolute w-full h-full  rounded-2xl"
+          className="absolute w-full h-full object-contain  rounded-2xl"
         />
       </AnimatePresence>
 
