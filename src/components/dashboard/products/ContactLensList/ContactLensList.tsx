@@ -12,7 +12,7 @@ import ColumnManager from "../../../../reusableComponent/ColumnManager";
 
 const ContactLensList = () => {
 
-  const {actionColumns, columns, filterSummary, filteredData, filters, maxPrice, minPrice, page, paginatedData, search, setSearch, setMaxPrice, setMinPrice, setPaginatedData, setPage,isLoading} = useContactList()
+  const {actionColumns, columns, filterSummary, filteredData, filters, maxPrice, minPrice, page, paginatedData, search, setSearch, setMaxPrice, setMinPrice, setPaginatedData, setPage,isLoading, showCheck} = useContactList()
     const defaultColumn = columns?.slice(0,8)
   
     const [dynamicColumns, setDynamicColumns] = useState<TableColumn[]>(defaultColumn); // initially your normal columns
@@ -34,8 +34,8 @@ const ContactLensList = () => {
     <div className="px-4 py-2 bg-gray-50 min-h-screen">
         <div className="flex items-center justify-between">
           {/* <h2 className="text-2xl font-bold mb-4">Contact Lens List</h2> */}
-          <div className="flex mb-2">
-              <Button className="ml-0" onClick={handleDownloadPDF} size="sm">Download PDF</Button>
+          <div className="flex flex-wrap mb-2">
+              <Button className="ml-0 mb-3 w-full lg:w-auto" onClick={handleDownloadPDF} size="sm">Download PDF</Button>
               <ColumnManager columns={columns} dynamicColumns={dynamicColumns} setDynamicColumns={setDynamicColumns} />
           </div>
         </div>
@@ -63,6 +63,7 @@ const ContactLensList = () => {
                 column={dynamicColumns}
                 paginatedData={paginatedData}
                 actionColumn={actionColumns}
+                showCheck={showCheck}
               />
             </>
           }

@@ -12,7 +12,7 @@ import ColumnManager from "../../../../reusableComponent/ColumnManager";
 
 const LensList = () => {
 
-  const {actionColumns, columns, filterSummary, filteredDataa, filters, maxPrice, setMaxPrice, minPrice,setMinPrice, page, setPage, paginatedData, search, setPaginatedData, setSearch, isLoading} = useLenseList();
+  const {actionColumns, columns, filterSummary, filteredDataa, filters, maxPrice, setMaxPrice, minPrice,setMinPrice, page, setPage, paginatedData, search, setPaginatedData, setSearch, isLoading, showCheck} = useLenseList();
 
    const defaultColumn = columns?.slice(0,8)
           
@@ -33,8 +33,8 @@ const LensList = () => {
     <div className="px-4 py-2 bg-gray-50 min-h-screen">
         <div className="flex items-center justify-between">
           {/* <h2 className="text-2xl font-bold mb-4">Lens List</h2> */}
-          <div className="flex justify-end mb-2">
-              <Button onClick={handleDownloadPDF} size="sm">Download PDF</Button>
+          <div className="flex flex-wrap mb-2">
+              <Button className="mb-2 lg:mb-0 w-full lg:w-auto" onClick={handleDownloadPDF} size="sm">Download PDF</Button>
               <ColumnManager columns={columns} dynamicColumns={dynamicColumns} setDynamicColumns={setDynamicColumns} />
           </div>
         </div>
@@ -51,7 +51,7 @@ const LensList = () => {
             <Filteration filterSummary={filterSummary} search={search} setSearch={setSearch} setMaxPrice={setMaxPrice} setMinPrice={setMinPrice} maxPrice={maxPrice} minPrice={minPrice} filters={filters} showPriceRange={true}/>
 
             {/* Table */}
-            <Table column={dynamicColumns} paginatedData={paginatedData}  actionColumn={actionColumns}/>
+            <Table column={dynamicColumns} paginatedData={paginatedData}  actionColumn={actionColumns} showCheck={showCheck}/>
           </>
         }
       </div>

@@ -22,6 +22,7 @@ export interface ITableInfo<T> {
 // src/types/lens.type.ts
 
 export interface ILens {
+  _id: string;
   name: string;
   description?: string;
   price: number;
@@ -44,24 +45,31 @@ export interface ILens {
 }
 
 export type ContactLens = {
+  _id?: string;
   id?: string;
   name: string;
+  type: string;
   brand: string;
   color: string;
-  type: "daily disposable" | "monthly" | "monthly (colored)" | string; // extendable
+  replacementSchedule:
+    | "daily disposable"
+    | "monthly"
+    | "monthly (colored)"
+    | string; // extendable
   material: string;
+  uvProtection: boolean;
   waterContent: string; // e.g. "38%" (kept as string for flexibility)
   diameter: number; // mm
   baseCurve: number; // mm
   powerRange: string; // e.g. "-12.00 to +8.00"
-  uvProtection: boolean;
   purchasePrice: number;
   salesPrice: number;
   stock: number;
   offer: number; // percentage (0-100)
-  rating: number; // 1-5
   description: string;
   images: string[];
+  newImages?: string[];
+  features: string[];
 };
 
 export type ProductType =
@@ -138,4 +146,29 @@ export interface IFrame {
 
 export interface IFrameWithId extends IFrame {
   id: number;
+}
+
+export interface LensFormData {
+  _id?: string;
+  name: string;
+  images: string[];
+  newImages: string[];
+  lensType: string;
+  material: string;
+  coatings: string[];
+  prescriptionRange: string;
+  index: number;
+  thickness: string;
+  color: string;
+  diameter: number;
+  purchasePrice: string;
+  salesPrice: string;
+  stock: number;
+  brand: string;
+  offer: number;
+  rating: number;
+  warranty: string;
+  deliveryTime: string;
+  description: string;
+  featured: boolean;
 }

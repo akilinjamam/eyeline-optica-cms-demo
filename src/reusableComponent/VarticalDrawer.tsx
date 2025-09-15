@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeEdit } from "../app/redux/features/modalSlice";
 import type { RootState } from "../app/store";
 import EditFrame from "../components/dashboard/products/EditFrame/EditFrame";
+import EditLens from "../components/dashboard/products/EditLens/EditLens";
+import EditContactLens from "../components/dashboard/products/EditContactLens/EditContactLens";
 
 
 const VarticalDrawer = () => {
 
     const dispatch = useDispatch();
-    const {isEditOpen} = useSelector((state:RootState) => state.modal)
+    const {isEditOpen, editProductName} = useSelector((state:RootState) => state.modal)
 
     return (
         <>
@@ -32,7 +34,9 @@ const VarticalDrawer = () => {
                 <h2 className="text-lg font-bold mb-4">Edit Frame</h2>
 
                 {/* Reuse Add Frame form with default values */}
-                <EditFrame/>
+                {editProductName === 'frame' && <EditFrame/>}
+                {editProductName === 'lens' && <EditLens/>}
+                {editProductName === 'contact-lens' && <EditContactLens/>}
             </motion.div>
             )}
             </AnimatePresence>

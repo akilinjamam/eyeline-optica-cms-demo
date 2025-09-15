@@ -4,13 +4,17 @@ import type { ActionColumn, TableColumn } from "../../../../types/type";
 import type {  ILens } from "../../../../types/interface";
 import { Edit, Trash2 } from "lucide-react";
 import { useGetAllLensQuery } from "../../../../app/redux/api/lensApi";
+import { useDispatch, useSelector } from "react-redux";
+import { openEdit, switchCheck } from "../../../../app/redux/features/modalSlice";
+import type { RootState } from "../../../../app/store";
 
 
 const useLenseList = () => {
 
   const {data:allData, isLoading} = useGetAllLensQuery('');
-  console.log(allData?.data?.data)
+ 
 
+  const dispatch = useDispatch();
 
     const columns: TableColumn[] = [
   { key: "id", label: "SL", align: "left" },
@@ -21,7 +25,8 @@ const useLenseList = () => {
   { key: "thickness", label: "Thickness", align: "left" },
   { key: "diameter", label: "Diameter (mm)", align: "left" },
   { key: "color", label: "Color", align: "left" },
-  { key: "price", label: "Sales Price", align: "left" },
+  { key: "salesPrice", label: "Sales Price", align: "left" },
+  { key: "purchasePrice", label: "Purchase Price", align: "left" },
   { key: "stock", label: "Stock", align: "left" },
   { key: "brand", label: "Brand", align: "left" },
   { key: "offer", label: "Offer (%)", align: "left" },
@@ -75,13 +80,20 @@ const useLenseList = () => {
     return addingIdWithFiltered
   }, [lens, search, filterType, filterMaterial, minPrice, maxPrice, color, brand]);
   
+  const {showCheck} = useSelector((state:RootState) => state.modal);
 
-  const handleEdit = (id: number) => console.log("Edit", id);
-  const handleDelete = (id: number) => {
-    if (confirm("Are you sure to delete this frame?")) {
-      setLens(filteredDataa.filter((f:any) => f.id !== id));
+  const handleEdit = (id: string) => {
+      const findData = filteredDataa?.find((item:ILens) => item?._id === id)
+      console.log("Edit", id);
+      dispatch(openEdit({name: 'lens',data:findData }));
     }
-  };
+  const handleDelete = (id: number) => {
+        dispatch(switchCheck())
+        console.log('delete-id:',id);
+        // dispatch(openModal())
+        // setFrames(filteredData.filter((f:IFrame) => f.id !== id));
+      
+    };
 
    // ------------------------
   // Build filter summary text
@@ -164,7 +176,7 @@ const useLenseList = () => {
   },
 ]
 
-    return {columns, setSearch, search, actionColumns, filterSummary, paginatedData, setPaginatedData, minPrice, setMinPrice, maxPrice, setMaxPrice, filters, page, setPage, filteredDataa, isLoading}
+    return {columns, setSearch, search, actionColumns, filterSummary, paginatedData, setPaginatedData, minPrice, setMinPrice, maxPrice, setMaxPrice, filters, page, setPage, filteredDataa, isLoading, showCheck}
 
 };
 

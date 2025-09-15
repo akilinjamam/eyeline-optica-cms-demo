@@ -56,13 +56,13 @@ const removeColumn = (key: string) => {
 
 
     return (
-        <div className="flex">
-            <div className="ml-3">
+        <div className="flex flex-wrap">
+            <div className="lg:ml-3">
                 <Select disabled={dynamicColumns?.length >= 8} value={removeSelectValue}  onValueChange={(val) => {
                   addColumn(val)
                   setRemoveSelectValue("");
                 }}>
-                  <SelectTrigger className="w-[180px]">
+                  <SelectTrigger className="lg:w-[180px] lg:mb-0 mb-2 w-full ">
                     <SelectValue placeholder="Add Fields"  />
                   </SelectTrigger>
                   <SelectContent >
@@ -75,7 +75,7 @@ const removeColumn = (key: string) => {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="ml-3">
+              <div className="lg:ml-3 ml-2">
                 <Select 
                   value={removeSelectValue}
                     onValueChange={(val) => {
@@ -83,7 +83,7 @@ const removeColumn = (key: string) => {
                       setRemoveSelectValue(""); // reset so placeholder shows again
                     }}
                   >
-                  <SelectTrigger className="w-[180px]">
+                  <SelectTrigger className="lg:w-[180px] w-full">
                     <SelectValue  placeholder="Remove Fields"/>
                   </SelectTrigger>
                   <SelectContent>
@@ -96,7 +96,7 @@ const removeColumn = (key: string) => {
                 </Select>
               </div>
               <div onClick={() => dispatch(openModal())} className="ml-3 ">
-                  {ids.length > 0 && <Button className="cursor-pointer">Delete {ids.length}</Button>}
+                  {ids.length > 0 && <Button className="cursor-pointer lg:mt-0">Delete {ids.length}</Button>}
               </div>
         </div>
     );

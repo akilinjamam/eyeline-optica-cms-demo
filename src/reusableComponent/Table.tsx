@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useEffect, useState } from "react";
 import { TooltipProvider } from "@radix-ui/react-tooltip";
 import { Card, CardContent } from "../components/ui/card";
 import { ScrollArea } from "../components/ui/scroll-area";
@@ -8,12 +7,18 @@ import { Button } from "../components/ui/button";
 import { Checkbox } from "../components/ui/checkbox"; // ✅ Assuming you have shadcn/ui checkbox
 import type { ContactLens, Frame, ILens, ITableInfo } from "../types/interface";
 import type { ActionColumn, TableColumn } from "../types/type";
-import { useDispatch } from "react-redux";
-import { deletableIds } from "../app/redux/features/modalSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addAllIds, addIds,  deletableItem,  deleteIds, removeIds } from "../app/redux/features/modalSlice";
+import type { RootState } from "../app/store";
+import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 
 const Table = ({ paginatedData, column, actionColumn, showCheck }: ITableInfo<ContactLens | ILens | Frame>) => {
-  const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  const dispatch = useDispatch()
+  const location = useLocation()
+  const deletableItemName = location.pathname;
+  console.log(deletableItemName)
+  const dispatch = useDispatch();
+  const {ids} = useSelector((state:RootState) => state.modal);
   const handleRow = (row: any, col: any) => {
     if (typeof row[col.key] === "boolean") {
       return row[col.key] ? "Yes" : "No";
@@ -22,24 +27,27 @@ const Table = ({ paginatedData, column, actionColumn, showCheck }: ITableInfo<Co
   };
 
   const handleCheckboxChange = (id: string) => {
-    setSelectedIds((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-    );
+    dispatch(deletableItem(deletableItemName))
+
+    if(ids.includes(id)){
+      dispatch(removeIds(id))
+    }else{
+      dispatch(addIds(id))
+    }
     
   };
 
   const handleSelectAll = () => {
-    if (selectedIds.length === paginatedData.length) {
-      setSelectedIds([]);
+    dispatch(deletableItem(deletableItemName))
+    if (ids.length === paginatedData.length) {
+      dispatch(deleteIds());
       
     } else {
-      setSelectedIds(paginatedData.map((row: any) => row._id));
+      const value = paginatedData.map((row: any) => row._id)
+      dispatch(addAllIds(value))
     }
   };
 
-  useEffect(() => {
-    dispatch(deletableIds({data:selectedIds, name:'frame'}))
-  },[selectedIds, dispatch])
 
   return (
     <ScrollArea className="h-[calc(100vh-390px)] lg:h-[calc(100vh-200px)] text-sm">
@@ -54,7 +62,7 @@ const Table = ({ paginatedData, column, actionColumn, showCheck }: ITableInfo<Co
                     {/* ✅ Select All Checkbox */}
                     <th className="px-4 py-2 text-center">
                       {showCheck && <Checkbox
-                        checked={selectedIds.length === paginatedData.length}
+                        checked={ids.length === paginatedData.length}
                         onCheckedChange={handleSelectAll}
                       />}
                     </th>
@@ -74,11 +82,11 @@ const Table = ({ paginatedData, column, actionColumn, showCheck }: ITableInfo<Co
 
                 <tbody className="divide-y divide-gray-200">
                   {paginatedData?.map((row: Frame | any) => (
-                    <tr key={row.id} className={`${selectedIds.includes(row._id) ? 'bg-red-200' : 'hover:bg-gray-50'} `}>
+                    <tr key={row.id} className={`${ids.includes(row._id) ? 'bg-red-200' : 'hover:bg-gray-50'} `}>
                       {/* ✅ Row Checkbox */}
                       <td className="px-4 py-2 text-center">
                         {showCheck && <Checkbox
-                          checked={selectedIds.includes(row._id)}
+                          checked={ids.includes(row._id)}
                           onCheckedChange={() => handleCheckboxChange(row._id)}
                         />}
                       </td>
@@ -126,7 +134,7 @@ const Table = ({ paginatedData, column, actionColumn, showCheck }: ITableInfo<Co
                 {/* ✅ Checkbox for mobile */}
                 <div className="flex items-center gap-2">
                   {showCheck && <Checkbox
-                    checked={selectedIds.includes(row.id)}
+                    checked={ids.includes(row.id)}
                     onCheckedChange={() => handleCheckboxChange(row.id)}
                   />}
                   <span className="font-semibold">Select</span>

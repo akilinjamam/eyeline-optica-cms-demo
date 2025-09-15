@@ -2,9 +2,11 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../app/store";
-import { closeModal } from "../app/redux/features/modalSlice";
+import { closeModal, deleteIds } from "../app/redux/features/modalSlice";
 import { useDeleteFramesMutation } from "../app/redux/api/frameApi";
 import { toast } from "react-toastify";
+import { useDeleteLensMutation } from "../app/redux/api/lensApi";
+import { useDeleteContactLensMutation } from "../app/redux/api/contactLensApi";
 
 interface ModalProps {
   title?: string;
@@ -22,16 +24,44 @@ export default function Modal({
 
     const {isOpenModal, deleteProductName, ids} = useSelector((state:RootState) => state.modal);
 
-   const [deleteFrames, {isLoading, error}] = useDeleteFramesMutation();
+   const [deleteFrames, {isLoading:isLoadingFrame, error:errorFrame}] = useDeleteFramesMutation();
+   const [deleteLens, {isLoading:isLoadingLens, error:errorLense}] = useDeleteLensMutation();
+   const [deleteContactLens, {isLoading:isLoadingContactLens, error:errorContactLense}] = useDeleteContactLensMutation();
 
     const handleDelete = async() => {
-      if(deleteProductName === 'frame'){
+      if(deleteProductName === '/dashboard/frame_list'){
+        console.log('hello frame')
         const res =  await deleteFrames(ids).unwrap();
         if(res.success){
           toast.success(res.message)
           dispatch(closeModal())
+         
         }else{
-          toast.error(error as string)
+          toast.error(errorFrame as string)
+        }
+      }
+      if(deleteProductName === '/dashboard/lens_list'){
+        console.log('hello lens')
+        const res =  await deleteLens(ids).unwrap();
+        if(res.success){
+          toast.success(res.message)
+          dispatch(deleteIds())
+          dispatch(closeModal())
+          
+        }else{
+          toast.error(errorLense as string)
+        }
+      }
+      if(deleteProductName === '/dashboard/contact_lens_list'){
+        console.log('hello lens')
+        const res =  await deleteContactLens(ids).unwrap();
+        if(res.success){
+          toast.success(res.message)
+          dispatch(deleteIds())
+          dispatch(closeModal())
+          
+        }else{
+          toast.error(errorContactLense as string)
         }
       }
     }
@@ -71,7 +101,7 @@ export default function Modal({
                 onClick={handleDelete}
                 className="px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 shadow-md transition"
               >
-                {isLoading ? 'Deleting': 'Confirm'}
+                {(isLoadingFrame || isLoadingLens ||isLoadingContactLens) ? 'Deleting': 'Confirm'}
               </button>
             </div>
           </motion.div>

@@ -4,10 +4,15 @@ import type { ActionColumn, TableColumn } from "../../../../types/type";
 import type { ContactLens, Frame } from "../../../../types/interface";
 import { Edit, Trash2 } from "lucide-react";
 import { useGetAllContactLensQuery } from "../../../../app/redux/api/contactLensApi";
+import { useDispatch, useSelector } from "react-redux";
+import { openEdit, switchCheck } from "../../../../app/redux/features/modalSlice";
+import type { RootState } from "../../../../app/store";
 
 
 const useContactList = () => {
 
+  const dispatch = useDispatch();
+  const {showCheck} = useSelector((state:RootState) => state.modal)
   const {data:allData, isLoading} = useGetAllContactLensQuery('')
 
   console.log(allData?.data?.data)
@@ -77,11 +82,15 @@ const useContactList = () => {
   }, [contactLens, search, filterType, filterMaterial, minPrice, maxPrice, color, brand]);
   
 
-  const handleEdit = (id: number) => console.log("Edit", id);
+
+  const handleEdit = (id: string) => {
+     const findData = filteredData?.find((item:ContactLens) => item?._id === id)
+          console.log("Edit", id);
+          dispatch(openEdit({name: 'contact-lens',data:findData }));
+  };
   const handleDelete = (id: number) => {
-    if (confirm("Are you sure to delete this frame?")) {
-      setContactLens(filteredData.filter((f:any) => f.id !== id));
-    }
+    dispatch(switchCheck())
+    console.log('delete-id:',id);
   };
 
    // ------------------------
@@ -164,7 +173,7 @@ const useContactList = () => {
   },
 ]
 
-  return {columns, setSearch, search, actionColumns, filterSummary, paginatedData, setPaginatedData, minPrice, setMinPrice, maxPrice, setMaxPrice, filters, page, setPage, filteredData, isLoading}
+  return {columns, setSearch, search, actionColumns, filterSummary, paginatedData, setPaginatedData, minPrice, setMinPrice, maxPrice, setMaxPrice, filters, page, setPage, filteredData, isLoading, showCheck}
 };
 
 export default useContactList;

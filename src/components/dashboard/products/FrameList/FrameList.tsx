@@ -35,9 +35,9 @@ const FrameList = () => {
         <div className="px-4 py-2 bg-gray-50 min-h-screen">
           <div className="flex items-center justify-between">
             {/* <h2 className="text-2xl font-bold mb-4">Frame List</h2> */}
-            <div className="flex justify-end mb-2">
-             <div className="flex mb-2">
-                <Button className="ml-0" onClick={handleDownloadPDF} size="sm">Download PDF</Button>
+            <div className="flex  justify-end mb-2">
+             <div className="flex flex-wrap mb-2">
+                <Button className="ml-0 lg:mb-0 mb-2 w-full lg:w-auto " onClick={handleDownloadPDF} size="sm">Download PDF</Button>
                 <ColumnManager columns={columns} dynamicColumns={dynamicColumns} setDynamicColumns={setDynamicColumns} />
             </div>
             </div>

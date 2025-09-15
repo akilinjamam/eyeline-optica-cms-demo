@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { Frame, IFrame} from "../../../../types/interface";
 import { useGetAllFramesQuery } from "../../../../app/redux/api/frameApi";
 import { useDispatch, useSelector } from "react-redux";
-import { openEdit, openModal } from "../../../../app/redux/features/modalSlice";
+import { openEdit, openModal, switchCheck } from "../../../../app/redux/features/modalSlice";
 import type { RootState } from "../../../../app/store";
 
 const useFrameList = () => {
@@ -38,7 +38,7 @@ const useFrameList = () => {
   const [minPrice, setMinPrice] = useState(""); 
   const [maxPrice, setMaxPrice] = useState("");
   const [color, setColor] = useState("all");
-  const [showCheck, setShowCheck] = useState(false);
+  
 
     useEffect(() => {
         setPage(1);
@@ -89,8 +89,8 @@ const useFrameList = () => {
 
   const dispatch = useDispatch()
   
-  const {editableData} = useSelector((state:RootState) => state.modal);
-  console.log(editableData)
+  const {showCheck} = useSelector((state:RootState) => state.modal);
+  
 
   const handleEdit = (id: string) => {
     const findData = filteredData?.find((item:IFrame) => item?._id === id)
@@ -98,7 +98,7 @@ const useFrameList = () => {
     dispatch(openEdit({name: 'frame',data:findData }));
   }
   const handleDelete = (id: number) => {
-      setShowCheck(!showCheck)
+      dispatch(switchCheck())
       console.log('delete-id:',id);
       // dispatch(openModal())
       // setFrames(filteredData.filter((f:IFrame) => f.id !== id));

@@ -9,6 +9,7 @@ interface FrameUIState {
   editableData: Partial<IFrame | ILens | ContactLens>;
   ids: string[];
   deleteProductName: string;
+  showCheck: boolean;
 }
 
 const initialState: FrameUIState = {
@@ -18,6 +19,7 @@ const initialState: FrameUIState = {
   editableData: {},
   ids: [],
   deleteProductName: "",
+  showCheck: false,
 };
 
 const frameUISlice = createSlice({
@@ -47,17 +49,42 @@ const frameUISlice = createSlice({
     closeEdit(state) {
       state.isEditOpen = false;
     },
-    deletableIds(
-      state,
-      action: PayloadAction<{ data: string[]; name: string }>
-    ) {
-      const { data, name } = action.payload;
-      state.ids = data;
-      state.deleteProductName = name;
+
+    switchCheck(state) {
+      if (state.showCheck) {
+        state.showCheck = false;
+      } else {
+        state.showCheck = true;
+      }
+    },
+    deleteIds(state) {
+      state.ids = [];
+    },
+    addIds(state, action: PayloadAction<string>) {
+      state.ids.push(action.payload);
+    },
+    addAllIds(state, action: PayloadAction<string[]>) {
+      state.ids.push(...action.payload);
+    },
+    removeIds(state, action: PayloadAction<string>) {
+      state.ids = state.ids.filter((item) => item !== action.payload);
+    },
+    deletableItem(state, action: PayloadAction<string>) {
+      state.deleteProductName = action.payload;
     },
   },
 });
 
-export const { openEdit, closeEdit, openModal, closeModal, deletableIds } =
-  frameUISlice.actions;
+export const {
+  openEdit,
+  closeEdit,
+  openModal,
+  closeModal,
+  switchCheck,
+  deleteIds,
+  addIds,
+  addAllIds,
+  removeIds,
+  deletableItem,
+} = frameUISlice.actions;
 export default frameUISlice.reducer;

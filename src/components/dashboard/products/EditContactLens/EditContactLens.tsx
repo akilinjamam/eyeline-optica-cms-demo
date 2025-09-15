@@ -6,15 +6,16 @@ import {
 import { Textarea } from "../../../ui/textarea";
 import { Button } from "../../../ui/button";
 import { Label } from "../../../ui/label";
-import { ImagePlus, X, Plus } from "lucide-react";
+import { ImagePlus, X, Edit } from "lucide-react";
 import { Controller } from "react-hook-form";
-import useAddContactLens from "./useAddContactLens";
+
 import { Switch } from "../../../ui/switch";
+import useEditContactLens from "./useEditContactLens";
 
 const availableFeatures = ["UV Protection", "Blue Light Filter", "Toric (Astigmatism)", "Multifocal"];
 
-const AddContactLens = () => {
-    const { register, handleSubmit, control, watch,previewImages, handleImageUpload, toggleFeature, removeImage, onSubmit, isLoading} = useAddContactLens()
+const EditContactLens = () => {
+    const { register, handleSubmit, control, previewImages, handleImageUpload, removeImage, toggleFeature, onSubmit, watch, isLoading} = useEditContactLens()
    return (
     <div className="p-4 bg-gray-50 h-screen overflow-y-scroll hide-scrollbar">
       <motion.div
@@ -23,7 +24,7 @@ const AddContactLens = () => {
         transition={{ duration: 0.4 }}
         className="w-full mx-auto bg-white rounded-3xl shadow-xl p-6 flex flex-col h-[90%]"
       >
-        <h2 className="text-2xl font-bold mb-4">Add New Contact Lens</h2>
+        <h2 className="text-2xl font-bold mb-4">Edit Contact Lens</h2>
 
         {/* Form */}
         <form
@@ -143,7 +144,7 @@ const AddContactLens = () => {
             <Label>Features</Label>
             <div className="flex flex-wrap gap-2">
               {availableFeatures.map((feature) => {
-                const active = watch("features").includes(feature)
+                const active = watch("features")?.includes(feature)
                 return (
                   <button
                     key={feature}
@@ -223,7 +224,7 @@ const AddContactLens = () => {
           {/* SUBMIT */}
           <div className="mt-6">
             <Button disabled={isLoading ? true : false} type="submit" className="w-full md:w-auto bg-blue-600">
-              {!isLoading && <Plus />} {isLoading ? 'Adding' : 'Add Contact Lens'}
+              {!isLoading && <Edit />} {isLoading ? 'Editing' : 'Edit Contact Lens'}
             </Button>
           </div>
         </form>
@@ -232,4 +233,4 @@ const AddContactLens = () => {
   );
 };
 
-export default AddContactLens;
+export default EditContactLens;
