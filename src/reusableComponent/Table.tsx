@@ -111,7 +111,7 @@ const Table = ({ paginatedData, column, actionColumn, showCheck }: ITableInfo<Co
                                   {action.logo}
                                 </Button>
                               </TooltipTrigger>
-                              <TooltipContent>Edit</TooltipContent>
+                              <TooltipContent>{action.type}</TooltipContent>
                             </Tooltip>
                           ))}
                         </TooltipProvider>
@@ -152,7 +152,7 @@ const Table = ({ paginatedData, column, actionColumn, showCheck }: ITableInfo<Co
                       key={i}
                       variant="ghost"
                       size="sm"
-                      onClick={() => action.render(row.id)}
+                      onClick={() => action.render(row._id)}
                     >
                       {action.logo}
                     </Button>

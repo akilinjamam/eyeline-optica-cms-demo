@@ -1,10 +1,10 @@
-import { Edit, Trash2 } from "lucide-react";
+import { Edit, Image, Trash2 } from "lucide-react";
 import type { ActionColumn, TableColumn } from "../../../../types/type";
 import { useEffect, useMemo, useState } from "react";
 import type { Frame, IFrame} from "../../../../types/interface";
 import { useGetAllFramesQuery } from "../../../../app/redux/api/frameApi";
 import { useDispatch, useSelector } from "react-redux";
-import { openEdit, openModal, switchCheck } from "../../../../app/redux/features/modalSlice";
+import { openEdit, setImages, switchCheck } from "../../../../app/redux/features/modalSlice";
 import type { RootState } from "../../../../app/store";
 
 const useFrameList = () => {
@@ -14,7 +14,6 @@ const useFrameList = () => {
 
     const allFrameData = allData?.data?.data as IFrame[] | undefined;
 
-  console.log(openModal)
   const columns: TableColumn[] = [
   { key: "id", label: "SL", align: "left" },
   { key: "name", label: "Name", align: "left" },
@@ -100,10 +99,15 @@ const useFrameList = () => {
   const handleDelete = (id: number) => {
       dispatch(switchCheck())
       console.log('delete-id:',id);
-      // dispatch(openModal())
-      // setFrames(filteredData.filter((f:IFrame) => f.id !== id));
+     
     
   };
+
+  const handleImages = (id:string) => {
+    const findData = filteredData?.find((item:IFrame) => item?._id === id)?.images?.map((image:string) => image);
+    dispatch(setImages(findData as string[]))
+    console.log(findData)
+  }
 
    // ------------------------
   // Build filter summary text
@@ -168,6 +172,11 @@ const useFrameList = () => {
     logo: <Edit className="w-4 h-4 text-green-800"/>,
     type: "edit",
     render: handleEdit
+  },
+  {
+    logo: <Image className="w-4 h-4 text-blue-800"/>,
+    type: "images",
+    render: handleImages
   },
   {
     logo: <Trash2 className="w-4 h-4 text-red-800"/>,

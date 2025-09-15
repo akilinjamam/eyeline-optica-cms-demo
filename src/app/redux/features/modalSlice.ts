@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { ContactLens, IFrame, ILens } from "../../../types/interface";
+import { toast } from "react-toastify";
 
 interface FrameUIState {
   editProductName: string;
@@ -10,6 +11,8 @@ interface FrameUIState {
   ids: string[];
   deleteProductName: string;
   showCheck: boolean;
+  imgHolder: string[];
+  openImgModal: boolean;
 }
 
 const initialState: FrameUIState = {
@@ -20,6 +23,8 @@ const initialState: FrameUIState = {
   ids: [],
   deleteProductName: "",
   showCheck: false,
+  imgHolder: [],
+  openImgModal: false,
 };
 
 const frameUISlice = createSlice({
@@ -72,6 +77,17 @@ const frameUISlice = createSlice({
     deletableItem(state, action: PayloadAction<string>) {
       state.deleteProductName = action.payload;
     },
+    setImages(state, action: PayloadAction<string[]>) {
+      if (action.payload.length === 0) {
+        toast.error("No images added here");
+        return;
+      }
+      state.imgHolder = action.payload;
+      state.openImgModal = true;
+    },
+    closeImgModal(state) {
+      state.openImgModal = false;
+    },
   },
 });
 
@@ -86,5 +102,7 @@ export const {
   addAllIds,
   removeIds,
   deletableItem,
+  setImages,
+  closeImgModal,
 } = frameUISlice.actions;
 export default frameUISlice.reducer;

@@ -2,10 +2,10 @@
 import { useEffect, useMemo, useState } from "react";
 import type { ActionColumn, TableColumn } from "../../../../types/type";
 import type { ContactLens, Frame } from "../../../../types/interface";
-import { Edit, Trash2 } from "lucide-react";
+import { Edit, Image, Trash2 } from "lucide-react";
 import { useGetAllContactLensQuery } from "../../../../app/redux/api/contactLensApi";
 import { useDispatch, useSelector } from "react-redux";
-import { openEdit, switchCheck } from "../../../../app/redux/features/modalSlice";
+import { openEdit, setImages, switchCheck } from "../../../../app/redux/features/modalSlice";
 import type { RootState } from "../../../../app/store";
 
 
@@ -93,6 +93,12 @@ const useContactList = () => {
     console.log('delete-id:',id);
   };
 
+  const handleImages = (id:string) => {
+        const findData = filteredData?.find((item:ContactLens) => item?._id === id)?.images?.map((image:string) => image);
+        dispatch(setImages(findData as string[]))
+        console.log(findData)
+      }
+
    // ------------------------
   // Build filter summary text
   // ------------------------
@@ -165,6 +171,11 @@ const useContactList = () => {
     logo: <Edit className="w-4 h-4 text-green-800"/>,
     type: "edit",
     render: handleEdit
+  },
+  {
+    logo: <Image className="w-4 h-4 text-blue-800"/>,
+    type: "images",
+    render: handleImages
   },
   {
     logo: <Trash2 className="w-4 h-4 text-red-800"/>,

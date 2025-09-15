@@ -6,6 +6,7 @@ import TopBar from "./TopBar";
 import { ToastContainer} from 'react-toastify';
 import VarticalDrawer from "../../reusableComponent/VarticalDrawer";
 import Modal from "../../reusableComponent/Modal";
+import ImgModal from "../../reusableComponent/ImgModal";
 
 const Layout = () => {
   const location = useLocation();
@@ -56,6 +57,7 @@ const Layout = () => {
             <Outlet />
             <VarticalDrawer/>
             <Modal/>
+            <ImgModal/>
           </motion.div>
         </AnimatePresence>
       </motion.div>
