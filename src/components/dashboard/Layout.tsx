@@ -50,10 +50,10 @@ const Layout = () => {
 
   useEffect(() => {
     if(!token){
-      navigate('/')
+      // navigate('/')
     }
     if(token && !verifyToken(token)){
-      navigate('/')
+      // navigate('/')
       dispatch(clearToken())
     }
     
