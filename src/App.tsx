@@ -5,8 +5,15 @@ import { products } from "./routes/products/products.route"
 import Landing from "./components/dashboard/Landing"
 import { customers } from "./routes/Customers/customers.route"
 import { orders } from "./routes/orders/orders.route"
+import { control_user_access } from "./routes/controll-user-access/controllUserAccess.route"
+// import LoadingGlass from "./reusableComponent/LoadingGlass"
 
 function App() {
+  // const token = localStorage.getItem("token");
+  // if(!token){
+  //   return <LoadingGlass/>
+  // }
+
   const router = createBrowserRouter([
     {
       path: '/',
@@ -19,7 +26,8 @@ function App() {
         {index: true, element: <Landing/>},
         ...products,
         ...customers,
-        ...orders
+        ...orders,
+        ...control_user_access
       ]
     },
 

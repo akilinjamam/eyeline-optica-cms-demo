@@ -20,7 +20,7 @@ export type ApiDataType<T> = {
   message: string;
   data: {
     data: T;
-    meta: {
+    meta?: {
       limit: number;
       page: number;
       total: number;
@@ -79,4 +79,13 @@ export type FrameFormData = {
   frameMeasurements?: string;
   frameDetails?: string;
   prescriptionDetails?: string;
+};
+
+export type TRegistration = {
+  _id: string;
+  id?: number;
+  name: string;
+  email: string;
+  access: boolean;
+  role: string;
 };

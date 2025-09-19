@@ -1,4 +1,5 @@
-import { Outlet, useLocation } from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import Sidebar from "./Dashboard";
@@ -7,12 +8,26 @@ import { ToastContainer} from 'react-toastify';
 import VarticalDrawer from "../../reusableComponent/VarticalDrawer";
 import Modal from "../../reusableComponent/Modal";
 import ImgModal from "../../reusableComponent/ImgModal";
+import LoadingGlass from "../../reusableComponent/LoadingGlass";
+import { verifyToken } from "../../utils/decodeToken";
+import { useDispatch } from "react-redux";
+import { clearToken } from "../../app/redux/features/authSlice";
+import useFindUser from "../../reusableComponent/useFindUser";
+import { allControllablePaths } from "../controllablePath";
 
 const Layout = () => {
+
+  const {token, isLoading, role, currentLocation, access} = useFindUser()
+
+  const dispatch = useDispatch();
+  
+
+  const navigate = useNavigate();
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(true);
   const [isDesktop, setIsDesktop] = useState(false);
 
+ 
   useEffect(() => {
     const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
     handleResize();
@@ -20,13 +35,44 @@ const Layout = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+ 
+   useEffect(() => {
+    const controllAccess = allControllablePaths?.find(
+      (user: any) => user?.path === location.pathname
+    );
+
+    if (controllAccess?.role && controllAccess.role !== role && role !== "admin") {
+      navigate(currentLocation || "/");
+    }
+  }, [role, location.pathname, navigate, currentLocation]);
+
+  
+
+  useEffect(() => {
+    if(!token){
+      navigate('/')
+    }
+    if(token && !verifyToken(token)){
+      navigate('/')
+      dispatch(clearToken())
+    }
+    
+    if(access === false){
+      navigate('/')
+      dispatch(clearToken())
+    }
+
+  }, [token, navigate, dispatch, access])
+
   const pageVariants = {
     initial: { opacity: 0, x: "100%" },
     animate: { opacity: 2, x: 0 },
     exit: { opacity: 0, x: "-100%" },
   };
 
-
+  if(isLoading){
+    return <LoadingGlass/>
+  }
 
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 overflow-hidden">

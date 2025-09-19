@@ -1,7 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Menu, LayoutDashboard, ShoppingCart, Users,  LogOut, ShoppingBag } from "lucide-react";
+import { Menu, LayoutDashboard, ShoppingCart, Users,  LogOut, ShoppingBag, User } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { clearToken } from "../../app/redux/features/authSlice";
+import { decodeToken } from "../../utils/decodeToken";
+import { useGetAllUsersQuery } from "../../app/redux/api/authApi";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -9,10 +14,20 @@ interface SidebarProps {
   isDesktop: boolean;
 }
 
+type TRoll = "doctor" | "employee" | "admin"
+
 const Sidebar = ({ isOpen, setIsOpen, isDesktop }: SidebarProps) => {
   const [showText, setShowText] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const dispatch = useDispatch();
   const location = useLocation();
+
+    const token = localStorage.getItem("token");
+  const decoded = decodeToken(token as string);
+  
+  const {data:allUsers} = useGetAllUsersQuery('')
+  const findusers = allUsers?.data?.find((user:any) => user?.email === decoded?.email );
+  
 
   useEffect(() => {
     if (isOpen) {
@@ -23,14 +38,43 @@ const Sidebar = ({ isOpen, setIsOpen, isDesktop }: SidebarProps) => {
     }
   }, [isOpen]);
 
+  const roll = findusers?.role as TRoll
   const links = [
-    { name: "Dashboard", path: ["/dashboard"], icon: LayoutDashboard },
-    { name: "Products", path: ["/dashboard/product", "/dashboard/add_frame", "/dashboard/frame_list", "/dashboard/add_lens", "/dashboard/lens_list", "/dashboard/add_contact_lens", "/dashboard/contact_lens_list" ], icon: ShoppingCart },
-    { name: "Customers", path: ["/dashboard/customer"], icon: Users },
-    { name: "Orders", path: ["/dashboard/orders"], icon: ShoppingBag },
-    // { name: "Settings", path: ["/settings"], icon: Settings },
-    { name: "Logout", path: ["/"], icon: LogOut },
+    { name: "Dashboard",    
+      path: ["/dashboard"], 
+      icon: LayoutDashboard, 
+      show: roll === 'doctor' || roll === 'admin'
+    },
+    { 
+      name: "Products", 
+      path: ["/dashboard/product", "/dashboard/add_frame", "/dashboard/frame_list", "/dashboard/add_lens", "/dashboard/lens_list", "/dashboard/add_contact_lens", "/dashboard/contact_lens_list" ], 
+      icon: ShoppingCart,
+      show: roll === 'employee'|| roll === 'admin'
+    },
+    { name: "Customers", 
+      path: ["/dashboard/customer"], 
+      icon: Users ,
+      show: roll === 'employee'|| roll === 'admin'
+    },
+    { name: "Orders", 
+      path: ["/dashboard/orders"], 
+      icon: ShoppingBag ,
+      show: roll === 'employee'|| roll === 'admin'
+    },
+    { name: "User Access Control", 
+      path: ["/dashboard/control_user_access"], 
+      icon: User ,
+      show: roll === 'admin'
+    },
+    { name: "Logout", 
+      path: ["/"], 
+      icon: LogOut ,
+      show: roll === 'employee'|| roll === 'admin' || roll === 'doctor'
+    },
+    
   ];
+
+
 
   return (
     <>
@@ -74,15 +118,20 @@ const Sidebar = ({ isOpen, setIsOpen, isDesktop }: SidebarProps) => {
 
         {/* Navigation */}
         <nav className="flex flex-col p-4 gap-3 relative">
-          {links.map(({ name, path, icon: Icon }) => {
+          {links.map(({ name, path, icon: Icon, show }) => {
             const isActive = path.includes(location.pathname);
             return (
               <Link
                 key={name}
                 to={path[0]}
-                className={`relative flex items-center gap-3 p-3 rounded-xl group transition-colors duration-200 
+                className={`relative flex items-center gap-3 p-3 rounded-xl group transition-colors duration-200 ${show ? 'flex' : 'hidden'}
                   ${isActive ? "text-blue-600 font-medium" : "text-gray-700 hover:bg-white/50"}`}
-                onClick={() => setMobileOpen(false)}
+                onClick={() => {
+                    setMobileOpen(false)
+                    if(path[0] === "/" ){
+                      dispatch(clearToken())
+                    }
+                }}
               >
                 {isActive && (
                   <motion.div

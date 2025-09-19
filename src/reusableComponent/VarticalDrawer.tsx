@@ -5,6 +5,7 @@ import type { RootState } from "../app/store";
 import EditFrame from "../components/dashboard/products/EditFrame/EditFrame";
 import EditLens from "../components/dashboard/products/EditLens/EditLens";
 import EditContactLens from "../components/dashboard/products/EditContactLens/EditContactLens";
+import EditUserAccessControll from "../components/dashboard/user-access-control/EditUserAccessControllList";
 
 
 const VarticalDrawer = () => {
@@ -37,6 +38,7 @@ const VarticalDrawer = () => {
                 {editProductName === 'frame' && <EditFrame/>}
                 {editProductName === 'lens' && <EditLens/>}
                 {editProductName === 'contact-lens' && <EditContactLens/>}
+                {editProductName === 'controll-user-access' && <EditUserAccessControll/>}
             </motion.div>
             )}
             </AnimatePresence>

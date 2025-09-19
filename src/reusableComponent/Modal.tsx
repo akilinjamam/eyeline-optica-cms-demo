@@ -7,6 +7,7 @@ import { useDeleteFramesMutation } from "../app/redux/api/frameApi";
 import { toast } from "react-toastify";
 import { useDeleteLensMutation } from "../app/redux/api/lensApi";
 import { useDeleteContactLensMutation } from "../app/redux/api/contactLensApi";
+import { useDeleteUsersMutation } from "../app/redux/api/authApi";
 
 interface ModalProps {
   title?: string;
@@ -27,6 +28,7 @@ export default function Modal({
    const [deleteFrames, {isLoading:isLoadingFrame, error:errorFrame}] = useDeleteFramesMutation();
    const [deleteLens, {isLoading:isLoadingLens, error:errorLense}] = useDeleteLensMutation();
    const [deleteContactLens, {isLoading:isLoadingContactLens, error:errorContactLense}] = useDeleteContactLensMutation();
+   const [deleteUser, {isLoading:isLoadingUser, error:errorUsers}] = useDeleteUsersMutation();
 
     const handleDelete = async() => {
       if(deleteProductName === '/dashboard/frame_list'){
@@ -62,6 +64,18 @@ export default function Modal({
           
         }else{
           toast.error(errorContactLense as string)
+        }
+      }
+      if(deleteProductName === '/dashboard/control_user_access'){
+        console.log('hello users')
+        const res =  await deleteUser(ids).unwrap();
+        if(res.success){
+          toast.success(res.message)
+          dispatch(deleteIds())
+          dispatch(closeModal())
+          
+        }else{
+          toast.error(errorUsers as string)
         }
       }
     }
@@ -101,7 +115,7 @@ export default function Modal({
                 onClick={handleDelete}
                 className="px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 shadow-md transition"
               >
-                {(isLoadingFrame || isLoadingLens ||isLoadingContactLens) ? 'Deleting': 'Confirm'}
+                {(isLoadingFrame || isLoadingLens ||isLoadingContactLens || isLoadingUser) ? 'Deleting': 'Confirm'}
               </button>
             </div>
           </motion.div>

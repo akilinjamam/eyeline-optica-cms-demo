@@ -67,8 +67,8 @@ const useAddLens = () => {
     else setValue("coatings", [...current, coating]);
   };
 
-  const [createLens, {isLoading, error}] = useCreateLensMutation()
-  console.log(error)
+  const [createLens, {isLoading}] = useCreateLensMutation()
+
   
   const onSubmit = async (data: LensFormData) => {
         console.log("Lens Data:", data);

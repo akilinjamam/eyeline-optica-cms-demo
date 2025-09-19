@@ -79,8 +79,6 @@ const useFrameList = () => {
       return matchSearch && matchType && matchMaterial && matchShape && matchPrice && matchColor;
     });
 
-
-
     const addingIdWithFiltered:IFrame[] = filteredData.map((filtered:IFrame, index:number) => ({id:index+1, ...filtered}))
 
     return addingIdWithFiltered
