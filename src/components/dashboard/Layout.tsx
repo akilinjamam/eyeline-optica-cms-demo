@@ -17,7 +17,7 @@ import { allControllablePaths } from "../controllablePath";
 
 const Layout = () => {
 
-  const {token, isLoading, role, currentLocation, access} = useFindUser()
+  const {token, isLoading, role, currentLocation} = useFindUser()
 
   const dispatch = useDispatch();
   
@@ -57,12 +57,7 @@ const Layout = () => {
       dispatch(clearToken())
     }
     
-    if(access === false){
-      navigate('/')
-      dispatch(clearToken())
-    }
-
-  }, [token, navigate, dispatch, access])
+  }, [token, navigate, dispatch])
 
   const pageVariants = {
     initial: { opacity: 0, x: "100%" },
