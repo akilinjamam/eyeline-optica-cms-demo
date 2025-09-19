@@ -16,6 +16,7 @@ import { useCreateLoginMutation, useCreateRegistrationMutation } from "../../app
 import { useDispatch } from "react-redux";
 import { setToken } from "../../app/redux/features/authSlice";
 import { toast, ToastContainer } from "react-toastify";
+import { verifyToken } from "../../utils/decodeToken";
 
 type FormValues = {
   name?: string;
@@ -47,7 +48,7 @@ const AuthPage = () => {
     const {confirmPassword, ...remaining} = data;
     
    if(isLogin){
-    const {name, ...rest} = remaining;
+    const {name, role, ...rest} = remaining;
     try {
         const res =  await createLogin(rest as any).unwrap();
         console.log(res.data.token)
@@ -80,11 +81,10 @@ const AuthPage = () => {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    if(token){
+    if(token && verifyToken(token)){
       navigate('/dashboard')
     }else{
       setIsLogin(true)
-      // navigate('/')
     }
   },[navigate, token]);
 
@@ -188,31 +188,35 @@ const AuthPage = () => {
                 )}
               </div>
 
-              <div>
-                <label className="block text-gray-700 mb-1">Role</label>
-                <Controller
-                  name="role"
-                  control={control}
-                  rules={{ required: "Role is required" }}
-                  render={({ field }) => (
-                    <Select onValueChange={field.onChange} value={field.value}>
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select Role" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="employee">Employee</SelectItem>
-                        <SelectItem value="doctor">Doctor</SelectItem>
-                        {isLogin && <SelectItem value="admin">Admin</SelectItem> }
-                      </SelectContent>
-                    </Select>
-                  )}
+              {
+                !isLogin
+                &&
+                <div>
+                  <label className="block text-gray-700 mb-1">Role</label>
+                  <Controller
+                    name="role"
+                    control={control}
+                    rules={{ required: "Role is required" }}
+                    render={({ field }) => (
+                      <Select onValueChange={field.onChange} value={field.value}>
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select Role" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="employee">Employee</SelectItem>
+                          <SelectItem value="doctor">Doctor</SelectItem>
+                          {isLogin && <SelectItem value="admin">Admin</SelectItem> }
+                        </SelectContent>
+                      </Select>
+                    )}
                 />
                 {errors.role && (
                   <p className="text-red-500 text-sm mt-1">
                     {errors.role.message}
                   </p>
                 )}
-              </div>
+                </div>
+              }
 
               <div>
                 <label className="block text-gray-700 mb-1">Password</label>

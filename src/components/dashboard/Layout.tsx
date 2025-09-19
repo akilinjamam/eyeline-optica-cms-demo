@@ -50,14 +50,14 @@ const Layout = () => {
 
   useEffect(() => {
     if(!token){
-      // navigate('/')
+      navigate('/')
     }
-    if(token && !verifyToken(token)){
-      // navigate('/')
-      // dispatch(clearToken())
+    if(token && !verifyToken(token) && !role){
+      navigate('/')
     }
+
     
-  }, [token, navigate, dispatch])
+  }, [token, navigate, dispatch, role ])
 
   const pageVariants = {
     initial: { opacity: 0, x: "100%" },
