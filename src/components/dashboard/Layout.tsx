@@ -11,7 +11,7 @@ import ImgModal from "../../reusableComponent/ImgModal";
 import LoadingGlass from "../../reusableComponent/LoadingGlass";
 import { verifyToken } from "../../utils/decodeToken";
 import { useDispatch } from "react-redux";
-import { clearToken } from "../../app/redux/features/authSlice";
+// import { clearToken } from "../../app/redux/features/authSlice";
 import useFindUser from "../../reusableComponent/useFindUser";
 import { allControllablePaths } from "../controllablePath";
 
@@ -54,7 +54,7 @@ const Layout = () => {
     }
     if(token && !verifyToken(token)){
       // navigate('/')
-      dispatch(clearToken())
+      // dispatch(clearToken())
     }
     
   }, [token, navigate, dispatch])
