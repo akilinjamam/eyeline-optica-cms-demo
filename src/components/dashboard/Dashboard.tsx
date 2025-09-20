@@ -43,7 +43,7 @@ const Sidebar = ({ isOpen, setIsOpen, isDesktop }: SidebarProps) => {
     { name: "Dashboard",    
       path: ["/dashboard"], 
       icon: LayoutDashboard, 
-      show: roll === 'doctor' || roll === 'admin'
+      show: roll === 'doctor' || roll === 'admin' || roll === 'employee'
     },
     { 
       name: "Products", 

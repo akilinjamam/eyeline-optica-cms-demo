@@ -44,7 +44,7 @@ const Layout = () => {
     if (controllAccess?.role && controllAccess.role !== role && role !== "admin") {
       navigate("/dashboard");
     }
-  }, [role, location.pathname, navigate]);
+  }, [role, location, navigate]);
 
   
 
@@ -55,6 +55,7 @@ const Layout = () => {
     if(token && !verifyToken(token) && !role){
       navigate('/')
     }
+    
   }, [token, navigate, dispatch, role ])
 
   const pageVariants = {
