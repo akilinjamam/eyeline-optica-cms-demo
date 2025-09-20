@@ -12,7 +12,7 @@ export const baseApi = createApi({
       if (token) {
         headers.set("authorization", token);
       }
-      headers.set("Content-Type", "application/json");
+      // headers.set("Content-Type", "application/json");
 
       return headers;
     },

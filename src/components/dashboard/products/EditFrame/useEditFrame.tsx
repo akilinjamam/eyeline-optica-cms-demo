@@ -91,6 +91,7 @@ const { register, handleSubmit, control, setValue, watch} = useForm<FrameFormDat
         setPreviewImages([]); 
       }
     } catch (err: any) {
+      console.log(err)
       if (err?.data?.message) {
         alert(err.data.message);
       }

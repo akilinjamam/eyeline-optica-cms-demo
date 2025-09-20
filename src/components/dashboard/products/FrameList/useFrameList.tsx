@@ -10,7 +10,7 @@ import type { RootState } from "../../../../app/store";
 const useFrameList = () => {
 
     const {data:allData, isLoading} = useGetAllFramesQuery('')
-    console.log(allData?.data?.data);
+  
 
     const allFrameData = allData?.data?.data as IFrame[] | undefined;
 
@@ -57,7 +57,7 @@ const useFrameList = () => {
     const materialCategory = [...new Set(allFrameData?.map((p: IFrame) => p?.materialsCategory))].map(type => ({ value: type, label: type }));
     const colorCategory = [...new Set(allFrameData?.map((p: IFrame) => p?.color))]
   .map(type => ({ value: type, label: type }));
-  console.log(typeCategory)
+
 
     const filteredData = useMemo(() => {
 
@@ -91,12 +91,12 @@ const useFrameList = () => {
 
   const handleEdit = (id: string) => {
     const findData = filteredData?.find((item:IFrame) => item?._id === id)
-    console.log("Edit", id);
+  
     dispatch(openEdit({name: 'frame',data:findData }));
   }
-  const handleDelete = (id: number) => {
+  const handleDelete = () => {
       dispatch(switchCheck())
-      console.log('delete-id:',id);
+    
      
     
   };
@@ -104,7 +104,7 @@ const useFrameList = () => {
   const handleImages = (id:string) => {
     const findData = filteredData?.find((item:IFrame) => item?._id === id)?.images?.map((image:string) => image);
     dispatch(setImages(findData as string[]))
-    console.log(findData)
+  
   }
 
    // ------------------------

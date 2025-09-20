@@ -55,8 +55,6 @@ const Layout = () => {
     if(token && !verifyToken(token) && !role){
       navigate('/')
     }
-
-    
   }, [token, navigate, dispatch, role ])
 
   const pageVariants = {
