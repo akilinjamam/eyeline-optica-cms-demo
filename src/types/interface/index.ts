@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ActionColumn, TableColumn } from "../type";
 
 export interface Frame {
@@ -171,4 +172,17 @@ export interface LensFormData {
   deliveryTime: string;
   description: string;
   featured: boolean;
+}
+
+// Doctor type
+export interface IDoctor {
+  name: string;
+  specialities: any;
+  studies: any;
+  totalExperience: number;
+  bmdcNumber: string;
+  currentlyWorking?: string;
+  description?: string;
+  experienceDetail?: string;
+  images?: any;
 }

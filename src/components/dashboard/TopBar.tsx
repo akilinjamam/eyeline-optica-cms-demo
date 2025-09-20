@@ -15,6 +15,7 @@ const routeTitles: Record<string, string> = {
   "/dashboard/customer": "Customer",
   "/dashboard/orders": "orders",
   "/dashboard/control_user_access": "User Access Control",
+  "/dashboard/add_doctor": "Add Doctor",
   "/settings": "Settings",
   "/sales": "Sales",
   "/products": "Products",

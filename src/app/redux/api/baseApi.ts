@@ -18,5 +18,5 @@ export const baseApi = createApi({
     },
   }),
   endpoints: () => ({}),
-  tagTypes: ["Frames", "Lens", "Contact-Lens", "Auth"],
+  tagTypes: ["Frames", "Lens", "Contact-Lens", "Auth", "Doctor"],
 });

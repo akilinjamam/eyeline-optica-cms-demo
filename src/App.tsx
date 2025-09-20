@@ -6,6 +6,7 @@ import Landing from "./components/dashboard/Landing"
 import { customers } from "./routes/Customers/customers.route"
 import { orders } from "./routes/orders/orders.route"
 import { control_user_access } from "./routes/controll-user-access/controllUserAccess.route"
+import { doctors } from "./routes/doctor/doctor.route"
 // import LoadingGlass from "./reusableComponent/LoadingGlass"
 
 function App() {
@@ -27,7 +28,8 @@ function App() {
         ...products,
         ...customers,
         ...orders,
-        ...control_user_access
+        ...control_user_access,
+        ...doctors
       ]
     },
 

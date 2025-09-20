@@ -124,12 +124,7 @@ const Sidebar = ({ isOpen, setIsOpen, isDesktop }: SidebarProps) => {
           width: isOpen ? 260 : 80,
           x: isDesktop ? 0 : mobileOpen ? 0 : "-100%",
         }}
-        // transition={{
-        //   type: "spring",
-        //   stiffness: 100,
-        //   damping: 15,
-        // }}
-        className="fixed top-0 left-0 h-full z-40 
+        className="fixed top-0 left-0 h-full  z-40 
           bg-white/80 backdrop-blur-2xl border-r border-white/20 shadow-xl
           flex flex-col"
       >
@@ -147,7 +142,7 @@ const Sidebar = ({ isOpen, setIsOpen, isDesktop }: SidebarProps) => {
         </div>
 
         {/* Navigation */}
-        <nav className="flex flex-col p-4 gap-3 relative">
+        <nav className="flex flex-col p-4 gap-3 relative h-full hide-scrollbar overflow-y-scroll">
           {links.map(({ name, path, icon: Icon, show }) => {
             const isActive = path.includes(location.pathname);
             return (
@@ -199,7 +194,7 @@ const Sidebar = ({ isOpen, setIsOpen, isDesktop }: SidebarProps) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.4 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 bg-black z-30" // ✅ full screen, behind sidebar
+        className="fixed inset-0 bg-black z-30 h-full overflow-y-scroll hide-scrollbar" // ✅ full screen, behind sidebar
         onClick={() => setMobileOpen(false)} // ✅ hide sidebar on click outside
       />
 )}

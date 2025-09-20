@@ -8,4 +8,5 @@ export const allControllablePaths = [
   { path: "/dashboard/add_contact_lens", role: "employee" },
   { path: "/dashboard/contact_lens_list", role: "employee" },
   { path: "/dashboard/control_user_access", role: "employee" },
+  { path: "/dashboard/doctor_profile", role: "doctor" },
 ];
