@@ -17,7 +17,7 @@ import { allControllablePaths } from "../controllablePath";
 
 const Layout = () => {
 
-  const {token, isLoading, role, currentLocation} = useFindUser()
+  const {token, isLoading, role} = useFindUser()
 
   const dispatch = useDispatch();
   
@@ -42,9 +42,9 @@ const Layout = () => {
     );
 
     if (controllAccess?.role && controllAccess.role !== role && role !== "admin") {
-      navigate(currentLocation || "/");
+      navigate("/dashboard");
     }
-  }, [role, location.pathname, navigate, currentLocation]);
+  }, [role, location.pathname, navigate]);
 
   
 

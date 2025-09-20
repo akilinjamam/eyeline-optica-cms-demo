@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Menu, LayoutDashboard, ShoppingCart, Users,  LogOut, ShoppingBag, User } from "lucide-react";
+import { Menu, LayoutDashboard, ShoppingCart, Users,  LogOut, ShoppingBag, User, ShieldPlus, ListChecks, UserPlus, CalendarDays, NotebookTabs,Accessibility } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { clearToken } from "../../app/redux/features/authSlice";
@@ -55,6 +55,36 @@ const Sidebar = ({ isOpen, setIsOpen, isDesktop }: SidebarProps) => {
       path: ["/dashboard/customer"], 
       icon: Users ,
       show: roll === 'employee'|| roll === 'admin'
+    },
+    { name: "Add Doctor", 
+      path: ["/dashboard/add_doctor"], 
+      icon: ShieldPlus ,
+      show: roll === 'admin'
+    },
+    { name: "Doctor List", 
+      path: ["/dashboard/doctor_list"], 
+      icon: ListChecks ,
+      show: roll === 'admin'
+    },
+    { name: "Profile", 
+      path: ["/dashboard/doctor_profile"], 
+      icon: UserPlus ,
+      show: roll === 'doctor'
+    },
+    { name: "Schedule", 
+      path: ["/dashboard/schedule"], 
+      icon: CalendarDays ,
+      show: roll === 'doctor' || roll === 'admin'
+    },
+    { name: "Prescription", 
+      path: ["/dashboard/doctor_prescription"], 
+      icon: NotebookTabs ,
+      show: roll === 'doctor' || roll === 'admin'
+    },
+    { name: "Patients", 
+      path: ["/dashboard/doctor_patients"], 
+      icon: Accessibility ,
+      show: roll === 'doctor' || roll === 'admin'
     },
     { name: "Orders", 
       path: ["/dashboard/orders"], 
