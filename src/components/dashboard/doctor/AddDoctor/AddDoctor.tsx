@@ -7,15 +7,17 @@ import { Button } from "../../../ui/button";
 import { Textarea } from "../../../ui/textarea";
 import { Edit, ImagePlus,  X } from "lucide-react";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../../../app/store";
 import type { IDoctor } from "../../../../types/interface";
-import { useState } from "react";
-import { useCreateDoctorMutation } from "../../../../app/redux/api/doctorApi";
+import { useEffect, useState } from "react";
+import { useUpdateDoctorMutation } from "../../../../app/redux/api/doctorApi";
+import { closeEdit } from "../../../../app/redux/features/modalSlice";
 
 
 const AddDoctor = () => {
-    const [uploadedImages, setUploadedImages] = useState<File[]>([]);
+  const dispatch = useDispatch();
+  const [uploadedImages, setUploadedImages] = useState<File[]>([]);
   const { editableData: initialData } = useSelector(
     (state: RootState) => state.modal
   );
@@ -34,27 +36,47 @@ const AddDoctor = () => {
     },
   });
 
-  const [createDoctor, { isLoading }] = useCreateDoctorMutation();
+  const [editDoctor, { isLoading, error }] = useUpdateDoctorMutation();
+
+  console.log(error)
 
   const onSubmit = async (data: IDoctor) => {
       
       const {studies, specialities, totalExperience, ...remaining} = data;
 
-    const arrayStudies = studies.split(',');
-    const arraySpecilities = specialities.split(',');
+      console.log(data)
+
+      let arrayStudies = [];
+      let arraySpecilities = [];
+      if (Array.isArray(studies)) {
+        arrayStudies = studies;
+      }else {
+        arrayStudies = studies?.split(',');
+      }
+
+    
+    if(Array.isArray(specialities)){
+      arraySpecilities = specialities
+    }else{
+      arraySpecilities = specialities?.split(',')
+    }
     
     const newData = {...remaining, specialities:arraySpecilities, studies: arrayStudies, totalExperience:+totalExperience};
+
+    console.log(newData);
     
     const finalData = {
+        id: initialData?._id as string,
         data:newData,
         images:uploadedImages
     }
     console.log(finalData)
     try {
-      const response = await createDoctor(finalData).unwrap();
+      const response = await editDoctor(finalData).unwrap();
     
       if (response.success) {
         toast.success(response.message);
+        dispatch(closeEdit())
       }
     } catch (error) {
       console.log(error);
@@ -71,12 +93,23 @@ const AddDoctor = () => {
 
     // Generate previews
     const previews = files.map((file) => URL.createObjectURL(file));
-    setPreviewImages(previews);
+    setPreviewImages((prev) => [...prev, previews as any] );
   };
 
   const removeImage = (index: number) => {
     setPreviewImages((prev:any) => prev.filter((_:any, i:any) => i !== index));
   };
+
+
+  // Load initial images if editing
+    useEffect(() => {
+      if (initialData?.images && Array.isArray(initialData.images)) {
+        const previews = initialData.images.map((img) =>
+          typeof img === "string" ? img : URL.createObjectURL(img)
+        );
+        setPreviewImages(previews);
+      }
+    }, [initialData]);
 
   return (
     <div className="p-4 bg-gray-50 h-screen overflow-y-scroll hide-scrollbar">
@@ -86,7 +119,7 @@ const AddDoctor = () => {
         transition={{ duration: 0.4 }}
         className="w-full mx-auto bg-white rounded-3xl shadow-xl p-6 flex flex-col h-[90%]"
       >
-        <h2 className="text-2xl font-bold mb-4">Add New Doctor</h2>
+        <h2 className="text-2xl font-bold mb-4">Edit Profile</h2>
 
         <form
           onSubmit={handleSubmit(onSubmit)}
@@ -211,7 +244,7 @@ const AddDoctor = () => {
                 type="submit"
                 className="w-full md:w-auto bg-blue-600"
               >
-                <Edit /> {isLoading ? 'Adding': 'Add Doctor'}
+                <Edit /> {isLoading ? 'Editing': 'Update'}
               </Button>
             </div>
           </div>

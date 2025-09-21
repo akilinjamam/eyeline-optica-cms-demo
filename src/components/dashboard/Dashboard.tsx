@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Menu, LayoutDashboard, ShoppingCart, Users,  LogOut, ShoppingBag, User, ShieldPlus, ListChecks, UserPlus, CalendarDays, NotebookTabs,Accessibility } from "lucide-react";
+import { Menu, LayoutDashboard, ShoppingCart, Users,  LogOut, ShoppingBag, User, ListChecks, UserPlus, CalendarDays, NotebookTabs,Accessibility } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { clearToken } from "../../app/redux/features/authSlice";
@@ -55,11 +55,6 @@ const Sidebar = ({ isOpen, setIsOpen, isDesktop }: SidebarProps) => {
       path: ["/dashboard/customer"], 
       icon: Users ,
       show: roll === 'employee'|| roll === 'admin'
-    },
-    { name: "Add Doctor", 
-      path: ["/dashboard/add_doctor"], 
-      icon: ShieldPlus ,
-      show: roll === 'admin'
     },
     { name: "Doctor List", 
       path: ["/dashboard/doctor_list"], 

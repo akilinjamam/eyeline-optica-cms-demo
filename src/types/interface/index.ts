@@ -176,6 +176,7 @@ export interface LensFormData {
 
 // Doctor type
 export interface IDoctor {
+  _id?: string;
   name: string;
   specialities: any;
   studies: any;
@@ -184,5 +185,6 @@ export interface IDoctor {
   currentlyWorking?: string;
   description?: string;
   experienceDetail?: string;
+  newImages?: any;
   images?: any;
 }

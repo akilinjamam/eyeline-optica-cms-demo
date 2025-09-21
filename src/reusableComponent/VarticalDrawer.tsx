@@ -6,6 +6,7 @@ import EditFrame from "../components/dashboard/products/EditFrame/EditFrame";
 import EditLens from "../components/dashboard/products/EditLens/EditLens";
 import EditContactLens from "../components/dashboard/products/EditContactLens/EditContactLens";
 import EditUserAccessControll from "../components/dashboard/user-access-control/EditUserAccessControllList";
+import AddDoctor from "../components/dashboard/doctor/AddDoctor/AddDoctor";
 
 
 const VarticalDrawer = () => {
@@ -39,6 +40,7 @@ const VarticalDrawer = () => {
                 {editProductName === 'lens' && <EditLens/>}
                 {editProductName === 'contact-lens' && <EditContactLens/>}
                 {editProductName === 'controll-user-access' && <EditUserAccessControll/>}
+                {editProductName === 'doctor-profile' && <AddDoctor/>}
             </motion.div>
             )}
             </AnimatePresence>

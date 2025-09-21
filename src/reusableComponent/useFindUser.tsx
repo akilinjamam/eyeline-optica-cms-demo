@@ -15,10 +15,11 @@ const useFindUser = () => {
 
   const role = user?.role;
   const access = user?.access;
+  const email = decode?.email;
  
   const location = useLocation();
 
-  return { user, error, isLoading, token, decode, role,  access, navigate, location };
+  return { user, error, isLoading, token, decode, role,  access, navigate, location, email };
 };
 
 export default useFindUser;

@@ -1,4 +1,3 @@
-import AddDoctor from "../../components/dashboard/doctor/AddDoctor/AddDoctor";
 import DoctorProfile from "../../components/dashboard/doctor/DoctorProfile/DoctorProfile";
 
 const sampleDoctor = {
@@ -19,14 +18,13 @@ const sampleDoctor = {
   ],
 };
 
+console.log(sampleDoctor)
+
 
 export const doctors = [       
-        {
-          path: 'add_doctor',
-          element: <AddDoctor/>
-        },      
+      
         {
           path: 'doctor_profile',
-          element: <DoctorProfile doctor={sampleDoctor}/>
+          element: <DoctorProfile />
         },      
 ]

@@ -47,12 +47,12 @@ export const doctorApi = baseApi.injectEndpoints({
           formData.append("data", JSON.stringify(data));
 
           return {
-            url: `products/update-product/${id}`,
+            url: `doctors/update-doctor/${id}`,
             method: "PUT",
             body: formData,
           };
         },
-        invalidatesTags: ["Frames"],
+        invalidatesTags: ["Doctor"],
       }),
     };
   },

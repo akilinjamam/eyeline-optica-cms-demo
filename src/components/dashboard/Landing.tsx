@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import '../../layout.css';
 import { motion } from "framer-motion";
-import { ShoppingCart, Users, Settings, Box, UserPlus, CalendarDays, NotebookTabs, Accessibility } from "lucide-react";
+import { ShoppingCart, Users, Box, UserPlus, CalendarDays, NotebookTabs, Accessibility, ShieldPlus } from "lucide-react";
 import { Link } from 'react-router-dom';
 import { decodeToken } from '../../utils/decodeToken';
 import { useGetAllUsersQuery } from '../../app/redux/api/authApi';
@@ -23,8 +23,8 @@ const Landing = () => {
   { title: "Orders", icon: <ShoppingCart className="w-8 h-8" />, color: "from-yellow-400 to-orange-400", path: "/dashboard/orders", show: role === 'employee' || role === 'admin' },
 
   // New unique gradients for the rest
-  { title: "Add Doctor", icon: <Settings className="w-8 h-8" />, color: "from-red-400 to-pink-500", path: "/dashboard/add_doctor", show: role === 'admin' },
-  { title: "Doctor List", icon: <Settings className="w-8 h-8" />, color: "from-pink-400 to-purple-500", path: "/dashboard/doctor_list", show: role === 'admin' },
+ 
+  { title: "Doctor List", icon: <ShieldPlus className="w-8 h-8" />, color: "from-pink-400 to-purple-500", path: "/dashboard/doctor_list", show: role === 'admin' },
   { title: "Profile", icon: <UserPlus className="w-8 h-8" />, color: "from-blue-400 to-cyan-500", path: "/dashboard/doctor_profile", show: role === 'doctor' },
   { title: "Schedule", icon: <CalendarDays className="w-8 h-8" />, color: "from-teal-400 to-green-500", path: "/dashboard/doctor_scedule", show: role === 'doctor' || role === 'admin' },
   { title: "Prescription", icon: <NotebookTabs className="w-8 h-8" />, color: "from-orange-400 to-red-500", path: "/dashboard/doctor_prescription", show: role === 'doctor' || role === 'admin' },
