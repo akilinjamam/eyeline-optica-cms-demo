@@ -178,6 +178,7 @@ export interface LensFormData {
 export interface IDoctor {
   _id?: string;
   name: string;
+  email: string;
   specialities: any;
   studies: any;
   totalExperience: number;

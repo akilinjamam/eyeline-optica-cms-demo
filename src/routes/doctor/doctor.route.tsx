@@ -1,3 +1,4 @@
+import DoctorList from "../../components/dashboard/doctor/DoctorList/DoctorList";
 import DoctorProfile from "../../components/dashboard/doctor/DoctorProfile/DoctorProfile";
 
 const sampleDoctor = {
@@ -23,8 +24,12 @@ console.log(sampleDoctor)
 
 export const doctors = [       
       
-        {
-          path: 'doctor_profile',
-          element: <DoctorProfile />
-        },      
+  {
+    path: 'doctor_profile',
+    element: <DoctorProfile />
+  },      
+  {
+    path: 'doctor_list',
+    element: <DoctorList />
+  },      
 ]

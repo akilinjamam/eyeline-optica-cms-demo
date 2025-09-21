@@ -78,6 +78,8 @@ const EditUserAccessControll = () => {
                       <SelectItem value="admin">Admin</SelectItem>
                       <SelectItem value="employee">Employee</SelectItem>
                       <SelectItem value="doctor">Doctor</SelectItem>
+                      <SelectItem value="doctor & admin">Doctor & Admin</SelectItem>
+                      <SelectItem value="employee & admin">Employee & Admin</SelectItem>
                     </SelectContent>
                   </Select>
                 )}

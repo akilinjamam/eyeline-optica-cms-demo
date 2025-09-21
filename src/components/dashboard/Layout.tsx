@@ -41,7 +41,7 @@ const Layout = () => {
       (user: any) => user?.path === location.pathname
     );
 
-    if (controllAccess?.role && controllAccess.role !== role && role !== "admin") {
+    if (controllAccess?.role && controllAccess.role !== role && role !== "admin" && role !== "doctor & admin" && role !== 'employee & admin') {
       navigate("/dashboard");
     }
   }, [role, location.pathname, navigate]);

@@ -14,7 +14,7 @@ interface SidebarProps {
   isDesktop: boolean;
 }
 
-type TRoll = "doctor" | "employee" | "admin"
+type TRoll = "doctor" | "employee" | "admin" | "doctor & admin" | "employee & admin"
 
 const Sidebar = ({ isOpen, setIsOpen, isDesktop }: SidebarProps) => {
   const [showText, setShowText] = useState(true);
@@ -43,58 +43,58 @@ const Sidebar = ({ isOpen, setIsOpen, isDesktop }: SidebarProps) => {
     { name: "Dashboard",    
       path: ["/dashboard"], 
       icon: LayoutDashboard, 
-      show: roll === 'doctor' || roll === 'admin' || roll === 'employee'
+      show: roll === 'doctor' ||  roll === 'employee' || roll === 'admin' || roll === 'doctor & admin' || roll === 'employee & admin'
     },
     { 
       name: "Products", 
       path: ["/dashboard/product", "/dashboard/add_frame", "/dashboard/frame_list", "/dashboard/add_lens", "/dashboard/lens_list", "/dashboard/add_contact_lens", "/dashboard/contact_lens_list" ], 
       icon: ShoppingCart,
-      show: roll === 'employee'|| roll === 'admin'
+      show: roll === 'employee'|| roll === 'admin' || roll === 'doctor & admin' || roll === 'employee & admin'
     },
     { name: "Customers", 
       path: ["/dashboard/customer"], 
       icon: Users ,
-      show: roll === 'employee'|| roll === 'admin'
+      show: roll === 'employee'|| roll === 'admin' || roll === 'doctor & admin' || roll === 'employee & admin'
     },
     { name: "Doctor List", 
       path: ["/dashboard/doctor_list"], 
       icon: ListChecks ,
-      show: roll === 'admin'
+      show: roll === 'admin' || roll === 'doctor & admin' || roll === 'employee & admin'
     },
     { name: "Profile", 
       path: ["/dashboard/doctor_profile"], 
       icon: UserPlus ,
-      show: roll === 'doctor'
+      show: roll === 'doctor' || roll === 'doctor & admin'
     },
     { name: "Schedule", 
       path: ["/dashboard/schedule"], 
       icon: CalendarDays ,
-      show: roll === 'doctor' || roll === 'admin'
+      show: roll === 'doctor' || roll === 'admin' || roll === 'doctor & admin' || roll === 'employee & admin'
     },
     { name: "Prescription", 
       path: ["/dashboard/doctor_prescription"], 
       icon: NotebookTabs ,
-      show: roll === 'doctor' || roll === 'admin'
+      show: roll === 'doctor' || roll === 'admin' || roll === 'doctor & admin' || roll === 'employee & admin'
     },
     { name: "Patients", 
       path: ["/dashboard/doctor_patients"], 
       icon: Accessibility ,
-      show: roll === 'doctor' || roll === 'admin'
+      show: roll === 'doctor' || roll === 'admin' || roll === 'doctor & admin' || roll === 'employee & admin'
     },
     { name: "Orders", 
       path: ["/dashboard/orders"], 
       icon: ShoppingBag ,
-      show: roll === 'employee'|| roll === 'admin'
+      show: roll === 'employee'|| roll === 'admin' || roll === 'doctor & admin' || roll === 'employee & admin'
     },
     { name: "User Access Control", 
       path: ["/dashboard/control_user_access"], 
       icon: User ,
-      show: roll === 'admin'
+      show: roll === 'admin' || roll === 'doctor & admin' || roll === 'employee & admin'
     },
     { name: "Logout", 
       path: ["/"], 
       icon: LogOut ,
-      show: roll === 'employee'|| roll === 'admin' || roll === 'doctor'
+      show: roll === 'employee'|| roll === 'admin' || roll === 'doctor' || roll === 'doctor & admin' || roll === 'employee & admin'
     },
     
   ];

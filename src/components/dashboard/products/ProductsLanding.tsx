@@ -11,12 +11,12 @@ const ProductsLanding = () => {
   const {role} = useFindUser()
 
   const productCategories = [
-  { title: "Add Frame", icon: <Box className="w-8 h-8" />, color: "from-indigo-500 to-purple-500", path: '/dashboard/add_frame', role: role === 'employee' || role === 'admin' },
-  { title: "Frame List", icon: <Layers className="w-8 h-8" />, color: "from-blue-400 to-indigo-400", path: '/dashboard/frame_list', role: role === 'employee' || role === 'admin'  },
-  { title: "Add Lens", icon: <Circle className="w-8 h-8" />, color: "from-green-400 to-teal-400", path: '/dashboard/add_lens', role: role === 'employee' || role === 'admin'  },
-  { title: "Lens List", icon: <Circle className="w-8 h-8" />, color: "from-yellow-400 to-orange-400", path: '/dashboard/lens_list', role: role === 'employee' || role === 'admin'  },
-  { title: "Add Contact Lens", icon: <Eye className="w-8 h-8" />, color: "from-red-400 to-pink-400", path: '/dashboard/add_contact_lens', role: role === 'employee' || role === 'admin'  },
-  { title: "Contact Lens List", icon: <Eye className="w-8 h-8" />, color: "from-pink-400 to-purple-400", path: '/dashboard/contact_lens_list', role: role === 'employee' || role === 'admin'  },
+  { title: "Add Frame", icon: <Box className="w-8 h-8" />, color: "from-indigo-500 to-purple-500", path: '/dashboard/add_frame', role: role === 'employee' || role === 'admin' || role === 'doctor & admin' || role === 'employee & admin' },
+  { title: "Frame List", icon: <Layers className="w-8 h-8" />, color: "from-blue-400 to-indigo-400", path: '/dashboard/frame_list', role: role === 'employee' || role === 'admin' || role === 'doctor & admin' || role === 'employee & admin' },
+  { title: "Add Lens", icon: <Circle className="w-8 h-8" />, color: "from-green-400 to-teal-400", path: '/dashboard/add_lens', role: role === 'employee' || role === 'admin' || role === 'doctor & admin' || role === 'employee & admin' },
+  { title: "Lens List", icon: <Circle className="w-8 h-8" />, color: "from-yellow-400 to-orange-400", path: '/dashboard/lens_list', role: role === 'employee' || role === 'admin' || role === 'doctor & admin' || role === 'employee & admin' },
+  { title: "Add Contact Lens", icon: <Eye className="w-8 h-8" />, color: "from-red-400 to-pink-400", path: '/dashboard/add_contact_lens', role: role === 'employee' || role === 'admin' || role === 'doctor & admin' || role === 'employee & admin' },
+  { title: "Contact Lens List", icon: <Eye className="w-8 h-8" />, color: "from-pink-400 to-purple-400", path: '/dashboard/contact_lens_list', role: role === 'employee' || role === 'admin' || role === 'doctor & admin' || role === 'employee & admin' },
 ];
 
   return (
@@ -25,12 +25,12 @@ const ProductsLanding = () => {
         <h2 className="text-2xl font-bold mb-6 text-gray-800">Products</h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {productCategories.map((category) => (
+          {productCategories?.filter(item => item?.role === true)?.map((category) => (
             <Link to={category.path}>
                 <motion.div
                 key={category.title}
                 whileHover={{ scale: 1.05, y: -4 }}
-                className={`cursor-pointer flex flex-col items-center justify-center p-6 rounded-2xl shadow-lg bg-gradient-to-tr ${category.color} text-white transition-transform ${category?.role ? 'flex' : 'hidden'}`}
+                className={`cursor-pointer flex flex-col items-center justify-center p-6 rounded-2xl shadow-lg bg-gradient-to-tr ${category.color} text-white transition-transform `}
                 >
                 <div className="mb-4">{category.icon}</div>
                 <h3 className="text-lg font-semibold text-center">{category.title}</h3>
