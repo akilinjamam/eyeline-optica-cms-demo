@@ -26,7 +26,7 @@ const Landing = () => {
  
   { title: "Doctor List", icon: <ShieldPlus className="w-8 h-8" />, color: "from-pink-400 to-purple-500", path: "/dashboard/doctor_list", show: role === 'admin'|| role === 'doctor & admin' || role === 'employee & admin' },
   { title: "Profile", icon: <UserPlus className="w-8 h-8" />, color: "from-blue-400 to-cyan-500", path: "/dashboard/doctor_profile", show: role === 'doctor' || role === 'doctor & admin' },
-  { title: "Schedule", icon: <CalendarDays className="w-8 h-8" />, color: "from-teal-400 to-green-500", path: "/dashboard/doctor_scedule", show: role === 'doctor' || role === 'admin' || role === 'doctor & admin' || role === 'employee & admin'},
+  { title: "Schedule", icon: <CalendarDays className="w-8 h-8" />, color: "from-teal-400 to-green-500", path: "/dashboard/doctor_schedule", show: role === 'doctor' || role === 'admin' || role === 'doctor & admin' || role === 'employee & admin'},
   { title: "Prescription", icon: <NotebookTabs className="w-8 h-8" />, color: "from-orange-400 to-red-500", path: "/dashboard/doctor_prescription", show: role === 'doctor' || role === 'admin' || role === 'doctor & admin' || role === 'employee & admin' },
   { title: "Patients", icon: <Accessibility className="w-8 h-8" />, color: "from-purple-400 to-pink-500", path: "/dashboard/doctor_patiens_list", show: role === 'doctor' || role === 'admin' || role === 'doctor & admin' || role === 'employee & admin' },
 ];

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import type { Slot } from "../../../components/dashboard/doctor/Schedule/ScheduleList";
 import type { Frame, IDoctor } from "../../../types/interface";
 import type { ApiDataType } from "../../../types/type";
 import { baseApi } from "./baseApi";
@@ -8,6 +9,10 @@ export const doctorApi = baseApi.injectEndpoints({
     return {
       getAllDoctor: builder.query<ApiDataType<IDoctor>, string>({
         query: () => `doctors`,
+        providesTags: ["Doctor"],
+      }),
+      getAllSlot: builder.query<ApiDataType<Slot>, string>({
+        query: (id) => `schedule/get-slot/${id}`,
         providesTags: ["Doctor"],
       }),
       createDoctor: builder.mutation<
@@ -32,7 +37,7 @@ export const doctorApi = baseApi.injectEndpoints({
           };
         },
       }),
-      getSingleDoctor: builder.query<ApiDataType<IDoctor>, string>({
+      getSingleDoctor: builder.query<any, string>({
         query: (id) => `doctors/${id}`,
         providesTags: ["Doctor"],
       }),

@@ -67,12 +67,12 @@ const Sidebar = ({ isOpen, setIsOpen, isDesktop }: SidebarProps) => {
       show: roll === 'doctor' || roll === 'doctor & admin'
     },
     { name: "Schedule", 
-      path: ["/dashboard/schedule"], 
+      path: ["/dashboard/doctor_schedule","/dashboard/add_schedule", "/dashboard/my_schedule"], 
       icon: CalendarDays ,
       show: roll === 'doctor' || roll === 'admin' || roll === 'doctor & admin' || roll === 'employee & admin'
     },
     { name: "Prescription", 
-      path: ["/dashboard/doctor_prescription"], 
+      path: ["/dashboard/doctor_prescription", "/dashboard/add_prescription", "/dashboard/my_prescriptions"], 
       icon: NotebookTabs ,
       show: roll === 'doctor' || roll === 'admin' || roll === 'doctor & admin' || roll === 'employee & admin'
     },
