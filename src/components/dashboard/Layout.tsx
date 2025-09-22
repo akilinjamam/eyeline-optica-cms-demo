@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 // import { clearToken } from "../../app/redux/features/authSlice";
 import useFindUser from "../../reusableComponent/useFindUser";
 import { allControllablePaths } from "../controllablePath";
+import { clearToken } from "../../app/redux/features/authSlice";
 
 const Layout = () => {
 
@@ -50,9 +51,11 @@ const Layout = () => {
 
   useEffect(() => {
     if(!token){
+      dispatch(clearToken())
       navigate('/')
     }
     if(token && !verifyToken(token) && !role){
+      dispatch(clearToken())
       navigate('/')
     }
     
