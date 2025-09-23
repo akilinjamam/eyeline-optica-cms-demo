@@ -9,6 +9,10 @@ export const authApi = baseApi.injectEndpoints({
         query: () => `registration/get-all-users`,
         providesTags: ["Auth"],
       }),
+      getCheckRoleOfUser: builder.query<any, any>({
+        query: () => `registration/check-user-role`,
+        providesTags: ["Auth"],
+      }),
       createRegistration: builder.mutation<any, { data: any }>({
         query: (data) => {
           return {
@@ -62,6 +66,7 @@ export const {
   useCreateLoginMutation,
   useCreateRegistrationMutation,
   useGetAllUsersQuery,
+  useGetCheckRoleOfUserQuery,
   useUpdateUserMutation,
   useDeleteUsersMutation,
 } = authApi;

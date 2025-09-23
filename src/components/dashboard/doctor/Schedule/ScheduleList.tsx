@@ -1,7 +1,7 @@
 // SlotList.tsx
 import { useEffect, useState } from "react";
 import { SlotCard } from "./ScheduleCard";
-import { isWithinInterval } from "date-fns";
+import { endOfDay, isWithinInterval, startOfDay } from "date-fns";
 import type { DateRange } from "react-day-picker";
 import { DateRangeFilter } from "../../../../reusableComponent/DateRangeFilter";
 import { useGetAllSlotQuery } from "../../../../app/redux/api/scheduleApi";
@@ -18,18 +18,17 @@ export type Slot = {
 
 const SlotList: React.FC = () => {
 
-      const {email} = useFindUser();
-      console.log(email)
-    
-      const { data:doctor } = useGetSingleDoctorQuery(email);
+  const {email} = useFindUser();
+  console.log(email)
+  
+  const { data:doctor } = useGetSingleDoctorQuery(email);
       
-
-
   const { data: allSlot } = useGetAllSlotQuery(doctor?.data?._id as string );
   console.log(allSlot?.message);
 
   const [filtered, setFiltered] = useState<Slot[]>([]);
-  const [range, setRange] = useState<DateRange | undefined>();
+  const today = new Date();
+  const [range, setRange] = useState<DateRange | undefined>({from:startOfDay(today), to: endOfDay(today)});
   const [statusFilter, setStatusFilter] = useState<"all" | "booked" | "available">("all");
 
   useEffect(() => {

@@ -18,7 +18,7 @@ import { clearToken } from "../../app/redux/features/authSlice";
 
 const Layout = () => {
 
-  const {token, isLoading, role} = useFindUser()
+  const {token, isLoading, role, isRoleSameAsBefore} = useFindUser()
 
   const dispatch = useDispatch();
   
@@ -60,6 +60,14 @@ const Layout = () => {
     }
     
   }, [token, navigate, dispatch, role ])
+
+  useEffect(() => {
+    if(isRoleSameAsBefore === 'not-matched'){
+    window.location.reload(); 
+    dispatch(clearToken())
+  }
+  }, [dispatch, isRoleSameAsBefore])
+
 
   const pageVariants = {
     initial: { opacity: 0, x: "100%" },
