@@ -13,6 +13,7 @@ interface FrameUIState {
   showCheck: boolean;
   imgHolder: string[];
   openImgModal: boolean;
+  prescriptionData: Partial<any>;
 }
 
 const initialState: FrameUIState = {
@@ -25,6 +26,7 @@ const initialState: FrameUIState = {
   showCheck: false,
   imgHolder: [],
   openImgModal: false,
+  prescriptionData: {},
 };
 
 const frameUISlice = createSlice({
@@ -88,6 +90,9 @@ const frameUISlice = createSlice({
     closeImgModal(state) {
       state.openImgModal = false;
     },
+    addPrescriptionData(state, action: PayloadAction<object>) {
+      state.prescriptionData = action.payload;
+    },
   },
 });
 
@@ -104,5 +109,6 @@ export const {
   deletableItem,
   setImages,
   closeImgModal,
+  addPrescriptionData,
 } = frameUISlice.actions;
 export default frameUISlice.reducer;

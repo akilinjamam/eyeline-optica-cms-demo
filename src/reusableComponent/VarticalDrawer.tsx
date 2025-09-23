@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AnimatePresence, motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { closeEdit } from "../app/redux/features/modalSlice";
@@ -7,13 +8,19 @@ import EditLens from "../components/dashboard/products/EditLens/EditLens";
 import EditContactLens from "../components/dashboard/products/EditContactLens/EditContactLens";
 import EditUserAccessControll from "../components/dashboard/user-access-control/EditUserAccessControllList";
 import AddDoctor from "../components/dashboard/doctor/AddDoctor/AddDoctor";
+import { Button } from "../components/ui/button";
+import usePrescriptionPdfDownloader from "../pdfDownloader/usePrescriptionPdfDownloader";
+import { PrescriptionPreview } from "../components/dashboard/doctor/prescription/PrescriptionPreview";
+import type { Prescription } from "../components/dashboard/doctor/prescription/MyPrescription";
 
 
 const VarticalDrawer = () => {
 
+    
     const dispatch = useDispatch();
-    const {isEditOpen, editProductName} = useSelector((state:RootState) => state.modal)
-
+    const {isEditOpen, editProductName, editableData} = useSelector((state:RootState) => state.modal)
+    
+    const {generatePDF} = usePrescriptionPdfDownloader(editableData as any)
     return (
         <>
             <AnimatePresence>
@@ -33,14 +40,22 @@ const VarticalDrawer = () => {
                 ✖
                 </button>
 
-                <h2 className="text-lg font-bold mb-4">Edit Frame</h2>
-
                 {/* Reuse Add Frame form with default values */}
                 {editProductName === 'frame' && <EditFrame/>}
                 {editProductName === 'lens' && <EditLens/>}
                 {editProductName === 'contact-lens' && <EditContactLens/>}
                 {editProductName === 'controll-user-access' && <EditUserAccessControll/>}
                 {editProductName === 'doctor-profile' && <AddDoctor/>}
+                {editProductName === 'prescription-detail' && 
+                <div className="mt-8 p-4 border rounded-xl shadow bg-white">
+                    <div className="flex justify-between mb-4">
+                        <h2 className="text-lg font-semibold">Prescription Detail</h2>
+                        <Button onClick={generatePDF}>Download PDF</Button>
+                    </div>
+                    <PrescriptionPreview prescription={editableData as Prescription} />
+                    </div>
+                
+                }
             </motion.div>
             )}
             </AnimatePresence>

@@ -2,11 +2,12 @@ import DoctorList from "../../components/dashboard/doctor/DoctorList/DoctorList"
 import DoctorProfile from "../../components/dashboard/doctor/DoctorProfile/DoctorProfile";
 import MyPatients from "../../components/dashboard/doctor/Patients/MyPatients";
 import AddPrescription from "../../components/dashboard/doctor/prescription/AddPrescription";
-import MyPrescription from "../../components/dashboard/doctor/prescription/MyPrescription";
+import PrescriptionPage from "../../components/dashboard/doctor/prescription/MyPrescription";
 import PrescriptionLanding from "../../components/dashboard/doctor/prescription/PrescriptionLending";
 import AddSchedule from "../../components/dashboard/doctor/Schedule/AddSchedule";
 import ScheduleLanding from "../../components/dashboard/doctor/Schedule/ScheduleLanding";
 import ScheduleList from "../../components/dashboard/doctor/Schedule/ScheduleList";
+
 
 
 
@@ -42,7 +43,7 @@ export const doctors = [
   },      
   {
     path: 'my_prescriptions',
-    element: <MyPrescription/>
+    element: <PrescriptionPage/>
   },      
   {
     path: 'doctor_patients',
