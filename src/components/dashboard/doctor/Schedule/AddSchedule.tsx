@@ -25,6 +25,7 @@ const AddSchedule: React.FC = () => {
     register,
     handleSubmit,
     setValue,
+    reset,
     formState: { errors },
   } = useForm<ScheduleFormInputs>();
 
@@ -53,6 +54,7 @@ const AddSchedule: React.FC = () => {
       const response = await createSlot(data).unwrap();
       if(response.success){
         toast.success(response.message)
+        reset()
       }
       
       console.log(response)

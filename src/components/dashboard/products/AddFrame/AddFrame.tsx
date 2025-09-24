@@ -13,7 +13,7 @@ import useAddFrame from "./useAddFrame";
 
 const AddFrame = () => {
 
-  const {availableFeatures, brands, badges, register, handleSubmit, control, watch,previewImages, handleImageUpload, toggleFeature, removeImage, onSubmit} = useAddFrame()
+  const {availableFeatures, brands, badges, register, handleSubmit, control, watch,previewImages, handleImageUpload, toggleFeature, removeImage, onSubmit, isLoading} = useAddFrame()
 
   return (
     <div className="p-4 bg-gray-50 h-screen overflow-y-scroll hide-scrollbar">
@@ -263,8 +263,8 @@ const AddFrame = () => {
           </div>
 
           <div className="mt-6">
-            <Button type="submit" className="w-full md:w-auto bg-blue-600">
-              <Plus /> Add Frame
+            <Button disabled={isLoading} type="submit" className="w-full md:w-auto bg-blue-600">
+              <Plus /> {isLoading ? 'Adding' : 'Add Frame'}
             </Button>
           </div>
         </form>
