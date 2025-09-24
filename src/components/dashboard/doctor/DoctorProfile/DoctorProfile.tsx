@@ -3,24 +3,26 @@ import { motion } from "framer-motion";
 import { Briefcase, BookOpen,  MapPin, Edit, UserPlus, BriefcaseBusiness } from "lucide-react";
 
 import useFindUser from "../../../../reusableComponent/useFindUser";
-import { useGetSingleDoctorQuery } from "../../../../app/redux/api/doctorApi";
 import type { IDoctor } from "../../../../types/interface";
 
 import user from '../../../../images/user.png'
 import { useDispatch } from "react-redux";
 import { openEdit } from "../../../../app/redux/features/modalSlice";
+import DoctorProfileSkeleton from "../../../../reusableComponent/DoctorProfileScheliton";
 
 const DoctorProfile = () => {
 
   const dispatch = useDispatch();
-  const {email} = useFindUser();
+  const {email, singleDoctorData, isLoadingSingleDoctor} = useFindUser();
   console.log(email)
 
-  const { data, error } = useGetSingleDoctorQuery(email);
-  const doctor = data?.data as IDoctor | undefined;
+  const doctor = singleDoctorData as IDoctor | undefined;
   console.log(doctor);
-  console.log(error);
+  
 
+  if(isLoadingSingleDoctor){
+    return <DoctorProfileSkeleton/>
+  }
 
   return (
     <motion.div

@@ -9,8 +9,18 @@ export const doctorApi = baseApi.injectEndpoints({
         query: (id) => `schedule/get-slot/${id}`,
         providesTags: ["Schedule"],
       }),
+      createSlot: builder.mutation<any, any>({
+        query: (data) => {
+          return {
+            url: `schedule/create-schedule`,
+            method: "POST",
+            body: data,
+          };
+        },
+        invalidatesTags: ["Schedule"],
+      }),
     };
   },
 });
 
-export const { useGetAllSlotQuery } = doctorApi;
+export const { useGetAllSlotQuery, useCreateSlotMutation } = doctorApi;

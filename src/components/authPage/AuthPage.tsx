@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 import { setToken } from "../../app/redux/features/authSlice";
 import { toast, ToastContainer } from "react-toastify";
 import { verifyToken } from "../../utils/decodeToken";
+import LoadingGlass from "../../reusableComponent/LoadingGlass";
 
 type FormValues = {
   name?: string;
@@ -29,6 +30,7 @@ type FormValues = {
 const AuthPage = () => {
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
+  const [wait, setWait] = useState<boolean>(false)
 
   const {
     register,
@@ -93,8 +95,18 @@ const AuthPage = () => {
     visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
     exit: { opacity: 0, x: -50, transition: { duration: 0.5 } },
   };
-  
 
+useEffect(() => {
+  setTimeout(() => {
+    setWait(true)
+  }, 2000);
+})
+
+if(!wait){
+  return <LoadingGlass/>
+}
+  
+console.log(wait)
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-indigo-400 via-purple-400 to-pink-400 p-4">
       <motion.div
