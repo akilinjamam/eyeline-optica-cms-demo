@@ -7,6 +7,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { useEffect, useState } from "react";
 import useFindUser from "../../../../reusableComponent/useFindUser";
 import { useCreateSlotMutation } from "../../../../app/redux/api/scheduleApi";
+import { toast } from "react-toastify";
 
 
 type ScheduleFormInputs = {
@@ -50,10 +51,13 @@ const AddSchedule: React.FC = () => {
     console.log("Schedule Data:", data);
     try {
       const response = await createSlot(data).unwrap();
-
+      if(response.success){
+        toast.success(response.message)
+      }
+      
       console.log(response)
-    } catch (error) {
-      console.log(error)
+    } catch (error:any) {
+      toast.error(error.data.message)
     }
   };
 
