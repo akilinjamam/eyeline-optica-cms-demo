@@ -94,7 +94,7 @@ const Sidebar = ({ isOpen, setIsOpen, isDesktop }: SidebarProps) => {
     { name: "Logout", 
       path: ["/"], 
       icon: LogOut ,
-      show: roll === 'employee'|| roll === 'admin' || roll === 'doctor' || roll === 'doctor & admin' || roll === 'employee & admin'
+      show: true
     },
     
   ];
