@@ -7,6 +7,7 @@ import { DateRangeFilter } from "../../../../reusableComponent/DateRangeFilter";
 import { useGetAllSlotQuery } from "../../../../app/redux/api/scheduleApi";
 import useFindUser from "../../../../reusableComponent/useFindUser";
 import { useGetSingleDoctorQuery } from "../../../../app/redux/api/doctorApi";
+import { SlotCardSkeleton } from "../../../../reusableComponent/ScheduleSceleton";
 
 export type Slot = {
   _id: string;
@@ -23,7 +24,7 @@ const SlotList: React.FC = () => {
   
   const { data:doctor } = useGetSingleDoctorQuery(email);
       
-  const { data: allSlot } = useGetAllSlotQuery(doctor?.data?._id as string );
+  const { data: allSlot, isLoading } = useGetAllSlotQuery(doctor?.data?._id as string );
   console.log(allSlot?.message);
 
   const [filtered, setFiltered] = useState<Slot[]>([]);
@@ -54,6 +55,8 @@ const SlotList: React.FC = () => {
     setFiltered(newFiltered);
   }, [range, statusFilter, allSlot]);
 
+  
+
   return (
     <div className="p-4 overflow-x-scroll h-[90vh] hide-scrollbar">
       <DateRangeFilter onChange={setRange} />
@@ -82,11 +85,17 @@ const SlotList: React.FC = () => {
 
       <br /><br />
 
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {filtered.map((slot) => (
+      {
+        isLoading
+        ?
+        <SlotCardSkeleton/>
+        :
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        { filtered.map((slot) => (
           <SlotCard key={slot._id} slot={slot} />
         ))}
       </div>
+      }
     </div>
   );
 };
