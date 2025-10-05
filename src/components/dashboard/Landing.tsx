@@ -35,7 +35,7 @@ const Landing = () => {
   return (
     <div className="w-full h-full p-5 bg-gray-50">
       <h2 className="text-2xl md:text-3xl font-bold mb-6 text-gray-800 lg:text-left text-center ml-3">
-        Welcome to the Dashboard
+        Welcome to the Dashboard updated
       </h2>
 
       <div className="lg:h-[100vh] h-[80vh] p-2 overflow-y-scroll hide-scrollbar hide-scrollbar">
