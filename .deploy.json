@@ -1,0 +1,19 @@
+{
+"DEPLOYPATH": "/home/akilinja/public_html/eyeline-optica-cms",
+"task": [
+    "dist",
+    "public",
+    "src",
+    "components.json",
+    "eslint.config.js",
+    "index.html",
+    "package-lock.json",
+    "package.json",
+    "README.md",
+    "tsconfig.app.json",
+    "tsconfig.json",
+    "tsconfig.node.json",
+    "vercel.json",
+    "vite.config.ts"
+]
+}
