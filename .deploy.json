@@ -3,5 +3,6 @@
 "task": [
     "dist/*",
     ".htaccess"
+    
 ]
 }
