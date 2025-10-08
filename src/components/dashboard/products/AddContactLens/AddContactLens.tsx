@@ -59,8 +59,11 @@ const AddContactLens = () => {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="daily disposable">Daily Disposable</SelectItem>
+                      <SelectItem value="weekly">Weekly</SelectItem>
                       <SelectItem value="monthly (colored)">Monthly (colored)</SelectItem>
                       <SelectItem value="monthly">Monthly</SelectItem>
+                      <SelectItem value="toric">Toric</SelectItem>
+                      <SelectItem value="multifocal">Multifocal</SelectItem>
                     </SelectContent>
                   </Select>
                 )}
