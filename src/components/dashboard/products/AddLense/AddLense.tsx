@@ -56,6 +56,7 @@ const AddLens = () => {
                       <SelectItem value="single vision">Single Vision</SelectItem>
                       <SelectItem value="bifocal">Bifocal</SelectItem>
                       <SelectItem value="progressive">Progressive</SelectItem>
+                      <SelectItem value="zero power">Zero Power</SelectItem>
                     </SelectContent>
                   </Select>
                 )}

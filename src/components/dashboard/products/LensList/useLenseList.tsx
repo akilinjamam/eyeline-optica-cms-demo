@@ -119,13 +119,25 @@ const useLenseList = () => {
       : "No filters applied";
 
 
-    const typeCategory = [...new Set(lens?.map((p: ILens) => p?.lensType))]
-    .map(type => ({ value: type, label: type }));
-    const materialCategory = [...new Set(lens?.map((p: ILens) => p?.material))].map(type => ({ value: type, label: type }));
-    const colorCategory = [...new Set(lens?.map((p: ILens) => p?.color))]
-    .map(type => ({ value: type, label: type }));
-    const brandCategory = [...new Set(lens?.map((p: ILens) => p?.brand))]
-    .map(type => ({ value: type, label: type }));
+    const typeCategory = [...new Set(lens
+  ?.map((p: ILens) => p?.lensType)
+  .filter((t): t is string => !!t && t.trim() !== "")
+)].map(type => ({ value: type, label: type }));
+
+const materialCategory = [...new Set(lens
+  ?.map((p: ILens) => p?.material)
+  .filter((t): t is string => !!t && t.trim() !== "")
+)].map(type => ({ value: type, label: type }));
+
+const colorCategory = [...new Set(lens
+  ?.map((p: ILens) => p?.color)
+  .filter((t): t is string => !!t && t.trim() !== "")
+)].map(type => ({ value: type, label: type }));
+
+const brandCategory = [...new Set(lens
+  ?.map((p: ILens) => p?.brand)
+  .filter((t): t is string => !!t && t.trim() !== "")
+)].map(type => ({ value: type, label: type }));
     
 
 
