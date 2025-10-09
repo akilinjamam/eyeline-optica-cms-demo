@@ -48,6 +48,7 @@ const { register, handleSubmit, control, setValue, watch} = useForm<LensFormData
   const [previewImages, setPreviewImages] = useState<string[]>([]);
   const [editFrame, { isLoading, error }] = useUpdateLensMutation();
   const dispatch = useDispatch();
+  
   console.log(isLoading)
   console.log(error)
   // Load initial images if editing
