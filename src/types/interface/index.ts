@@ -189,3 +189,6 @@ export interface IDoctor {
   newImages?: any;
   images?: any;
 }
+
+
+

@@ -52,7 +52,7 @@ const Sidebar = ({ isOpen, setIsOpen, isDesktop }: SidebarProps) => {
       show: roll === 'employee'|| roll === 'admin' || roll === 'doctor & admin' || roll === 'employee & admin'
     },
     { name: "Customers", 
-      path: ["/dashboard/customer"], 
+      path: ["/dashboard/customer", "/dashboard/customer_list"], 
       icon: Users ,
       show: roll === 'employee'|| roll === 'admin' || roll === 'doctor & admin' || roll === 'employee & admin'
     },

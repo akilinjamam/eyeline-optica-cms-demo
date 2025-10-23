@@ -6,14 +6,14 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "../components/ui/toolti
 import { Button } from "../components/ui/button";
 import { Checkbox } from "../components/ui/checkbox"; // ✅ Assuming you have shadcn/ui checkbox
 import type { ContactLens, Frame, ILens, ITableInfo } from "../types/interface";
-import type { ActionColumn, TableColumn, TRegistration } from "../types/type";
+import type { ActionColumn, TableColumn, TCustomer, TRegistration } from "../types/type";
 import { useDispatch, useSelector } from "react-redux";
 import { addAllIds, addIds,  deletableItem,  deleteIds, removeIds } from "../app/redux/features/modalSlice";
 import type { RootState } from "../app/store";
 import { useLocation } from "react-router-dom";
 // import { useLocation } from "react-router-dom";
 
-const Table = ({ paginatedData, column, actionColumn, showCheck }: ITableInfo<ContactLens | ILens | Frame | TRegistration>) => {
+const Table = ({ paginatedData, column, actionColumn=[], showCheck }: ITableInfo<ContactLens | ILens | Frame | TRegistration | TCustomer>) => {
   const location = useLocation()
   const deletableItemName = location.pathname;
  
@@ -74,9 +74,15 @@ const Table = ({ paginatedData, column, actionColumn, showCheck }: ITableInfo<Co
                         {col.label}
                       </th>
                     ))}
-                    <th className="px-4 py-2 text-center text-sm font-medium text-gray-700">
+                    {
+                      actionColumn?.length
+                      ?
+                      <th className="px-4 py-2 text-center text-sm font-medium text-gray-700">
                       Actions
                     </th>
+                    :
+                    <th></th>
+                    }
                   </tr>
                 </thead>
 

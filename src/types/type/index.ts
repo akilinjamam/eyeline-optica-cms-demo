@@ -89,3 +89,10 @@ export type TRegistration = {
   access: boolean;
   role: string;
 };
+
+export type TCustomer = {
+  name: string;
+  email: string;
+  phoneNumber: string;
+  address: string;
+};
