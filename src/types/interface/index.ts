@@ -190,5 +190,52 @@ export interface IDoctor {
   images?: any;
 }
 
+export interface ISales {
+  saleType:
+    | "Only Frame"
+    | "Only Lens"
+    | "Only Contact-Lens"
+    | "Only Accessory"
+    | "Frame and Lens"
+    | "Contact-Lens and Accessory";
+  quantity: number;
+  invoiceNo: string;
+  tran_id: string;
+  customerId: any;
+  customer_name: string;
+  customer_phone: string;
+  customer_address: string;
+  customer_email: string;
+  payableAmount: number;
+  dueAmount: number;
+  productId: any;
+  lensId: any;
+  contactLensId: any;
+  accessoryId: any;
+  paymentHistoryId: any;
+  deliveryFee: number;
+  subtotal: number;
+  status:
+    | "pending"
+    | "receieved"
+    | "processsing"
+    | "packaging"
+    | "on the way"
+    | "delivered";
+}
 
-
+export interface IFrameSaleInfo {
+  customer_name: string;
+  customer_email: string;
+  customer_phone: string;
+  customer_address: string;
+  frameName: string;
+  frameSalesPrice: number;
+  framePurchasePrice: number;
+  frameSold: number;
+  frameQty: number;
+  frameStock: boolean;
+  frameId: string;
+  invoiceNo: string;
+  status: string;
+}
