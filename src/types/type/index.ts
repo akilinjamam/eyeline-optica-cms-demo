@@ -90,6 +90,12 @@ export type TRegistration = {
   role: string;
 };
 
+export type TOrderStatus = {
+  id?: string;
+  paymentHistoryId?: string;
+  status: string;
+};
+
 export type TCustomer = {
   name: string;
   email: string;

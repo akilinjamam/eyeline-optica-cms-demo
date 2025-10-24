@@ -1,8 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import type { TableColumn,  } from "../../../../types/type";
+import type { ActionColumn, TableColumn,  } from "../../../../types/type";
 import { useEffect, useMemo, useState } from "react";
 import type { IAccessorySaleInfo, ISales } from "../../../../types/interface";
 import { useGetAllSalesQuery } from "../../../../app/redux/api/salesApi";
+import { useDispatch } from "react-redux";
+import { openEdit } from "../../../../app/redux/features/modalSlice";
+import { Edit } from "lucide-react";
 
 
 const useAccessoryOrder = () => {
@@ -13,12 +16,13 @@ const useAccessoryOrder = () => {
 
     const newModifiedData = useMemo(() => {
     return allFrameOrderData?.map((item: ISales) => {
-        const { customer_email, customer_phone, customer_address, accessoryId, customer_name, invoiceNo, status, subtotal, quantity } = item;
+        const { customer_email, customer_phone, customer_address, accessoryId, customer_name, invoiceNo, status, subtotal, quantity, _id } = item;
         const accessoryName = accessoryId?.items?.map((item:any) => item?.name)?.join('+');
         const accessoryPurchasePrice = accessoryId?.items?.map((item:any) => item?.purchasePrice)?.join('+');
         const accessorySalesPrice = accessoryId?.items?.map((item:any) => item?.salesPrice)?.join('+');
 
         return {
+        _id,
         customer_name,
         customer_email,
         customer_phone,
@@ -171,9 +175,26 @@ const useAccessoryOrder = () => {
     
   ]
 
+   const dispatch = useDispatch();
+    
+      const handleEdit = (value:string) => {
+          const findonlyFrameOrder = allFrameOrderData?.find((item:ISales) => item?._id === value) as ISales;
+          const {paymentHistoryId, status, _id} = findonlyFrameOrder
+          console.log({paymentHistoryId, status, _id})
+          dispatch(openEdit({name: 'sales-order-status',data:{paymentHistoryId, status, id:_id} }));
+      }
+      
+    
+      const actionColumns: ActionColumn[] = [
+        {
+          logo: <Edit className="w-4 h-4 text-green-800"/>,
+          type: "edit",
+          render: handleEdit
+        }
+      ]
 
 
-return {filters,filterSummary, search,setSearch, setPaginatedData, paginatedData,page, setPage, columns, filteredData, isLoading}
+return {filters,filterSummary, search,setSearch, setPaginatedData, paginatedData,page, setPage, columns, filteredData, isLoading, actionColumns}
 
 };
 

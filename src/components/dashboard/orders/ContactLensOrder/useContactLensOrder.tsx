@@ -1,7 +1,10 @@
-import type { TableColumn,  } from "../../../../types/type";
+import type { ActionColumn, TableColumn,  } from "../../../../types/type";
 import { useEffect, useMemo, useState } from "react";
 import type { IContactLensSaleInfo, ISales } from "../../../../types/interface";
 import { useGetAllSalesQuery } from "../../../../app/redux/api/salesApi";
+import { Edit } from "lucide-react";
+import { openEdit } from "../../../../app/redux/features/modalSlice";
+import { useDispatch } from "react-redux";
 
 
 const useContactLensOrder = () => {
@@ -12,8 +15,9 @@ const useContactLensOrder = () => {
 
     const newModifiedData = useMemo(() => {
     return allFrameOrderData?.map((item: ISales) => {
-        const { customer_email, customer_phone, customer_address, contactLensId, customer_name, invoiceNo, status, subtotal, quantity } = item;
+        const { customer_email, customer_phone, customer_address, contactLensId, customer_name, invoiceNo, status, subtotal, quantity, _id } = item;
         return {
+        _id,
         customer_name,
         customer_email,
         customer_phone,
@@ -176,9 +180,25 @@ const useContactLensOrder = () => {
     }
   ]
 
+ const dispatch = useDispatch();
+  
+    const handleEdit = (value:string) => {
+        const findonlyFrameOrder = allFrameOrderData?.find((item:ISales) => item?._id === value) as ISales;
+        const {paymentHistoryId, status, _id} = findonlyFrameOrder
+        console.log({paymentHistoryId, status, _id})
+        dispatch(openEdit({name: 'sales-order-status',data:{paymentHistoryId, status, id:_id} }));
+    }
+    
+  
+    const actionColumns: ActionColumn[] = [
+      {
+        logo: <Edit className="w-4 h-4 text-green-800"/>,
+        type: "edit",
+        render: handleEdit
+      }
+    ]
 
-
-return {filters,filterSummary, search,setSearch, setPaginatedData, paginatedData,page, setPage, columns, filteredData, isLoading}
+return {filters,filterSummary, search,setSearch, setPaginatedData, paginatedData,page, setPage, columns, filteredData, isLoading, actionColumns}
 
 };
 

@@ -13,7 +13,7 @@ import type { IAccessorySaleInfo } from "../../../../types/interface";
 
 const AccessoryOrder = () => {
 
-        const { columns, filterSummary, filters, page, setPage, paginatedData, search, setSearch, setPaginatedData,filteredData, isLoading} = useAccessoryOrder()
+        const { columns, filterSummary, filters, page, setPage, paginatedData, search, setSearch, setPaginatedData,filteredData, isLoading, actionColumns} = useAccessoryOrder()
 
         const defaultColumn = columns?.slice(0,8)
        
@@ -56,7 +56,7 @@ const AccessoryOrder = () => {
                   filters={filters}
                   showPriceRange={true}
                 />
-                <Table column={dynamicColumns} paginatedData={paginatedData} actionColumn={[]} />
+                <Table column={dynamicColumns} paginatedData={paginatedData} actionColumn={actionColumns} />
               </>
             )}
           </div>

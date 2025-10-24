@@ -7,7 +7,7 @@ interface FrameUIState {
   editProductName: string;
   isEditOpen: boolean;
   isOpenModal: boolean;
-  editableData: Partial<IFrame | ILens | ContactLens>;
+  editableData: Partial<IFrame | ILens | ContactLens | any>;
   ids: string[];
   deleteProductName: string;
   showCheck: boolean;

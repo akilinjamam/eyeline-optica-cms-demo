@@ -12,6 +12,7 @@ import { Button } from "../components/ui/button";
 import usePrescriptionPdfDownloader from "../pdfDownloader/usePrescriptionPdfDownloader";
 import { PrescriptionPreview } from "../components/dashboard/doctor/prescription/PrescriptionPreview";
 import type { Prescription } from "../components/dashboard/doctor/prescription/MyPrescription";
+import EditSalesOrderStatus from "../components/dashboard/orders/EditSalesOrderStatus";
 
 
 const VarticalDrawer = () => {
@@ -46,6 +47,7 @@ const VarticalDrawer = () => {
                 {editProductName === 'contact-lens' && <EditContactLens/>}
                 {editProductName === 'controll-user-access' && <EditUserAccessControll/>}
                 {editProductName === 'doctor-profile' && <AddDoctor/>}
+                {editProductName === 'sales-order-status' && <EditSalesOrderStatus/>}
                 {editProductName === 'prescription-detail' && 
                 <div className="mt-8 p-4 border rounded-xl shadow bg-white">
                     <div className="flex justify-between mb-4">

@@ -13,7 +13,7 @@ import type { IFrameWithLensInfo } from "../../../../types/interface";
 
 const FrameAndLensOrder = () => {
 
-        const { columns, filterSummary, filters, page, setPage, paginatedData, search, setSearch, setPaginatedData,filteredData, isLoading} = useFrameAndLensOrder()
+        const { columns, filterSummary, filters, page, setPage, paginatedData, search, setSearch, setPaginatedData,filteredData, isLoading, actionColumns} = useFrameAndLensOrder()
 
         const defaultColumn = columns?.slice(0,8)
        
@@ -56,7 +56,7 @@ const FrameAndLensOrder = () => {
                   filters={filters}
                   showPriceRange={true}
                 />
-                <Table column={dynamicColumns} paginatedData={paginatedData} actionColumn={[]} />
+                <Table column={dynamicColumns} paginatedData={paginatedData} actionColumn={actionColumns} />
               </>
             )}
           </div>

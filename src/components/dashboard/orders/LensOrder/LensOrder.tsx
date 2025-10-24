@@ -13,7 +13,7 @@ import type { ILensSaleInfo } from "../../../../types/interface";
 
 const LensOrder = () => {
 
-        const { columns, filterSummary, filters, page, setPage, paginatedData, search, setSearch, setPaginatedData,filteredData, isLoading} = useLensOrder()
+        const { columns, filterSummary, filters, page, setPage, paginatedData, search, setSearch, setPaginatedData,filteredData, isLoading, actionColumns} = useLensOrder()
 
         const defaultColumn = columns?.slice(0,8)
        
@@ -56,7 +56,7 @@ const LensOrder = () => {
                   filters={filters}
                   showPriceRange={true}
                 />
-                <Table column={dynamicColumns} paginatedData={paginatedData} actionColumn={[]} />
+                <Table column={dynamicColumns} paginatedData={paginatedData} actionColumn={actionColumns} />
               </>
             )}
           </div>

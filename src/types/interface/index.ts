@@ -191,6 +191,7 @@ export interface IDoctor {
 }
 
 export interface ISales {
+  _id?: string;
   saleType:
     | "Only Frame"
     | "Only Lens"

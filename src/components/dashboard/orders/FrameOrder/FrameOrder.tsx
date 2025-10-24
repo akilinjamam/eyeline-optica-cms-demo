@@ -13,7 +13,7 @@ import type { IFrameSaleInfo } from "../../../../types/interface";
 
 const FrameOrder = () => {
 
-        const { columns, filterSummary, filters, page, setPage, paginatedData, search, setSearch, setPaginatedData,filteredData, isLoading} = useFrameOrder()
+        const { columns, filterSummary, filters, page, setPage, paginatedData, search, setSearch, setPaginatedData,filteredData, isLoading, actionColumns} = useFrameOrder()
 
         const defaultColumn = columns?.slice(0,8)
        
@@ -56,7 +56,7 @@ const FrameOrder = () => {
                   filters={filters}
                   showPriceRange={true}
                 />
-                <Table column={dynamicColumns} paginatedData={paginatedData} actionColumn={[]} />
+                <Table column={dynamicColumns} paginatedData={paginatedData} actionColumn={actionColumns} />
               </>
             )}
           </div>

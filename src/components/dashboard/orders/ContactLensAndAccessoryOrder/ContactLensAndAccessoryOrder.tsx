@@ -12,7 +12,7 @@ import useConactLensAndAcc from "./useContactLensAndAccessoryOrder";
 
 const ContactLensAndAccOrder = () => {
 
-        const { columns, filterSummary, filters, page, setPage, paginatedData, search, setSearch, setPaginatedData,filteredData, isLoading} = useConactLensAndAcc()
+        const { columns, filterSummary, filters, page, setPage, paginatedData, search, setSearch, setPaginatedData,filteredData, isLoading, actionColumns} = useConactLensAndAcc()
 
         const defaultColumn = columns?.slice(0,8)
        
@@ -55,7 +55,7 @@ const ContactLensAndAccOrder = () => {
                   filters={filters}
                   showPriceRange={true}
                 />
-                <Table column={dynamicColumns} paginatedData={paginatedData} actionColumn={[]} />
+                <Table column={dynamicColumns} paginatedData={paginatedData} actionColumn={actionColumns} />
               </>
             )}
           </div>
