@@ -1,11 +1,12 @@
-import type { ApiDataType, TCustomer } from "../../../types/type";
+import type { ISales } from "../../../types/interface";
+import type { ApiDataType } from "../../../types/type";
 import { baseApi } from "./baseApi";
 
 export const salesApi = baseApi.injectEndpoints({
   endpoints: (builder) => {
     return {
-      getAllSales: builder.query<ApiDataType<TCustomer>, string>({
-        query: () => `sales/get-sales?saleType=Only Frame`,
+      getAllSales: builder.query<ApiDataType<ISales>, string>({
+        query: (saleType: string) => `sales/get-sales?saleType=${saleType}`,
         providesTags: ["Sale"],
       }),
     };

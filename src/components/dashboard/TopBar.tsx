@@ -16,6 +16,11 @@ const routeTitles: Record<string, string> = {
   "/dashboard/customer_list": "Customer List",
   "/dashboard/orders": "orders",
   "/dashboard/only_frame_order": "Frame Order",
+  "/dashboard/frame_with_lens_order": "Frame And Lens Order",
+  "/dashboard/only_lens_order": "Lens Order",
+  "/dashboard/only_contact_lens_order": "Contact Lens Order",
+  "/dashboard/only_accessory_order": "Accessory Order",
+  "/dashboard/contactLens_and_accessory_order": "ContactLens and Accessory Order",
   "/dashboard/control_user_access": "User Access Control",
   "/dashboard/add_doctor": "Add Doctor",
   "/dashboard/doctor_list": "Doctor List",
@@ -30,7 +35,6 @@ const routeTitles: Record<string, string> = {
   "/settings": "Settings",
   "/sales": "Sales",
   "/products": "Products",
-  // Add more routes as needed
 };
 
 const TopBar = () => {

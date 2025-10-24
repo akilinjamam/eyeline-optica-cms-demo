@@ -239,3 +239,79 @@ export interface IFrameSaleInfo {
   invoiceNo: string;
   status: string;
 }
+
+export interface IFrameWithLensInfo {
+  customer_name: string;
+  customer_email: string;
+  customer_phone: string;
+  customer_address: string;
+  productName: string; // e.g., "FrameName+LensName"
+  productSalesPrice: string; // e.g., "200+150"
+  productPurchasePrice: string; // e.g., "100+80"
+  productQty: number;
+  frameId: string; // productId?._id
+  lensId: string; // lensId?._id (was mistakenly productId?._id in your object)
+  invoiceNo: string;
+  status: string;
+}
+
+export interface ILensSaleInfo {
+  customer_name: string;
+  customer_email: string;
+  customer_phone: string;
+  customer_address: string;
+  lensName: string;
+  lensSalesPrice: number;
+  lensPurchasePrice: number;
+  lensQty: number;
+  lensId: string;
+  invoiceNo: string;
+  status: string;
+  subtotal: number;
+}
+
+export interface IContactLensSaleInfo {
+  customer_name: string;
+  customer_email: string;
+  customer_phone: string;
+  customer_address: string;
+  contactLensName: string;
+  contactLensSalesPrice: number;
+  contactLensPurchasePrice: number;
+  contactLensQty: number;
+  contactLensId: string;
+  invoiceNo: string;
+  status: string;
+  subtotal: number; // subtotal * quantity
+}
+
+export interface IAccessorySaleInfo {
+  customer_name: string;
+  customer_email: string;
+  customer_phone: string;
+  customer_address: string;
+  accessoryName: string;
+  accessorySalesPrice: number;
+  accessoryPurchasePrice: number;
+  accessoryQty: number;
+  accessoryId: string;
+  invoiceNo: string;
+  status: string;
+  subtotal: number;
+}
+
+export interface IContactLensAccessorySaleInfo {
+  customer_name: string;
+  customer_email: string;
+  customer_phone: string;
+  customer_address: string;
+  productName: string; // e.g., "Biofinity + (Lens Case)"
+  productSalesPrice: string; // formatted as "1200 + (300)"
+  productPurchasePrice: string; // formatted as "900 + (200)"
+  productQty: number;
+  contactLensId: string; // ObjectId of contact lens
+  accessoryId: string; // ObjectId of accessory
+  invoiceNo: string;
+  status: string;
+  subtotal: number; // subtotal * quantity
+}

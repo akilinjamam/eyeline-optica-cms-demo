@@ -82,7 +82,7 @@ const Sidebar = ({ isOpen, setIsOpen, isDesktop }: SidebarProps) => {
       show: roll === 'doctor' || roll === 'admin' || roll === 'doctor & admin' || roll === 'employee & admin'
     },
     { name: "Orders", 
-      path: ["/dashboard/orders", "/dashboard/only_frame_order"], 
+      path: ["/dashboard/orders", "/dashboard/only_frame_order", "/dashboard/frame_with_lens_order", "/dashboard/only_lens_order", "/dashboard/only_contact_lens_order", "/dashboard/only_accessory_order", "/dashboard/contactLens_and_accessory_order"], 
       icon: ShoppingBag ,
       show: roll === 'employee'|| roll === 'admin' || roll === 'doctor & admin' || roll === 'employee & admin'
     },

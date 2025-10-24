@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 
 const ordersCategories = [
   { title: "Frame", icon: <Glasses className="w-8 h-8" />, color: "from-indigo-500 to-purple-500", path: '/dashboard/only_frame_order' },
-  { title: "Frame + Lens", icon: <Circle className="w-8 h-8" />, color: "from-blue-400 to-indigo-400", path: '/dashboard/frame_list' },
-  { title: "Lens", icon: <Eye className="w-8 h-8" />, color: "from-green-400 to-teal-400", path: '/dashboard/add_lens' },
-  { title: "Contact-Lens", icon: <Circle className="w-8 h-8" />, color: "from-yellow-400 to-orange-400", path: '/dashboard/lens_list' },
-  { title: "Contact-Lens + Accessory", icon: <Box className="w-8 h-8" />, color: "from-red-400 to-pink-400", path: '/dashboard/add_contact_lens' },
-  { title: "Accessory", icon: <BookCopy className="w-8 h-8" />, color: "from-pink-400 to-purple-400", path: '/dashboard/contact_lens_list' },
+  { title: "Frame + Lens", icon: <Circle className="w-8 h-8" />, color: "from-blue-400 to-indigo-400", path: '/dashboard/frame_with_lens_order' },
+  { title: "Lens", icon: <Eye className="w-8 h-8" />, color: "from-green-400 to-teal-400", path: '/dashboard/only_lens_order' },
+  { title: "Contact-Lens", icon: <Circle className="w-8 h-8" />, color: "from-yellow-400 to-orange-400", path: '/dashboard/only_contact_lens_order' },
+  { title: "Contact-Lens + Accessory", icon: <Box className="w-8 h-8" />, color: "from-red-400 to-pink-400", path: '/dashboard/contactLens_and_accessory_order' },
+  { title: "Accessory", icon: <BookCopy className="w-8 h-8" />, color: "from-pink-400 to-purple-400", path: '/dashboard/only_accessory_order' },
 ];
 
 console.log(ordersCategories)
