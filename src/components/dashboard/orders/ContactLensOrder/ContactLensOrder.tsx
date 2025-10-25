@@ -13,7 +13,7 @@ import type { IContactLensSaleInfo } from "../../../../types/interface";
 
 const ContactLensOrder = () => {
 
-        const { columns, filterSummary, filters, page, setPage, paginatedData, search, setSearch, setPaginatedData,filteredData, isLoading} = useContactLensOrder()
+        const { columns, filterSummary, filters, page, setPage, paginatedData, search, setSearch, setPaginatedData,filteredData, isLoading, actionColumns} = useContactLensOrder()
 
         const defaultColumn = columns?.slice(0,8)
        
@@ -56,7 +56,7 @@ const ContactLensOrder = () => {
                   filters={filters}
                   showPriceRange={true}
                 />
-                <Table column={dynamicColumns} paginatedData={paginatedData} actionColumn={[]} />
+                <Table column={dynamicColumns} paginatedData={paginatedData} actionColumn={actionColumns} />
               </>
             )}
           </div>

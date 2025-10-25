@@ -1,16 +1,18 @@
 import type { ActionColumn, TableColumn,  } from "../../../../types/type";
 import { useEffect, useMemo, useState } from "react";
-import type { IFrameSaleInfo, ISales } from "../../../../types/interface";
+import type { IFrame, IFrameSaleInfo, ISales } from "../../../../types/interface";
 import { useGetAllSalesQuery } from "../../../../app/redux/api/salesApi";
-import { Edit } from "lucide-react";
+import { Edit, Eye } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { openEdit } from "../../../../app/redux/features/modalSlice";
+import { useGetAllFramesQuery } from "../../../../app/redux/api/frameApi";
 
 
 const useFrameOrder = () => {
 
-    const {data:allData, isLoading} = useGetAllSalesQuery('Only Frame')
-  
+    const {data:allData, isLoading} = useGetAllSalesQuery('Only Frame');
+    const {data:allFrames} = useGetAllFramesQuery('')
+
     const allFrameOrderData = allData?.data?.data as ISales[] | undefined;
 
     const newModifiedData = useMemo(() => {
@@ -191,6 +193,19 @@ const useFrameOrder = () => {
       console.log({paymentHistoryId, status, _id})
       dispatch(openEdit({name: 'sales-order-status',data:{paymentHistoryId, status, id:_id} }));
   }
+
+  const handleDetail = (value:string) => {
+      const findProductId = newModifiedData?.find((item:IFrameSaleInfo) => item?._id === value)
+     
+      const findonlyFrameOrder = Array.isArray(allFrames?.data?.data) 
+        ? allFrames?.data?.data?.find((item:IFrame) => item?._id === findProductId?.frameId)
+        : null;
+      
+      if (findonlyFrameOrder) {
+        console.log(findonlyFrameOrder)
+        dispatch(openEdit({name: 'details-only-frame',data:{...findonlyFrameOrder} }));
+      }
+  }
   
 
   const actionColumns: ActionColumn[] = [
@@ -198,7 +213,12 @@ const useFrameOrder = () => {
       logo: <Edit className="w-4 h-4 text-green-800"/>,
       type: "edit",
       render: handleEdit
-    }
+    },
+    {
+      logo: <Eye className="w-4 h-4 text-orange-800"/>,
+      type: "view",
+      render: handleDetail
+    },
   ]
 
 

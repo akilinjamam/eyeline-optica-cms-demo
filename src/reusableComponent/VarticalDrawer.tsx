@@ -13,6 +13,14 @@ import usePrescriptionPdfDownloader from "../pdfDownloader/usePrescriptionPdfDow
 import { PrescriptionPreview } from "../components/dashboard/doctor/prescription/PrescriptionPreview";
 import type { Prescription } from "../components/dashboard/doctor/prescription/MyPrescription";
 import EditSalesOrderStatus from "../components/dashboard/orders/EditSalesOrderStatus";
+import FrameDetailCard from "../components/dashboard/detailsInfo/FrameDetailCard";
+import type { IFrame } from "../types/interface";
+import FrameAndLensDetail from "../components/dashboard/detailsInfo/FrameAndLensDetail";
+import LensDetail from "../components/dashboard/detailsInfo/LensDetail";
+import ContactLensDetail from "../components/dashboard/detailsInfo/ContactLensDetail";
+import AccessoryDetail from "../components/dashboard/detailsInfo/AccessoryDetail";
+import ContactLensAccessoryDetail from "../components/dashboard/detailsInfo/ContactLensAndAccessoryDetail";
+import EyePrescriptionDetail from "../components/dashboard/detailsInfo/EyePrescriptionDetail";
 
 
 const VarticalDrawer = () => {
@@ -47,6 +55,13 @@ const VarticalDrawer = () => {
                 {editProductName === 'contact-lens' && <EditContactLens/>}
                 {editProductName === 'controll-user-access' && <EditUserAccessControll/>}
                 {editProductName === 'doctor-profile' && <AddDoctor/>}
+                {editProductName === 'details-only-frame' && <FrameDetailCard product={editableData as IFrame}/>}
+                {editProductName === 'details-frame-and-lens' && <FrameAndLensDetail frame={editableData.frame as IFrame} lens={editableData.lens}/>}
+                {editProductName === 'details-lens' && <LensDetail lens={editableData.lens}/>}
+                {editProductName === 'details-contact-lens' && <ContactLensDetail contactLens={editableData.lens}/>}
+                {editProductName === 'details-accesory' && <AccessoryDetail accessory={editableData.accessory}/>}
+                {editProductName === 'details-contactLens-and-accessory' && <ContactLensAccessoryDetail accessory={editableData.accessory} contactLens={editableData.contactLens}/>}
+                {editProductName === 'eye-prescription' && <EyePrescriptionDetail pd={editableData?.pd} submitType={editableData?.submitType} prescriptionImg={editableData.prescriptionImg} leftEye={editableData?.leftEye} rightEye={editableData?.rightEye} />}
                 {editProductName === 'sales-order-status' && <EditSalesOrderStatus/>}
                 {editProductName === 'prescription-detail' && 
                 <div className="mt-8 p-4 border rounded-xl shadow bg-white">

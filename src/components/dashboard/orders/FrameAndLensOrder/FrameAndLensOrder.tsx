@@ -15,7 +15,7 @@ const FrameAndLensOrder = () => {
 
         const { columns, filterSummary, filters, page, setPage, paginatedData, search, setSearch, setPaginatedData,filteredData, isLoading, actionColumns} = useFrameAndLensOrder()
 
-        const defaultColumn = columns?.slice(0,8)
+        const defaultColumn = columns?.slice(0,7)
        
          const [dynamicColumns, setDynamicColumns] = useState<TableColumn[]>(defaultColumn); // initially your normal columns
         

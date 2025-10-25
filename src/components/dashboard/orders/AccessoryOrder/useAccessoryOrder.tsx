@@ -5,12 +5,14 @@ import type { IAccessorySaleInfo, ISales } from "../../../../types/interface";
 import { useGetAllSalesQuery } from "../../../../app/redux/api/salesApi";
 import { useDispatch } from "react-redux";
 import { openEdit } from "../../../../app/redux/features/modalSlice";
-import { Edit } from "lucide-react";
+import { Edit, Eye } from "lucide-react";
+import { useGetAllAccessoryQuery } from "../../../../app/redux/api/accessoryApi";
 
 
 const useAccessoryOrder = () => {
 
     const {data:allData, isLoading} = useGetAllSalesQuery('Only Accessory')
+    const {data:allAccessory} = useGetAllAccessoryQuery('')
   
     const allFrameOrderData = allData?.data?.data as ISales[] | undefined;
 
@@ -183,6 +185,19 @@ const useAccessoryOrder = () => {
           console.log({paymentHistoryId, status, _id})
           dispatch(openEdit({name: 'sales-order-status',data:{paymentHistoryId, status, id:_id} }));
       }
+
+       const handleDetails = (value:string) => {
+                    const findProductId = newModifiedData?.find((item:IAccessorySaleInfo) => item?._id === value)
+                   
+                    const findonlyAccessoryOrder = Array.isArray(allAccessory?.data?.data) 
+                      ? allAccessory?.data?.data?.find((item:any) => item?._id === findProductId?.accessoryId)
+                      : null;
+                    
+                    if (findonlyAccessoryOrder) {
+                     console.log(findonlyAccessoryOrder)
+                      dispatch(openEdit({name: 'details-accesory',data:{ accessory: findonlyAccessoryOrder} }));
+                    }
+                }
       
     
       const actionColumns: ActionColumn[] = [
@@ -190,7 +205,12 @@ const useAccessoryOrder = () => {
           logo: <Edit className="w-4 h-4 text-green-800"/>,
           type: "edit",
           render: handleEdit
-        }
+        },
+        {
+          logo: <Eye className="w-4 h-4 text-orange-800"/>,
+          type: "view",
+          render: handleDetails
+        },
       ]
 
 

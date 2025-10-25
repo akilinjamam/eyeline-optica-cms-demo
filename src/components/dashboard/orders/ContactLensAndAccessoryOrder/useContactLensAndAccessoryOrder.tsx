@@ -1,22 +1,26 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ActionColumn, TableColumn,  } from "../../../../types/type";
 import { useEffect, useMemo, useState } from "react";
-import type { IContactLensAccessorySaleInfo,ISales } from "../../../../types/interface";
+import type { ContactLens, IContactLensAccessorySaleInfo,ISales } from "../../../../types/interface";
 import { useGetAllSalesQuery } from "../../../../app/redux/api/salesApi";
-import { Edit } from "lucide-react";
+import { Edit, Eye, File } from "lucide-react";
 import { openEdit } from "../../../../app/redux/features/modalSlice";
 import { useDispatch } from "react-redux";
+import { useGetAllContactLensQuery } from "../../../../app/redux/api/contactLensApi";
+import { useGetAllAccessoryQuery } from "../../../../app/redux/api/accessoryApi";
 
 
 const useConactLensAndAcc = () => {
 
     const {data:allData, isLoading} = useGetAllSalesQuery('Contact-Lens and Accessory')
+    const {data:allContactLens} = useGetAllContactLensQuery('')
+    const {data:allAccessory} = useGetAllAccessoryQuery('')
   
     const allFrameOrderData = allData?.data?.data as ISales[] | undefined;
 
     const newModifiedData = useMemo(() => {
     return allFrameOrderData?.map((item: ISales) => {
-        const { customer_email, customer_phone, customer_address, contactLensId,accessoryId, customer_name, invoiceNo, status, subtotal, quantity, _id } = item;
+        const { customer_email, customer_phone, customer_address, contactLensId,accessoryId, customer_name, invoiceNo, status, subtotal, quantity, _id, pd, submitType, prescriptionImg, leftEye, rightEye } = item;
 
         const accessoryName = accessoryId?.items?.map((item:any) => item?.name)?.join('+');
         const accessoryPurchasePrice = accessoryId?.items?.map((item:any) => item?.purchasePrice)?.join('+');
@@ -35,7 +39,8 @@ const useConactLensAndAcc = () => {
         accessoryId,
         invoiceNo,
         status,
-        subtotal:subtotal * quantity
+        subtotal:subtotal * quantity,
+        pd, submitType, prescriptionImg, leftEye, rightEye
         };
     }) as IContactLensAccessorySaleInfo[] | undefined;
     }, [allFrameOrderData]);
@@ -179,11 +184,36 @@ const useConactLensAndAcc = () => {
  const dispatch = useDispatch();
   
     const handleEdit = (value:string) => {
-        const findonlyFrameOrder = allFrameOrderData?.find((item:ISales) => item?._id === value) as ISales;
-        const {paymentHistoryId, status, _id} = findonlyFrameOrder
+        const findonlyContactLensOrder = allFrameOrderData?.find((item:ISales) => item?._id === value) as ISales;
+        const {paymentHistoryId, status, _id} = findonlyContactLensOrder
         console.log({paymentHistoryId, status, _id})
         dispatch(openEdit({name: 'sales-order-status',data:{paymentHistoryId, status, id:_id} }));
     }
+
+    const handleDetail = (value:string) => {
+      const findProductId = newModifiedData?.find((item:IContactLensAccessorySaleInfo) => item?._id === value)
+      
+     
+            const findonlyContactLensOrder = Array.isArray(allContactLens?.data?.data) 
+              ? allContactLens?.data?.data?.find((item:ContactLens) => item?._id === findProductId?.contactLensId?._id)
+              : null;
+
+      console.log(findonlyContactLensOrder)
+            const findonlyAccessoryOrder = Array.isArray(allAccessory?.data?.data) 
+              ? allAccessory?.data?.data?.find((item:any) => item?._id === findProductId?.accessoryId?._id)
+              : null;
+            
+            if (findonlyContactLensOrder && findonlyAccessoryOrder) {
+              console.log(findonlyContactLensOrder)
+              dispatch(openEdit({name: 'details-contactLens-and-accessory',data:{contactLens:findonlyContactLensOrder, accessory: findonlyAccessoryOrder} }));
+            }
+        }
+
+    const handlePower = (value:string) => {
+          const prescription = newModifiedData?.find((item:IContactLensAccessorySaleInfo) => item?._id === value) as IContactLensAccessorySaleInfo
+          const {pd, submitType, prescriptionImg, leftEye, rightEye} = prescription
+           dispatch(openEdit({name: 'eye-prescription',data:{pd, submitType, prescriptionImg, leftEye, rightEye } }));
+        }
     
   
     const actionColumns: ActionColumn[] = [
@@ -191,7 +221,17 @@ const useConactLensAndAcc = () => {
         logo: <Edit className="w-4 h-4 text-green-800"/>,
         type: "edit",
         render: handleEdit
-      }
+      },
+      {
+        logo: <Eye className="w-4 h-4 text-orange-800"/>,
+        type: "view",
+        render: handleDetail
+      },
+      {
+        logo: <File className="w-4 h-4 text-amber-800"/>,
+        type: "power",
+        render: handlePower
+      },
     ]
 
 return {filters,filterSummary, search,setSearch, setPaginatedData, paginatedData,page, setPage, columns, filteredData, isLoading, actionColumns}

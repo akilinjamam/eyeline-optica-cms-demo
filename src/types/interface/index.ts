@@ -27,6 +27,9 @@ export interface ILens {
   name: string;
   description?: string;
   price: number;
+  salesPrice: number;
+  purchasePrice: number;
+  discount: number;
   stock: number;
   category: string;
   brand?: string;
@@ -43,6 +46,7 @@ export interface ILens {
   deliveryTime?: string;
   offer?: number;
   rating?: number;
+  sold?: number;
 }
 
 export type ContactLens = {
@@ -71,6 +75,9 @@ export type ContactLens = {
   images: string[];
   newImages?: string[];
   features: string[];
+  sold: number;
+  rating: number;
+  quantity: number;
 };
 
 export type ProductType =
@@ -143,6 +150,7 @@ export interface IFrame {
   frameMeasurements: string;
   frameDetails: string;
   prescriptionDetails: string;
+  stock: boolean;
 }
 
 export interface IFrameWithId extends IFrame {
@@ -190,6 +198,12 @@ export interface IDoctor {
   images?: any;
 }
 
+export interface IEyeInfo {
+  sphere: string;
+  cylinder: string;
+  axis: string;
+}
+
 export interface ISales {
   _id?: string;
   saleType:
@@ -223,9 +237,15 @@ export interface ISales {
     | "packaging"
     | "on the way"
     | "delivered";
+  pd: string;
+  prescriptionImg: string[];
+  submitType: string;
+  leftEye: IEyeInfo;
+  rightEye: IEyeInfo;
 }
 
 export interface IFrameSaleInfo {
+  _id: string;
   customer_name: string;
   customer_email: string;
   customer_phone: string;
@@ -242,6 +262,7 @@ export interface IFrameSaleInfo {
 }
 
 export interface IFrameWithLensInfo {
+  _id: string;
   customer_name: string;
   customer_email: string;
   customer_phone: string;
@@ -254,9 +275,15 @@ export interface IFrameWithLensInfo {
   lensId: string; // lensId?._id (was mistakenly productId?._id in your object)
   invoiceNo: string;
   status: string;
+  pd: string;
+  prescriptionImg: string[];
+  submitType: string;
+  leftEye: IEyeInfo;
+  rightEye: IEyeInfo;
 }
 
 export interface ILensSaleInfo {
+  _id: string;
   customer_name: string;
   customer_email: string;
   customer_phone: string;
@@ -269,9 +296,15 @@ export interface ILensSaleInfo {
   invoiceNo: string;
   status: string;
   subtotal: number;
+  pd: string;
+  prescriptionImg: string[];
+  submitType: string;
+  leftEye: IEyeInfo;
+  rightEye: IEyeInfo;
 }
 
 export interface IContactLensSaleInfo {
+  _id: string;
   customer_name: string;
   customer_email: string;
   customer_phone: string;
@@ -284,9 +317,15 @@ export interface IContactLensSaleInfo {
   invoiceNo: string;
   status: string;
   subtotal: number; // subtotal * quantity
+  pd: string;
+  prescriptionImg: string[];
+  submitType: string;
+  leftEye: IEyeInfo;
+  rightEye: IEyeInfo;
 }
 
 export interface IAccessorySaleInfo {
+  _id: string;
   customer_name: string;
   customer_email: string;
   customer_phone: string;
@@ -302,6 +341,7 @@ export interface IAccessorySaleInfo {
 }
 
 export interface IContactLensAccessorySaleInfo {
+  _id: string;
   customer_name: string;
   customer_email: string;
   customer_phone: string;
@@ -310,9 +350,14 @@ export interface IContactLensAccessorySaleInfo {
   productSalesPrice: string; // formatted as "1200 + (300)"
   productPurchasePrice: string; // formatted as "900 + (200)"
   productQty: number;
-  contactLensId: string; // ObjectId of contact lens
-  accessoryId: string; // ObjectId of accessory
+  contactLensId: any; // ObjectId of contact lens
+  accessoryId: any; // ObjectId of accessory
   invoiceNo: string;
   status: string;
   subtotal: number; // subtotal * quantity
+  submitType: string;
+  pd: string;
+  prescriptionImg: string[];
+  leftEye: IEyeInfo;
+  rightEye: IEyeInfo;
 }

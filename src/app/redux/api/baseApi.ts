@@ -27,5 +27,6 @@ export const baseApi = createApi({
     "Doctor",
     "Schedule",
     "Sale",
+    "Accessory",
   ],
 });
