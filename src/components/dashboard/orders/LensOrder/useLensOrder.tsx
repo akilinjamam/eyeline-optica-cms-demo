@@ -2,10 +2,11 @@ import type { ActionColumn, TableColumn,  } from "../../../../types/type";
 import { useEffect, useMemo, useState } from "react";
 import type { ILens, ILensSaleInfo, ISales } from "../../../../types/interface";
 import { useGetAllSalesQuery } from "../../../../app/redux/api/salesApi";
-import { Edit, Eye, File } from "lucide-react";
+import { Edit, Eye, File, ListCheck } from "lucide-react";
 import { openEdit } from "../../../../app/redux/features/modalSlice";
 import { useDispatch } from "react-redux";
 import { useGetAllLensQuery } from "../../../../app/redux/api/lensApi";
+import useSingleInvoiceDownloader from "../../../../pdfDownloader/useSingleInvoiceDownloader";
 
 
 const useLensOrder = () => {
@@ -17,7 +18,7 @@ const useLensOrder = () => {
 
     const newModifiedData = useMemo(() => {
     return allFrameOrderData?.map((item: ISales) => {
-        const { customer_email, customer_phone, customer_address, lensId, customer_name, invoiceNo, status, quantity, subtotal, _id, pd, submitType, prescriptionImg, leftEye, rightEye } = item;
+        const { customer_email, customer_phone, customer_address, lensId, customer_name, invoiceNo, status, quantity, subtotal, _id, pd, submitType, prescriptionImg, leftEye, rightEye, payableAmount, dueAmount, deliveryFee } = item;
         return {
         _id,
         customer_name,
@@ -32,7 +33,7 @@ const useLensOrder = () => {
         invoiceNo,
         status,
         subtotal: subtotal * quantity,
-        pd, submitType, prescriptionImg, leftEye, rightEye
+        pd, submitType, prescriptionImg, leftEye, rightEye, payableAmount, dueAmount, deliveryFee
         };
     }) as ILensSaleInfo[] | undefined;
     }, [allFrameOrderData]);
@@ -112,9 +113,30 @@ const useLensOrder = () => {
       return matchSearch && matchName && matchFrameName && matchSalesPrice && matchPurchasePrice 
     });
 
+    
+
     const addingIdWithFiltered:ILensSaleInfo[] = filteredData.map((filtered:ILensSaleInfo, index:number) => ({id:index+1, ...filtered}))
 
-    return addingIdWithFiltered
+    const totalValue = addingIdWithFiltered?.reduce((acc, item) => acc + ((item?.subtotal) || 0), 0)
+
+    const totalRow = {
+        id: "—",
+        _id: "total",
+        customer_name: "Total",
+        customer_email: "",
+        customer_phone: "",
+        customer_address: "",
+        lensName: "",
+        lensSalesPrice: "",
+        lensPurchasePrice: "",
+        lensQty: "",
+        lensId: "",
+        invoiceNo: "",
+        status: "",
+        subtotal: totalValue
+      } as unknown as ILensSaleInfo;
+
+    return [totalRow, ...addingIdWithFiltered]
     } , [frame, search, filterStatus, filterFrameName,filterPurchasePrice, filterSalesPrice]);
 
    // ------------------------
@@ -215,6 +237,14 @@ const useLensOrder = () => {
           const {pd, submitType, prescriptionImg, leftEye, rightEye} = prescription
            dispatch(openEdit({name: 'eye-prescription',data:{pd, submitType, prescriptionImg, leftEye, rightEye } }));
         }
+
+      const {handleDownloadInvoice} = useSingleInvoiceDownloader();
+                  
+      const handleInvoice = (value:string) => {
+          const findProduct = newModifiedData?.find((item:ILensSaleInfo) => item?._id === value)
+          if(!findProduct) return
+          handleDownloadInvoice(findProduct)
+      }
       
     
       const actionColumns: ActionColumn[] = [
@@ -232,6 +262,11 @@ const useLensOrder = () => {
           logo: <File className="w-4 h-4 text-amber-800"/>,
           type: "power",
           render: handlePower
+        },
+        {
+          logo: <ListCheck className="w-4 h-4 text-cyan-600"/>,
+          type: "power",
+          render: handleInvoice
         },
       ]
 

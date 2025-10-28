@@ -14,7 +14,7 @@ const ContactLensAndAccOrder = () => {
 
         const { columns, filterSummary, filters, page, setPage, paginatedData, search, setSearch, setPaginatedData,filteredData, isLoading, actionColumns} = useConactLensAndAcc()
 
-        const defaultColumn = columns?.slice(0,8)
+        const defaultColumn = columns?.slice(0,6)
        
          const [dynamicColumns, setDynamicColumns] = useState<TableColumn[]>(defaultColumn); // initially your normal columns
         
@@ -37,7 +37,7 @@ const ContactLensAndAccOrder = () => {
             <div className="flex  justify-end mb-2">
              <div className="flex flex-wrap mb-2">
                 <Button className="ml-0 lg:mb-0 mb-2 w-full lg:w-auto " onClick={handleDownloadPDF} size="sm">Download PDF</Button>
-                <ColumnManager columns={columns} dynamicColumns={dynamicColumns} setDynamicColumns={setDynamicColumns} />
+                <ColumnManager defaultCol={6} columns={columns} dynamicColumns={dynamicColumns} setDynamicColumns={setDynamicColumns} />
             </div>
             </div>
           </div>

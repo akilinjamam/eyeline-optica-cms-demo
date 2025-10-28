@@ -6,7 +6,6 @@ export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://server.eyelineoptica.com/api/v1/",
-    // baseUrl: "https://eyeline-optica-server.onrender.com/api/v1/",
     // baseUrl: "http://localhost:5000/api/v1/",
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as any).auth?.token;

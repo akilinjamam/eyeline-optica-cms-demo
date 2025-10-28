@@ -96,9 +96,6 @@ const useFrameList = () => {
   }
   const handleDelete = () => {
       dispatch(switchCheck())
-    
-     
-    
   };
 
   const handleImages = (id:string) => {

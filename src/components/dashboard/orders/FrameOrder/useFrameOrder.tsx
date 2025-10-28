@@ -2,10 +2,11 @@ import type { ActionColumn, TableColumn,  } from "../../../../types/type";
 import { useEffect, useMemo, useState } from "react";
 import type { IFrame, IFrameSaleInfo, ISales } from "../../../../types/interface";
 import { useGetAllSalesQuery } from "../../../../app/redux/api/salesApi";
-import { Edit, Eye } from "lucide-react";
+import { Edit, Eye, ListCheck } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { openEdit } from "../../../../app/redux/features/modalSlice";
 import { useGetAllFramesQuery } from "../../../../app/redux/api/frameApi";
+import useSingleInvoiceDownloader from "../../../../pdfDownloader/useSingleInvoiceDownloader";
 
 
 const useFrameOrder = () => {
@@ -17,7 +18,7 @@ const useFrameOrder = () => {
 
     const newModifiedData = useMemo(() => {
     return allFrameOrderData?.map((item: ISales) => {
-        const { customer_email, customer_phone, customer_address, productId, customer_name, invoiceNo, status, subtotal, quantity,_id } = item;
+        const { customer_email, customer_phone, customer_address, productId, customer_name, invoiceNo, status, subtotal, quantity,_id, payableAmount, dueAmount, deliveryFee } = item;
         return {
         _id,
         customer_name,
@@ -31,7 +32,8 @@ const useFrameOrder = () => {
         frameId: productId?._id,
         invoiceNo,
         status,
-        subtotal:subtotal * quantity
+        subtotal:subtotal * quantity,
+        payableAmount, dueAmount, deliveryFee
         };
     }) as IFrameSaleInfo[] | undefined;
     }, [allFrameOrderData]);
@@ -92,27 +94,52 @@ const useFrameOrder = () => {
 
     const filteredData = useMemo(() => {
 
-    const filteredData:IFrameSaleInfo[] = frame.filter(frame => {
-      const matchSearch =
-        frame?.customer_name.toLowerCase().includes(search.toLowerCase()) ||
-        frame?.customer_email.toLowerCase().includes(search.toLowerCase()) ||
-        frame?.customer_address.toLowerCase().includes(search.toLowerCase()) ||
-        frame?.customer_phone.toLowerCase().includes(search.toLowerCase()) ||
-        frame?.frameName.toLowerCase().includes(search.toLowerCase()) ||
-        frame?.invoiceNo.toLowerCase().includes(search.toLowerCase())
-        
-        
-      const matchName = filterStatus === "all" ? true : frame?.status === filterStatus;
-      const matchFrameName = filterFrameName === "all" ? true : frame?.frameName === filterFrameName;
-      const matchPurchasePrice = filterPurchasePrice === "all" ? true : frame?.framePurchasePrice?.toString() === filterPurchasePrice;
-      const matchSalesPrice = filterSalesPrice === "all" ? true : frame?.frameSalesPrice?.toString() === filterSalesPrice
+      const filteredData:IFrameSaleInfo[] = frame.filter(frame => {
+        const matchSearch =
+          frame?.customer_name.toLowerCase().includes(search.toLowerCase()) ||
+          frame?.customer_email.toLowerCase().includes(search.toLowerCase()) ||
+          frame?.customer_address.toLowerCase().includes(search.toLowerCase()) ||
+          frame?.customer_phone.toLowerCase().includes(search.toLowerCase()) ||
+          frame?.frameName.toLowerCase().includes(search.toLowerCase()) ||
+          frame?.invoiceNo.toLowerCase().includes(search.toLowerCase())
+          
+          
+        const matchName = filterStatus === "all" ? true : frame?.status === filterStatus;
+        const matchFrameName = filterFrameName === "all" ? true : frame?.frameName === filterFrameName;
+        const matchPurchasePrice = filterPurchasePrice === "all" ? true : frame?.framePurchasePrice?.toString() === filterPurchasePrice;
+        const matchSalesPrice = filterSalesPrice === "all" ? true : frame?.frameSalesPrice?.toString() === filterSalesPrice
 
-      return matchSearch && matchName && matchFrameName && matchSalesPrice && matchPurchasePrice
-    });
+        return matchSearch && matchName && matchFrameName && matchSalesPrice && matchPurchasePrice
+      });
 
-    const addingIdWithFiltered:IFrameSaleInfo[] = filteredData.map((filtered:IFrameSaleInfo, index:number) => ({id:index+1, ...filtered}))
+      const addingIdWithFiltered:IFrameSaleInfo[] = filteredData.map((filtered:IFrameSaleInfo, index:number) => ({id:index+1, ...filtered}))
 
-    return addingIdWithFiltered
+      // ✅ Calculate total subtotal
+  const totalSubtotal = filteredData.reduce(
+    (acc, item) => acc + ((item.subtotal) || 0),
+    0
+  );
+
+  // ✅ Add a final row for total
+  const totalRow = {
+    id: "—",
+    _id: "total",
+    customer_name: "Total",
+    customer_email: "",
+    customer_phone: "",
+    customer_address: "",
+    frameName: "",
+    frameSalesPrice: "",
+    framePurchasePrice: "",
+    frameQty: "",
+    frameId: "",
+    invoiceNo: "",
+    status: "",
+    subtotal: totalSubtotal
+  } as unknown as IFrameSaleInfo;
+
+
+      return [totalRow,...addingIdWithFiltered]
     } , [frame, search, filterStatus, filterFrameName,filterPurchasePrice, filterSalesPrice]);
 
   
@@ -205,6 +232,13 @@ const useFrameOrder = () => {
         console.log(findonlyFrameOrder)
         dispatch(openEdit({name: 'details-only-frame',data:{...findonlyFrameOrder} }));
       }
+    }
+  const {handleDownloadInvoice} = useSingleInvoiceDownloader();
+
+  const handleInvoice = (value:string) => {
+    const findProduct = newModifiedData?.find((item:IFrameSaleInfo) => item?._id === value)
+    if(!findProduct) return
+    handleDownloadInvoice(findProduct)
   }
   
 
@@ -218,6 +252,11 @@ const useFrameOrder = () => {
       logo: <Eye className="w-4 h-4 text-orange-800"/>,
       type: "view",
       render: handleDetail
+    },
+    {
+      logo: <ListCheck className="w-4 h-4 text-cyan-600"/>,
+      type: "invoice",
+      render: handleInvoice
     },
   ]
 

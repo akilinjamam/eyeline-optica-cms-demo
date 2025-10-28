@@ -3,11 +3,12 @@ import type { ActionColumn, TableColumn,  } from "../../../../types/type";
 import { useEffect, useMemo, useState } from "react";
 import type { ContactLens, IContactLensAccessorySaleInfo,ISales } from "../../../../types/interface";
 import { useGetAllSalesQuery } from "../../../../app/redux/api/salesApi";
-import { Edit, Eye, File } from "lucide-react";
+import { Edit, Eye, File, ListCheck } from "lucide-react";
 import { openEdit } from "../../../../app/redux/features/modalSlice";
 import { useDispatch } from "react-redux";
 import { useGetAllContactLensQuery } from "../../../../app/redux/api/contactLensApi";
 import { useGetAllAccessoryQuery } from "../../../../app/redux/api/accessoryApi";
+import useSingleInvoiceDownloader from "../../../../pdfDownloader/useSingleInvoiceDownloader";
 
 
 const useConactLensAndAcc = () => {
@@ -20,7 +21,7 @@ const useConactLensAndAcc = () => {
 
     const newModifiedData = useMemo(() => {
     return allFrameOrderData?.map((item: ISales) => {
-        const { customer_email, customer_phone, customer_address, contactLensId,accessoryId, customer_name, invoiceNo, status, subtotal, quantity, _id, pd, submitType, prescriptionImg, leftEye, rightEye } = item;
+        const { customer_email, customer_phone, customer_address, contactLensId,accessoryId, customer_name, invoiceNo, status, subtotal, quantity, _id, pd, submitType, prescriptionImg, leftEye, rightEye, payableAmount, dueAmount, deliveryFee } = item;
 
         const accessoryName = accessoryId?.items?.map((item:any) => item?.name)?.join('+');
         const accessoryPurchasePrice = accessoryId?.items?.map((item:any) => item?.purchasePrice)?.join('+');
@@ -40,7 +41,7 @@ const useConactLensAndAcc = () => {
         invoiceNo,
         status,
         subtotal:subtotal * quantity,
-        pd, submitType, prescriptionImg, leftEye, rightEye
+        pd, submitType, prescriptionImg, leftEye, rightEye, payableAmount, dueAmount, deliveryFee
         };
     }) as IContactLensAccessorySaleInfo[] | undefined;
     }, [allFrameOrderData]);
@@ -117,7 +118,27 @@ const useConactLensAndAcc = () => {
 
     const addingIdWithFiltered:IContactLensAccessorySaleInfo[] = filteredData.map((filtered:IContactLensAccessorySaleInfo, index:number) => ({id:index+1, ...filtered}))
 
-    return addingIdWithFiltered
+
+    const totalValue = addingIdWithFiltered?.reduce((acc, item) => acc + ((item?.subtotal) || 0), 0)
+
+    const totalRow = {
+        id: "—",
+        _id: "total",
+        customer_name: "Total",
+        customer_email: "",
+        customer_phone: "",
+        customer_address: "",
+        productName: "",
+        productSalesPrice: "",
+        productPurchasePrice: "",
+        productQty: "",
+        productId: "",
+        invoiceNo: "",
+        status: "",
+        subtotal: totalValue
+      } as unknown as IContactLensAccessorySaleInfo;
+
+    return [totalRow,...addingIdWithFiltered]
     } , [product, search, filterStatus, filterProductName,filterPurchasePrice, filterSalesPrice]);
 
   
@@ -214,6 +235,14 @@ const useConactLensAndAcc = () => {
           const {pd, submitType, prescriptionImg, leftEye, rightEye} = prescription
            dispatch(openEdit({name: 'eye-prescription',data:{pd, submitType, prescriptionImg, leftEye, rightEye } }));
         }
+
+    const {handleDownloadInvoice} = useSingleInvoiceDownloader();
+            
+              const handleInvoice = (value:string) => {
+                const findProduct = newModifiedData?.find((item:IContactLensAccessorySaleInfo) => item?._id === value)
+                if(!findProduct) return
+                handleDownloadInvoice(findProduct)
+              }
     
   
     const actionColumns: ActionColumn[] = [
@@ -231,6 +260,11 @@ const useConactLensAndAcc = () => {
         logo: <File className="w-4 h-4 text-amber-800"/>,
         type: "power",
         render: handlePower
+      },
+      {
+        logo: <ListCheck className="w-4 h-4 text-cyan-600"/>,
+        type: "invoice",
+        render: handleInvoice
       },
     ]
 

@@ -12,13 +12,14 @@ type TColumnManager = {
     columns:TableColumn[];
     dynamicColumns:TableColumn[];
     setDynamicColumns:any;
+    defaultCol?:number;
 }
 
-const ColumnManager = ({columns, dynamicColumns, setDynamicColumns}: TColumnManager) => {
+const ColumnManager = ({columns, dynamicColumns, setDynamicColumns, defaultCol=8}: TColumnManager) => {
 
     const {ids} = useSelector((state:RootState) => state.modal)
 
-    const restColumn = columns?.slice(8)
+    const restColumn = columns?.slice(defaultCol)
   
     const [removedColumns, setRemoveColumns] = useState<TableColumn[]>(restColumn);
       
@@ -30,7 +31,7 @@ const ColumnManager = ({columns, dynamicColumns, setDynamicColumns}: TColumnMana
 
 
     const addColumn = (key:string) => {
-    if(dynamicColumns.length >= 8) return; // max 8 columns
+    if(dynamicColumns.length >= defaultCol) return; // max 8 columns
     const newColumn = removedColumns?.find(col => col.key === key)
     setRemoveColumns(removedColumns?.filter(col => col.key !== key))
     if(newColumn){
@@ -58,7 +59,7 @@ const removeColumn = (key: string) => {
     return (
         <div className="flex flex-wrap">
             <div className="lg:ml-3">
-                <Select disabled={dynamicColumns?.length >= 8} value={removeSelectValue}  onValueChange={(val) => {
+                <Select disabled={dynamicColumns?.length >= defaultCol} value={removeSelectValue}  onValueChange={(val) => {
                   addColumn(val)
                   setRemoveSelectValue("");
                 }}>

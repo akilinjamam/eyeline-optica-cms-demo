@@ -10,6 +10,7 @@ import { useState } from "react";
 import type { TableColumn } from "../../../../types/type";
 import ColumnManager from "../../../../reusableComponent/ColumnManager";
 import type { IFrameSaleInfo } from "../../../../types/interface";
+// import useInvoiceDownloader from "../../../../pdfDownloader/useInvoiceDownloader";
 
 const FrameOrder = () => {
 
@@ -29,7 +30,7 @@ const FrameOrder = () => {
      
          // PDF hook
          const { handleDownloadPDF } = usePdfDownloader(tableData, header, "Only-Frame-List");
-     
+        //  const {handleDownloadInvoice} = useInvoiceDownloader();
        
         return (
         <div className="px-4 py-2 bg-gray-50 min-h-screen">
@@ -38,6 +39,7 @@ const FrameOrder = () => {
             <div className="flex  justify-end mb-2">
              <div className="flex flex-wrap mb-2">
                 <Button className="ml-0 lg:mb-0 mb-2 w-full lg:w-auto " onClick={handleDownloadPDF} size="sm">Download PDF</Button>
+                
                 <ColumnManager columns={columns} dynamicColumns={dynamicColumns} setDynamicColumns={setDynamicColumns} />
             </div>
             </div>

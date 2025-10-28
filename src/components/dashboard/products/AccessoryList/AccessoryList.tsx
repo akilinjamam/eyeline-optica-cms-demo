@@ -2,33 +2,32 @@ import { Button } from "../../../ui/button";
 import Pagination from "../../../../reusableComponent/Pagination";
 import Table from "../../../../reusableComponent/Table";
 import Filteration from "../../../../reusableComponent/filteration";
-
-import useFrameAndLensOrder from "./useFrameAndLensOrder";
 import usePdfDownloader from "../../../../pdfDownloader/usePdfDownloader";
+import type { IModifiedAccessory } from "../../../../types/interface";
 import TableScaleton from "../../../TableScaleton";
 import { useState } from "react";
 import type { TableColumn } from "../../../../types/type";
 import ColumnManager from "../../../../reusableComponent/ColumnManager";
-import type { IFrameWithLensInfo } from "../../../../types/interface";
+import useAccessoryList from "./useAccessoryList";
 
-const FrameAndLensOrder = () => {
+const AccessoryList = () => {
 
-        const { columns, filterSummary, filters, page, setPage, paginatedData, search, setSearch, setPaginatedData,filteredData, isLoading, actionColumns} = useFrameAndLensOrder()
+        const {actionColumns, columns, filterSummary, filters, page, setPage, paginatedData, search, setSearch, setPaginatedData,filteredData, isLoading, showCheck} = useAccessoryList();
 
-        const defaultColumn = columns?.slice(0,6)
+        const defaultColumn = columns?.slice(0,8)
        
          const [dynamicColumns, setDynamicColumns] = useState<TableColumn[]>(defaultColumn); // initially your normal columns
         
          // Table data
-         const tableData = filteredData.map((clens: IFrameWithLensInfo) =>
-           dynamicColumns.map(item => clens[item.key as keyof IFrameWithLensInfo])
+         const tableData = filteredData.map((clens: IModifiedAccessory) =>
+           dynamicColumns.map(item => clens[item.key as keyof IModifiedAccessory])
          );
      
          // Header
          const header = dynamicColumns.map(item => item.label);
      
          // PDF hook
-         const { handleDownloadPDF } = usePdfDownloader(tableData, header, "Frame-with-lens-List");
+         const { handleDownloadPDF } = usePdfDownloader(tableData, header, "Frame-List");
      
        
         return (
@@ -38,7 +37,7 @@ const FrameAndLensOrder = () => {
             <div className="flex  justify-end mb-2">
              <div className="flex flex-wrap mb-2">
                 <Button className="ml-0 lg:mb-0 mb-2 w-full lg:w-auto " onClick={handleDownloadPDF} size="sm">Download PDF</Button>
-                <ColumnManager defaultCol={6} columns={columns} dynamicColumns={dynamicColumns} setDynamicColumns={setDynamicColumns} />
+                <ColumnManager columns={columns} dynamicColumns={dynamicColumns} setDynamicColumns={setDynamicColumns} />
             </div>
             </div>
           </div>
@@ -52,11 +51,10 @@ const FrameAndLensOrder = () => {
                   filterSummary={filterSummary}
                   search={search}
                   setSearch={setSearch}
-                 
                   filters={filters}
                   showPriceRange={true}
                 />
-                <Table column={dynamicColumns} paginatedData={paginatedData} actionColumn={actionColumns} />
+                <Table column={dynamicColumns} paginatedData={paginatedData} actionColumn={actionColumns} showCheck={showCheck}/>
               </>
             )}
           </div>
@@ -73,4 +71,4 @@ const FrameAndLensOrder = () => {
       );
 };
 
-export default FrameAndLensOrder; 
+export default AccessoryList; 

@@ -17,6 +17,8 @@ const ProductsLanding = () => {
   { title: "Lens List", icon: <Circle className="w-8 h-8" />, color: "from-yellow-400 to-orange-400", path: '/dashboard/lens_list', role: role === 'employee' || role === 'admin' || role === 'doctor & admin' || role === 'employee & admin' },
   { title: "Add Contact Lens", icon: <Eye className="w-8 h-8" />, color: "from-red-400 to-pink-400", path: '/dashboard/add_contact_lens', role: role === 'employee' || role === 'admin' || role === 'doctor & admin' || role === 'employee & admin' },
   { title: "Contact Lens List", icon: <Eye className="w-8 h-8" />, color: "from-pink-400 to-purple-400", path: '/dashboard/contact_lens_list', role: role === 'employee' || role === 'admin' || role === 'doctor & admin' || role === 'employee & admin' },
+  { title: "Add Accessory", icon: <Eye className="w-8 h-8" />, color: "from-red-400 to-cyan-400", path: '/dashboard/add_accessory', role: role === 'employee' || role === 'admin' || role === 'doctor & admin' || role === 'employee & admin' },
+  { title: "Accessory List", icon: <Eye className="w-8 h-8" />, color: "from-yellow-400 to-blue-400", path: '/dashboard/accessory_list', role: role === 'employee' || role === 'admin' || role === 'doctor & admin' || role === 'employee & admin' },
 ];
 
   return (

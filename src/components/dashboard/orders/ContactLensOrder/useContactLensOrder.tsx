@@ -2,10 +2,11 @@ import type { ActionColumn, TableColumn,  } from "../../../../types/type";
 import { useEffect, useMemo, useState } from "react";
 import type { ContactLens, IContactLensSaleInfo, ISales } from "../../../../types/interface";
 import { useGetAllSalesQuery } from "../../../../app/redux/api/salesApi";
-import { Edit, Eye, File } from "lucide-react";
+import { Edit, Eye, File, ListCheck } from "lucide-react";
 import { openEdit } from "../../../../app/redux/features/modalSlice";
 import { useDispatch } from "react-redux";
 import { useGetAllContactLensQuery } from "../../../../app/redux/api/contactLensApi";
+import useSingleInvoiceDownloader from "../../../../pdfDownloader/useSingleInvoiceDownloader";
 
 
 const useContactLensOrder = () => {
@@ -17,7 +18,7 @@ const useContactLensOrder = () => {
 
     const newModifiedData = useMemo(() => {
     return allFrameOrderData?.map((item: ISales) => {
-        const { customer_email, customer_phone, customer_address, contactLensId, customer_name, invoiceNo, status, subtotal, quantity, _id, pd, submitType, prescriptionImg, leftEye, rightEye } = item;
+        const { customer_email, customer_phone, customer_address, contactLensId, customer_name, invoiceNo, status, subtotal, quantity, _id, pd, submitType, prescriptionImg, leftEye, rightEye, payableAmount, dueAmount, deliveryFee } = item;
         return {
         _id,
         customer_name,
@@ -32,7 +33,7 @@ const useContactLensOrder = () => {
         invoiceNo,
         status,
         subtotal:subtotal * quantity,
-        pd, submitType, prescriptionImg, leftEye, rightEye
+        pd, submitType, prescriptionImg, leftEye, rightEye, payableAmount, dueAmount, deliveryFee
         };
     }) as IContactLensSaleInfo[] | undefined;
     }, [allFrameOrderData]);
@@ -112,7 +113,28 @@ const useContactLensOrder = () => {
 
     const addingIdWithFiltered:IContactLensSaleInfo[] = filteredData.map((filtered:IContactLensSaleInfo, index:number) => ({id:index+1, ...filtered}))
 
-    return addingIdWithFiltered
+
+    const totalValue = addingIdWithFiltered?.reduce((acc, item) => acc + ((item?.subtotal) || 0), 0)
+    
+        const totalRow = {
+            id: "—",
+            _id: "total",
+            customer_name: "Total",
+            customer_email: "",
+            customer_phone: "",
+            customer_address: "",
+            contactLensName: "",
+            contactLensSalesPrice: "",
+            contactLensPurchasePrice: "",
+            contactLensQty: "",
+            contactLensId: "",
+            invoiceNo: "",
+            status: "",
+            subtotal: totalValue
+          } as unknown as IContactLensSaleInfo;
+
+
+    return [totalRow,...addingIdWithFiltered]
     } , [contactLens, search, filterStatus, filterContactLensName,filterPurchasePrice, filterSalesPrice]);
 
    // ------------------------
@@ -210,6 +232,14 @@ const useContactLensOrder = () => {
               const {pd, submitType, prescriptionImg, leftEye, rightEye} = prescription
                dispatch(openEdit({name: 'eye-prescription',data:{pd, submitType, prescriptionImg, leftEye, rightEye } }));
           }
+
+          const {handleDownloadInvoice} = useSingleInvoiceDownloader();
+            
+              const handleInvoice = (value:string) => {
+                const findProduct = newModifiedData?.find((item:IContactLensSaleInfo) => item?._id === value)
+                if(!findProduct) return
+                handleDownloadInvoice(findProduct)
+              }
   
     const actionColumns: ActionColumn[] = [
       {
@@ -226,6 +256,11 @@ const useContactLensOrder = () => {
         logo: <File className="w-4 h-4 text-amber-800"/>,
         type: "power",
         render: handlePower
+      },
+      {
+        logo: <ListCheck className="w-4 h-4 text-cyan-600"/>,
+        type: "invoice",
+        render: handleInvoice
       },
     ]
 

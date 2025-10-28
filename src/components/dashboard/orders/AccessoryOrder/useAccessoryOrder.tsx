@@ -5,8 +5,9 @@ import type { IAccessorySaleInfo, ISales } from "../../../../types/interface";
 import { useGetAllSalesQuery } from "../../../../app/redux/api/salesApi";
 import { useDispatch } from "react-redux";
 import { openEdit } from "../../../../app/redux/features/modalSlice";
-import { Edit, Eye } from "lucide-react";
+import { Edit, Eye, ListCheck } from "lucide-react";
 import { useGetAllAccessoryQuery } from "../../../../app/redux/api/accessoryApi";
+import useSingleInvoiceDownloader from "../../../../pdfDownloader/useSingleInvoiceDownloader";
 
 
 const useAccessoryOrder = () => {
@@ -18,7 +19,7 @@ const useAccessoryOrder = () => {
 
     const newModifiedData = useMemo(() => {
     return allFrameOrderData?.map((item: ISales) => {
-        const { customer_email, customer_phone, customer_address, accessoryId, customer_name, invoiceNo, status, subtotal, quantity, _id } = item;
+        const { customer_email, customer_phone, customer_address, accessoryId, customer_name, invoiceNo, status, subtotal, quantity, _id, payableAmount, dueAmount, deliveryFee} = item;
         const accessoryName = accessoryId?.items?.map((item:any) => item?.name)?.join('+');
         const accessoryPurchasePrice = accessoryId?.items?.map((item:any) => item?.purchasePrice)?.join('+');
         const accessorySalesPrice = accessoryId?.items?.map((item:any) => item?.salesPrice)?.join('+');
@@ -36,7 +37,10 @@ const useAccessoryOrder = () => {
         accessoryId: accessoryId?._id,
         invoiceNo,
         status,
-        subtotal:subtotal * quantity
+        subtotal:subtotal * quantity,
+        payableAmount,
+        dueAmount,
+        deliveryFee
         };
     }) as IAccessorySaleInfo[] | undefined;
     }, [allFrameOrderData]);
@@ -111,9 +115,31 @@ const useAccessoryOrder = () => {
       return matchSearch && matchName && matchFrameName && matchSalesPrice && matchPurchasePrice
     });
 
+    
+
     const addingIdWithFiltered:IAccessorySaleInfo[] = filteredData.map((filtered:IAccessorySaleInfo, index:number) => ({id:index+1, ...filtered}))
 
-    return addingIdWithFiltered
+
+    const totalValue = addingIdWithFiltered?.reduce((acc, item) => acc + ((item?.subtotal) || 0), 0)
+
+    const totalRow = {
+        id: "—",
+        _id: "total",
+        customer_name: "Total",
+        customer_email: "",
+        customer_phone: "",
+        customer_address: "",
+        accessoryName: "",
+        accessorySalesPrice: "",
+        accessoryPurchasePrice: "",
+        accessoryQty: "",
+        accessoryId: "",
+        invoiceNo: "",
+        status: "",
+        subtotal: totalValue
+      } as unknown as IAccessorySaleInfo;
+
+    return [totalRow,...addingIdWithFiltered]
     } , [accessory, search, filterStatus, filterAccessoryName,filterPurchasePrice, filterSalesPrice]);
 
   
@@ -197,7 +223,15 @@ const useAccessoryOrder = () => {
                      console.log(findonlyAccessoryOrder)
                       dispatch(openEdit({name: 'details-accesory',data:{ accessory: findonlyAccessoryOrder} }));
                     }
-                }
+        }
+
+        const {handleDownloadInvoice} = useSingleInvoiceDownloader();
+            
+              const handleInvoice = (value:string) => {
+                const findProduct = newModifiedData?.find((item:IAccessorySaleInfo) => item?._id === value)
+                if(!findProduct) return
+                handleDownloadInvoice(findProduct)
+              }
       
     
       const actionColumns: ActionColumn[] = [
@@ -210,6 +244,11 @@ const useAccessoryOrder = () => {
           logo: <Eye className="w-4 h-4 text-orange-800"/>,
           type: "view",
           render: handleDetails
+        },
+        {
+          logo: <ListCheck className="w-4 h-4 text-cyan-600"/>,
+          type: "invoice",
+          render: handleInvoice
         },
       ]
 

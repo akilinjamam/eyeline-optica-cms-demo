@@ -1,3 +1,5 @@
+import AccessoryList from "../../components/dashboard/products/AccessoryList/AccessoryList";
+import AddAccessory from "../../components/dashboard/products/AddAccessory/AddAccessory";
 import AddContactLens from "../../components/dashboard/products/AddContactLens/AddContactLens";
 import AddFrame from "../../components/dashboard/products/AddFrame/AddFrame";
 import AddLens from "../../components/dashboard/products/AddLense/AddLense";
@@ -35,5 +37,13 @@ export const products = [
         {
           path: 'contact_Lens_list',
           element: <ContactLensList/>
+        },
+        {
+          path: 'add_accessory',
+          element: <AddAccessory/>
+        },
+        {
+          path: 'accessory_list',
+          element: <AccessoryList/>
         },
       ]

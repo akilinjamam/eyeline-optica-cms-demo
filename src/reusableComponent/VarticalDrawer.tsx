@@ -21,6 +21,7 @@ import ContactLensDetail from "../components/dashboard/detailsInfo/ContactLensDe
 import AccessoryDetail from "../components/dashboard/detailsInfo/AccessoryDetail";
 import ContactLensAccessoryDetail from "../components/dashboard/detailsInfo/ContactLensAndAccessoryDetail";
 import EyePrescriptionDetail from "../components/dashboard/detailsInfo/EyePrescriptionDetail";
+import EditAccessory from "../components/dashboard/products/EditAccessory/EditAccessory";
 
 
 const VarticalDrawer = () => {
@@ -53,6 +54,7 @@ const VarticalDrawer = () => {
                 {editProductName === 'frame' && <EditFrame/>}
                 {editProductName === 'lens' && <EditLens/>}
                 {editProductName === 'contact-lens' && <EditContactLens/>}
+                {editProductName === 'accessory' && <EditAccessory/>}
                 {editProductName === 'controll-user-access' && <EditUserAccessControll/>}
                 {editProductName === 'doctor-profile' && <AddDoctor/>}
                 {editProductName === 'details-only-frame' && <FrameDetailCard product={editableData as IFrame}/>}

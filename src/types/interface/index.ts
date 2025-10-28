@@ -259,6 +259,7 @@ export interface IFrameSaleInfo {
   frameId: string;
   invoiceNo: string;
   status: string;
+  subtotal: number;
 }
 
 export interface IFrameWithLensInfo {
@@ -280,6 +281,7 @@ export interface IFrameWithLensInfo {
   submitType: string;
   leftEye: IEyeInfo;
   rightEye: IEyeInfo;
+  subtotal: number;
 }
 
 export interface ILensSaleInfo {
@@ -360,4 +362,46 @@ export interface IContactLensAccessorySaleInfo {
   prescriptionImg: string[];
   leftEye: IEyeInfo;
   rightEye: IEyeInfo;
+}
+
+export interface IAccessoryItems {
+  _id: string;
+  name: string;
+  barcode: string;
+  brand: string;
+  discount: number;
+  category: string;
+  quantity: number;
+  stock: boolean;
+  purchasePrice: number;
+  salesPrice: number;
+  sold: number;
+  description: string;
+  measurement: string;
+}
+
+export interface IAccessory {
+  _id?: string;
+  images?: string[];
+  type:
+    | "With Solution"
+    | "With Bag"
+    | "With Kit"
+    | "With Solution + Kit"
+    | "With Solution + Bag"
+    | "With Kit + Bag"
+    | "With Solution + Bag + Kit"
+    | "others";
+  items?: IAccessoryItems[];
+}
+
+export interface IModifiedAccessory {
+  type: string;
+  images?: File[] | string[];
+  name: string;
+  brand: string;
+  salesPrice: string;
+  purchasePrice: string;
+  category: string;
+  quantity: string;
 }
