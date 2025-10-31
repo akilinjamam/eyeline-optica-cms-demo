@@ -3,6 +3,8 @@ import AddAccessory from "../../components/dashboard/products/AddAccessory/AddAc
 import AddContactLens from "../../components/dashboard/products/AddContactLens/AddContactLens";
 import AddFrame from "../../components/dashboard/products/AddFrame/AddFrame";
 import AddLens from "../../components/dashboard/products/AddLense/AddLense";
+import { AddCategory } from "../../components/dashboard/products/Category/AddCategory/AddCategory";
+import CategoryList from "../../components/dashboard/products/Category/CategoryList/CategoryList";
 import ContactLensList from "../../components/dashboard/products/ContactLensList/ContactLensList";
 import FrameList from "../../components/dashboard/products/FrameList/FrameList";
 import LensList from "../../components/dashboard/products/LensList/LensList";
@@ -45,5 +47,13 @@ export const products = [
         {
           path: 'accessory_list',
           element: <AccessoryList/>
+        },
+        {
+          path: 'add_category',
+          element: <AddCategory/>
+        },
+        {
+          path: 'category_list',
+          element: <CategoryList/>
         },
       ]

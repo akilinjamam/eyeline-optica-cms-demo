@@ -5,7 +5,7 @@ import { ScrollArea } from "../components/ui/scroll-area";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../components/ui/tooltip";
 import { Button } from "../components/ui/button";
 import { Checkbox } from "../components/ui/checkbox"; // ✅ Assuming you have shadcn/ui checkbox
-import type { ContactLens, Frame, IAccessorySaleInfo, IContactLensAccessorySaleInfo, IContactLensSaleInfo, IFrameSaleInfo, IFrameWithLensInfo, ILens, ILensSaleInfo, IModifiedAccessory, ITableInfo } from "../types/interface";
+import type { ContactLens, Frame, IAccessorySaleInfo, ICategory, IContactLensAccessorySaleInfo, IContactLensSaleInfo, IFrameSaleInfo, IFrameWithLensInfo, ILens, ILensSaleInfo, IModifiedAccessory, ITableInfo } from "../types/interface";
 import type { ActionColumn, TableColumn, TCustomer, TRegistration } from "../types/type";
 import { useDispatch, useSelector } from "react-redux";
 import { addAllIds, addIds,  deletableItem,  deleteIds, removeIds } from "../app/redux/features/modalSlice";
@@ -13,7 +13,7 @@ import type { RootState } from "../app/store";
 import { useLocation } from "react-router-dom";
 // import { useLocation } from "react-router-dom";
 
-const Table = ({ paginatedData, column, actionColumn=[], showCheck }: ITableInfo<ContactLens | ILens | Frame | TRegistration | TCustomer | IFrameSaleInfo | IFrameWithLensInfo | ILensSaleInfo | IContactLensSaleInfo | IAccessorySaleInfo | IContactLensAccessorySaleInfo | IModifiedAccessory>) => {
+const Table = ({ paginatedData, column, actionColumn=[], showCheck }: ITableInfo<ContactLens | ILens | Frame | TRegistration | TCustomer | IFrameSaleInfo | IFrameWithLensInfo | ILensSaleInfo | IContactLensSaleInfo | IAccessorySaleInfo | IContactLensAccessorySaleInfo | IModifiedAccessory | ICategory>) => {
   const location = useLocation()
   const deletableItemName = location.pathname;
  

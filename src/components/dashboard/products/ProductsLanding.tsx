@@ -1,9 +1,8 @@
 import '../../../layout.css';
 import { motion } from "framer-motion";
-import { Box, Layers, Circle, Eye } from "lucide-react";
+import { Box, Layers, Circle, Eye, BoxSelect, ListCheckIcon } from "lucide-react";
 import { Link } from 'react-router-dom';
 import useFindUser from '../../../reusableComponent/useFindUser';
-
 
 
 const ProductsLanding = () => {
@@ -19,6 +18,8 @@ const ProductsLanding = () => {
   { title: "Contact Lens List", icon: <Eye className="w-8 h-8" />, color: "from-pink-400 to-purple-400", path: '/dashboard/contact_lens_list', role: role === 'employee' || role === 'admin' || role === 'doctor & admin' || role === 'employee & admin' },
   { title: "Add Accessory", icon: <Eye className="w-8 h-8" />, color: "from-red-400 to-cyan-400", path: '/dashboard/add_accessory', role: role === 'employee' || role === 'admin' || role === 'doctor & admin' || role === 'employee & admin' },
   { title: "Accessory List", icon: <Eye className="w-8 h-8" />, color: "from-yellow-400 to-blue-400", path: '/dashboard/accessory_list', role: role === 'employee' || role === 'admin' || role === 'doctor & admin' || role === 'employee & admin' },
+  { title: "Add Category", icon: <BoxSelect className="w-8 h-8" />, color: "from-red-400 to-orange-400", path: '/dashboard/add_category', role: role === 'employee' || role === 'admin' || role === 'doctor & admin' || role === 'employee & admin' },
+  { title: "Category List", icon: <ListCheckIcon className="w-8 h-8" />, color: "from-green-400 to-cyan-400", path: '/dashboard/category_list', role: role === 'employee' || role === 'admin' || role === 'doctor & admin' || role === 'employee & admin' },
 ];
 
   return (

@@ -13,6 +13,7 @@ import { Label } from "../../../ui/label";
 import { ImagePlus, X, Plus } from "lucide-react";
 import useAddLens from "./useAddLens";
 import { Controller } from "react-hook-form";
+import type { ICategory } from "../../../../types/interface";
 
 const AddLens = () => {
   const {
@@ -145,12 +146,17 @@ const AddLens = () => {
                 {...register("salesPrice")}
               />
             </div>
-
-            {/* STOCK */}
+            {/* QUANTITY */}
             <div className="space-y-3">
-              <Label>Stock</Label>
-              <Input type="number" placeholder="50" {...register("stock")} />
+              <Label>Quantity</Label>
+              <Input
+                type="number"
+                placeholder="120"
+                {...register("quantity")}
+              />
             </div>
+
+          
 
             {/* BRAND */}
             <div className="space-y-3">
@@ -200,20 +206,20 @@ const AddLens = () => {
           <div className="mt-6 space-y-3">
             <Label>Coatings</Label>
             <div className="flex flex-wrap gap-2">
-              {availableCoatings.map((coating) => {
-                const active = watch("coatings").includes(coating);
+              {availableCoatings.map((coating:ICategory) => {
+                const active = watch("coatings").includes(coating.category);
                 return (
                   <button
-                    key={coating}
+                    key={coating?._id}
                     type="button"
-                    onClick={() => toggleCoating(coating)}
+                    onClick={() => toggleCoating(coating?.category)}
                     className={`px-3 py-1 rounded-full border text-sm transition ${
                       active
                         ? "bg-indigo-500 text-white border-indigo-500"
                         : "bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
                     }`}
                   >
-                    {coating}
+                    {coating?.category}
                   </button>
                 );
               })}

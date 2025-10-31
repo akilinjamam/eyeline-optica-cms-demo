@@ -70,7 +70,7 @@ const ContactLensAccessoryDetail: FC<ContactLensAccessoryDetailProps> = ({
               {isContactLens && (
                 <p className="text-2xl font-bold text-gray-900">
                   ৳{contactLens?.salesPrice}
-                  {contactLens?.purchasePrice > (contactLens?.salesPrice || 0) && (
+                  {contactLens?.purchasePrice !== null && contactLens?.purchasePrice > (contactLens?.salesPrice || 0) && (
                     <span className="ml-3 text-sm text-gray-400 line-through">
                       ৳{contactLens?.purchasePrice}
                     </span>
@@ -86,11 +86,7 @@ const ContactLensAccessoryDetail: FC<ContactLensAccessoryDetailProps> = ({
               )}
             </div>
 
-            {isContactLens && contactLens?.offer > 0 && (
-              <Badge variant="secondary" className="mt-2 bg-green-100 text-green-700">
-                -{contactLens?.offer}% OFF
-              </Badge>
-            )}
+            
             {isAccessory && (
               <Badge variant="outline" className="capitalize bg-gray-50">
                 {accessory?.type}

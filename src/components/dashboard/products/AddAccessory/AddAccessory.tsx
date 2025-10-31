@@ -19,9 +19,12 @@ import {
 import { Label } from "../../../../components/ui/label";
 import { useFieldArray } from "react-hook-form";
 import { useAddAccessory } from "./useAddAccessory";
+import useCategory from "../../../../reusableComponent/useCategory";
+import type { ICategory } from "../../../../types/interface";
 
 
 export default function AddAccessory() {
+  const {category} = useCategory("Accessory Type")
   const {
     form,
     onSubmit,
@@ -126,18 +129,12 @@ export default function AddAccessory() {
                   <SelectValue placeholder="Select accessory type" />
                 </SelectTrigger>
                 <SelectContent>
-                  {[
-                    "With Solution",
-                    "With Bag",
-                    "With Kit",
-                    "With Solution + Kit",
-                    "With Solution + Bag",
-                    "With Kit + Bag",
-                    "With Solution + Bag + Kit",
-                    "others",
-                  ].map((type) => (
-                    <SelectItem key={type} value={type}>
-                      {type}
+                  <SelectItem  value="others">
+                      Others
+                    </SelectItem>
+                  {category.map((type:ICategory) => (
+                    <SelectItem key={type?._id} value={type?.category}>
+                      {type?.category}
                     </SelectItem>
                   ))}
                 </SelectContent>

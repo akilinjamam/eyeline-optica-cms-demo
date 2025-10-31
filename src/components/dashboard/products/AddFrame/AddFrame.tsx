@@ -187,7 +187,7 @@ const AddFrame = () => {
                   <Select onValueChange={field.onChange} value={field.value} required>
                     <SelectTrigger className="w-full"><SelectValue placeholder="Select badge" /></SelectTrigger>
                     <SelectContent>
-                      {badges.map((b) => <SelectItem key={b} value={b}>{b}</SelectItem>)}
+                      {badges.map((b) => <SelectItem key={b.category} value={b.category}>{b.category}</SelectItem>)}
                     </SelectContent>
                   </Select>
                 )}

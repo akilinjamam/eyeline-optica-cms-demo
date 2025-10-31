@@ -10,10 +10,11 @@ import { ImagePlus, X, Plus } from "lucide-react";
 import { Controller } from "react-hook-form";
 import useAddContactLens from "./useAddContactLens";
 import { Switch } from "../../../ui/switch";
-
-const availableFeatures = ["UV Protection", "Blue Light Filter", "Toric (Astigmatism)", "Multifocal"];
+import useCategory from "../../../../reusableComponent/useCategory";
+import type { ICategory } from "../../../../types/interface";
 
 const AddContactLens = () => {
+  const {category:availableFeatures} = useCategory("Contact Lens Feature")
     const { register, handleSubmit, control, watch,previewImages, handleImageUpload, toggleFeature, removeImage, onSubmit, isLoading} = useAddContactLens()
    return (
     <div className="p-4 bg-gray-50 h-screen overflow-y-scroll hide-scrollbar">
@@ -64,6 +65,25 @@ const AddContactLens = () => {
                       <SelectItem value="monthly">Monthly</SelectItem>
                       <SelectItem value="toric">Toric</SelectItem>
                       <SelectItem value="multifocal">Multifocal</SelectItem>
+                    </SelectContent>
+                  </Select>
+                )}
+              />
+            </div>
+            {/* POWER TYPE */}
+            <div className="space-y-3">
+              <Label>Power Type</Label>
+              <Controller
+                name="powerType"
+                control={control}
+                render={({ field }) => (
+                  <Select onValueChange={field.onChange} value={field.value} required>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select power type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="with power">With Power</SelectItem>
+                      <SelectItem value="without power">Without Power</SelectItem>
                     </SelectContent>
                   </Select>
                 )}
@@ -126,13 +146,18 @@ const AddContactLens = () => {
               <Label>Sales Price</Label>
               <Input type="number" placeholder="120" {...register("salesPrice")} />
             </div>
+            {/*QUANTITY PRICE */}
+            <div className="space-y-3">
+              <Label>Quantity</Label>
+              <Input type="number" placeholder="120" {...register("quantity")} />
+            </div>
             
 
             {/* STOCK */}
-            <div className="space-y-3">
+            {/* <div className="space-y-3">
               <Label>Stock</Label>
               <Input type="number" placeholder="50" {...register("stock")} />
-            </div>
+            </div> */}
 
             {/* OFFER */}
             <div className="space-y-3">
@@ -145,20 +170,20 @@ const AddContactLens = () => {
           <div className="mt-6 space-y-3">
             <Label>Features</Label>
             <div className="flex flex-wrap gap-2">
-              {availableFeatures.map((feature) => {
-                const active = watch("features").includes(feature)
+              {availableFeatures.map((feature:ICategory) => {
+                const active = watch("features").includes(feature?.category)
                 return (
                   <button
-                    key={feature}
+                    key={feature?._id}
                     type="button"
-                    onClick={() => toggleFeature(feature)}
+                    onClick={() => toggleFeature(feature?.category)}
                     className={`px-3 py-1 rounded-full border text-sm transition ${
                       active
                         ? "bg-indigo-500 text-white border-indigo-500"
                         : "bg-white border-gray-300 text-gray-700 hover:bg-gray-50"
                     }`}
                   >
-                    {feature}
+                    {feature?.category}
                   </button>
                 );
               })}

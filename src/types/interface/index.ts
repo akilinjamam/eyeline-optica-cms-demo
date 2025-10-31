@@ -67,10 +67,9 @@ export type ContactLens = {
   diameter: number; // mm
   baseCurve: number; // mm
   powerRange: string; // e.g. "-12.00 to +8.00"
-  purchasePrice: number;
-  salesPrice: number;
-  stock: number;
-  offer: number; // percentage (0-100)
+  purchasePrice: number | null;
+  salesPrice: number | null;
+  offer: number | null; // percentage (0-100)
   description: string;
   images: string[];
   newImages?: string[];
@@ -78,6 +77,8 @@ export type ContactLens = {
   sold: number;
   rating: number;
   quantity: number;
+  powerType: string;
+  stock: boolean;
 };
 
 export type ProductType =
@@ -174,12 +175,13 @@ export interface LensFormData {
   salesPrice: string;
   stock: number;
   brand: string;
-  offer: number;
+  offer: number | null;
   rating: number;
   warranty: string;
   deliveryTime: string;
   description: string;
   featured: boolean;
+  quantity: string;
 }
 
 // Doctor type
@@ -404,4 +406,10 @@ export interface IModifiedAccessory {
   purchasePrice: string;
   category: string;
   quantity: string;
+}
+
+export interface ICategory {
+  _id?: string;
+  categoryType: string;
+  category: string;
 }

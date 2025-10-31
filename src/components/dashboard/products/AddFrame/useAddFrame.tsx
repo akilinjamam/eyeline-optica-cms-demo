@@ -3,11 +3,15 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useCreateFrameMutation } from '../../../../app/redux/api/frameApi';
 import { useForm } from 'react-hook-form';
+import useCategory from '../../../../reusableComponent/useCategory';
 
 const useAddFrame = () => {
-const availableFeatures = ["UV Protection", "Polarized", "Blue Light Filter", "Anti-Glare"];
+  
+  const {category:categoryFrameFeatures, isLoading:isLoadingCategory} = useCategory("Frame Feature")
+  const {category:badges, isLoading:isLoadingBadge} = useCategory("Frame Badge")
+
+const availableFeatures = isLoadingCategory ? ["Loading..."] : categoryFrameFeatures?.map((feature) => feature?.category);
 const brands = ["raybon", "Alex Perry", "Oakley"];
-const badges = ["popular", "new", "premium", "luxury", "best", "trending", "budget"];
 
 type FrameFormData = {
   name: string;
@@ -19,13 +23,13 @@ type FrameFormData = {
   shapeCategory: "oval" | "round" | "square" | "cats eye" | "rectangle" | "avietor" | "browline" | "horn";
   biologyCategory: "men" | "women" | "kids";
   color: string;
-  purchase: number;
-  salesPrice: number;
-  discount: number;
+  purchase: number | null;
+  salesPrice: number | null;
+  discount: number | null;
   quantity: number;
   features: string[];
   brand: "raybon" | "Alex Perry" | "Oakley";
-  badge?: "popular" | "new" | "premium" | "luxury" | "best" | "trending" | "budget";
+  badge?: "popular" | "new" | "premium" | "luxury" | "best" | "trending" | "budget" | "";
   description?: string;
   weeklyDeals: boolean;
   frameMeasurements?: string;
@@ -45,13 +49,13 @@ type FrameFormData = {
       shapeCategory: "round",
       biologyCategory: "men",
       color: "",
-      purchase: 0,
-      salesPrice: 0,
-      discount: 0,
+      purchase: null,
+      salesPrice: null,
+      discount: null,
       quantity: 1,
       features: [],
       brand: "raybon",
-      badge: "popular",
+      badge: "",
       description: "",
       weeklyDeals: false,
       frameMeasurements: "",
@@ -62,6 +66,7 @@ type FrameFormData = {
 
   const [previewImages, setPreviewImages] = useState<string[]>([]);
   const [createFrame, { isLoading, error }] = useCreateFrameMutation();
+ 
   console.log(isLoading)
   console.log(error)
 
@@ -109,7 +114,7 @@ type FrameFormData = {
     }
 
   };
- return {availableFeatures, brands, badges, register, handleSubmit, control, watch,previewImages, handleImageUpload, toggleFeature, removeImage, onSubmit, isLoading, error }
+ return {availableFeatures, brands, badges, register, handleSubmit, control, watch,previewImages, handleImageUpload, toggleFeature, removeImage, onSubmit, isLoading, error, categoryFrameFeatures, isLoadingBadge }
  
 };
 

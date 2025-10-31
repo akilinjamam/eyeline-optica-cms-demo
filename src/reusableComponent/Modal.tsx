@@ -9,6 +9,7 @@ import { useDeleteLensMutation } from "../app/redux/api/lensApi";
 import { useDeleteContactLensMutation } from "../app/redux/api/contactLensApi";
 import { useDeleteUsersMutation } from "../app/redux/api/authApi";
 import { useDeleteAccessoryMutation } from "../app/redux/api/accessoryApi";
+import { useDeleteCategoryMutation } from "../app/redux/api/categoryApi";
 
 interface ModalProps {
   title?: string;
@@ -31,6 +32,7 @@ export default function Modal({
    const [deleteContactLens, {isLoading:isLoadingContactLens, error:errorContactLense}] = useDeleteContactLensMutation();
    const [deleteUser, {isLoading:isLoadingUser, error:errorUsers}] = useDeleteUsersMutation();
    const [deleteAcessory, {isLoading:isLoadingAccessory, error:errorAccessory}] = useDeleteAccessoryMutation();
+   const [deleteCategory, {isLoading:isLoadingCategory, error:errorCategory}] = useDeleteCategoryMutation();
 
     const handleDelete = async() => {
       if(deleteProductName === '/dashboard/frame_list'){
@@ -90,6 +92,17 @@ export default function Modal({
           dispatch(closeModal())
           
         }else{
+          toast.error(errorCategory as string)
+        }
+      }
+      if(deleteProductName === '/dashboard/category_list'){
+        const res =  await deleteCategory(ids).unwrap();
+        if(res.success){
+          toast.success(res.message)
+          dispatch(deleteIds())
+          dispatch(closeModal())
+          
+        }else{
           toast.error(errorAccessory as string)
         }
       }
@@ -130,7 +143,7 @@ export default function Modal({
                 onClick={handleDelete}
                 className="px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 shadow-md transition"
               >
-                {(isLoadingFrame || isLoadingLens ||isLoadingContactLens || isLoadingUser || isLoadingAccessory) ? 'Deleting': 'Confirm'}
+                {(isLoadingFrame || isLoadingLens ||isLoadingContactLens || isLoadingUser || isLoadingAccessory || isLoadingCategory) ? 'Deleting': 'Confirm'}
               </button>
             </div>
           </motion.div>

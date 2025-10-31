@@ -70,8 +70,8 @@ const useContactList = () => {
       const matchBrand = brand === "all" ? true : clens.brand === brand
 
        const matchPrice =
-        (minPrice === "" || clens.salesPrice >= Number(minPrice)) &&
-        (maxPrice === "" || clens.salesPrice <= Number(maxPrice));
+        (minPrice === "" || (clens.salesPrice ?? 0) >= Number(minPrice)) &&
+        (maxPrice === "" || (clens.salesPrice ?? 0) <= Number(maxPrice));
 
       return matchSearch && matchType && matchMaterial  && matchPrice && matchColor && matchBrand;
     });

@@ -21,12 +21,13 @@ const useAddContactLens = () => {
     uvProtection:false,
     replacementSchedule: "",
     color: "",
-    purchasePrice: 0,
-    salesPrice: 0,
-    stock: 0,
-    offer: 0,
+    purchasePrice: null,
+    salesPrice: null,
+    offer: null,
     features: [] as string[],
     description: "",
+    powerType:"",
+    quantity: 1
     },
   });
 
@@ -57,10 +58,19 @@ const useAddContactLens = () => {
 
   const onSubmit = async (data: ContactLens) => {
    
-    const {images, diameter, baseCurve, offer,purchasePrice, salesPrice, waterContent,  stock, ...remaining} = data;
+    const {images, diameter, baseCurve, offer,purchasePrice, salesPrice,  quantity, waterContent, ...remaining} = data;
     console.log(data)
     const formData = {
-      data: {diameter:+diameter, baseCurve:+baseCurve, offer:+offer, purchasePrice:+purchasePrice, salesPrice:+salesPrice, stock:+stock , waterContent:`${waterContent}%`,...remaining},
+      data: {
+        diameter: +diameter,
+        baseCurve: +baseCurve,
+        offer: offer != null && offer !== 0 ? +offer : 0,
+        purchasePrice: purchasePrice != null && purchasePrice !== 0 ? +purchasePrice : 0,
+        salesPrice: salesPrice != null && salesPrice !== 0 ? +salesPrice : 0,
+        waterContent: `${waterContent}%`,
+        quantity: +quantity,
+        ...remaining
+      },
       images
     }
 

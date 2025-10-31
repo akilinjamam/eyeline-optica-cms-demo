@@ -4,14 +4,14 @@ import { useForm } from "react-hook-form";
 import { useCreateLensMutation } from "../../../../app/redux/api/lensApi";
 import { toast } from "react-toastify";
 import type { LensFormData } from "../../../../types/interface";
+import useCategory from "../../../../reusableComponent/useCategory";
 
-const availableCoatings = [
-  "Anti-Reflective",
-  "UV Protection",
-  "Blue Light Filter",
-  "Scratch Resistant",
-];
+
 const useAddLens = () => {
+
+  const {category:availableCoatings} = useCategory("Lens Coating")
+
+
     const {
     register,
     handleSubmit,
@@ -33,14 +33,14 @@ const useAddLens = () => {
       diameter: 0,
       purchasePrice: "",
       salesPrice: "",
-      stock: 0,
       brand: "",
-      offer: 0,
+      offer: null,
       rating: 0,
       warranty: "",
       deliveryTime: "",
       description: "",
       featured: false,
+      quantity:""
     },
   });
 
@@ -72,9 +72,9 @@ const useAddLens = () => {
   
   const onSubmit = async (data: LensFormData) => {
         console.log("Lens Data:", data);
-        const {images, diameter, index, offer, rating, salesPrice, purchasePrice, stock, ...remaining} = data;
+        const {images, diameter, index, offer, rating, salesPrice, purchasePrice, quantity, ...remaining} = data;
         const formData = {
-          data: {diameter: +diameter, index:+index, rating: +rating, salesPrice: +salesPrice, purchasePrice: +purchasePrice, stock: +stock, offer:+offer ,...remaining},
+          data: {diameter: +diameter, index:+index, rating: +rating, salesPrice: +salesPrice, purchasePrice: +purchasePrice, offer:offer !== null ? +offer : 0, quantity:+quantity ,...remaining},
           images
         }
         console.log(formData)

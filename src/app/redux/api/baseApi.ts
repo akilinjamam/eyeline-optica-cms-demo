@@ -6,14 +6,11 @@ export const baseApi = createApi({
   reducerPath: "baseApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://server.eyelineoptica.com/api/v1/",
-    // baseUrl: "http://localhost:5000/api/v1/",
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as any).auth?.token;
       if (token) {
         headers.set("authorization", token);
       }
-      // headers.set("Content-Type", "application/json");
-
       return headers;
     },
   }),
@@ -27,5 +24,6 @@ export const baseApi = createApi({
     "Schedule",
     "Sale",
     "Accessory",
+    "Category",
   ],
 });
