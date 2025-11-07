@@ -166,7 +166,7 @@ const useAddFrame = () => {
       if (response.success) {
         toast.success(response.message);
         reset();
-        
+        // setPreviewImages([]);
       }
     } catch (err: any) {
       toast.error(err?.data?.message || "Error creating frame");
