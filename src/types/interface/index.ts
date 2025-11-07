@@ -123,11 +123,20 @@ export type Badge =
 
 export type Brand = "raybon" | "Alex Perry" | "Oakley";
 
+export type TOtherImages = {
+  colorName: string;
+  fromColor: string;
+  toColor: string;
+  images: File[];
+  previews: string[];
+};
+
 export interface IFrame {
   _id?: string;
   id?: number;
   name: string;
   images: string[];
+  otherImages: TOtherImages[];
   type: ProductType;
   materialsCategory: MaterialCategory;
   frameCategory: FrameCategory;

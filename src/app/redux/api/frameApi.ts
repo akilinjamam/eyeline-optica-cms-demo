@@ -9,20 +9,25 @@ export const frameApi = baseApi.injectEndpoints({
         query: () => `products`,
         providesTags: ["Frames"],
       }),
-      createFrame: builder.mutation<
-        ApiDataType<Frame>,
-        { data: IFrame; images: File[] }
-      >({
-        query: ({ data, images }) => {
+      createFrame: builder.mutation<ApiDataType<Frame>, { data: IFrame }>({
+        query: ({ data }) => {
+          console.log(data);
           const formData = new FormData();
 
-          // append text fields as JSON
-          formData.append("data", JSON.stringify(data));
+          const { images, ...remaining } = data;
+          console.log(images);
+          const { otherImages } = remaining;
 
-          // append files
-          images.forEach((file) => {
-            formData.append("images", file);
+          otherImages?.forEach((group, index) => {
+            group.images.forEach((file) =>
+              formData.append(`otherImages_${index}`, file)
+            );
           });
+
+          console.log(otherImages);
+
+          // append text fields as JSON
+          formData.append("data", JSON.stringify(remaining));
 
           return {
             url: `products/create-product`,

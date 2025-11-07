@@ -13,7 +13,7 @@ import useAddFrame from "./useAddFrame";
 
 const AddFrame = () => {
 
-  const {availableFeatures, brands, badges, register, handleSubmit, control, watch,previewImages, handleImageUpload, toggleFeature, removeImage, onSubmit, isLoading} = useAddFrame()
+  const {availableFeatures, brands, badges, register, handleSubmit, control, watch, toggleFeature,  onSubmit, isLoading, addVariant,removeVariant,handleVariantImageUpload,removeVariantImage} = useAddFrame()
 
   return (
     <div className="p-4 bg-gray-50 h-screen overflow-y-scroll hide-scrollbar">
@@ -236,7 +236,7 @@ const AddFrame = () => {
           </div>
 
           {/* Images */}
-          <div className="mt-4 space-y-3">
+          {/* <div className="mt-4 space-y-3">
             
             <Label>Upload Images</Label>
             {previewImages.length > 0 && (
@@ -260,10 +260,87 @@ const AddFrame = () => {
               <span className="mt-2 text-gray-600 text-sm">Click to upload images</span>
               <input type="file" className="hidden" multiple onChange={handleImageUpload} />
             </label>
-          </div>
+          </div> */}
+        
+           {/* Variants */}
+            <div className="mt-6 space-y-3">
+              <Label>Color Variants</Label>
+              {watch("otherImages")?.map((variant, index) => (
+                <div key={index} className="p-4 border rounded-xl space-y-3">
+                  <div className="flex gap-3 items-center">
+                    <Controller
+                      control={control}
+                      name={`otherImages.${index}.colorName`}
+                      render={({ field }) => (
+                        <Input {...field} placeholder="Color Name" />
+                      )}
+                    />
+                    <Controller
+                      control={control}
+                      name={`otherImages.${index}.fromColor`}
+                      render={({ field }) => (
+                        <Input type="color" {...field} />
+                      )}
+                    />
+                    <Controller
+                      control={control}
+                      name={`otherImages.${index}.toColor`}
+                      render={({ field }) => (
+                        <Input type="color" {...field} />
+                      )}
+                    />
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      onClick={() => removeVariant(index)}
+                    >
+                      Remove
+                    </Button>
+                  </div>
+
+                  {/* Image previews */}
+                  <div className="flex gap-2 flex-wrap">
+                    {variant.previews?.map((img, imgIndex) => (
+                      <div key={imgIndex} className="relative">
+                        <img
+                          src={img}
+                          className="w-20 h-20 object-cover rounded-md border"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => removeVariantImage(index, imgIndex)}
+                          className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1"
+                        >
+                          <X className="w-3 h-3" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Upload field */}
+                  <label className="flex flex-col items-center justify-center w-full p-4 border-2 border-dashed rounded-xl cursor-pointer hover:bg-gray-50 transition">
+                    <ImagePlus className="w-5 h-5 text-gray-500" />
+                    <span className="text-sm text-gray-600">
+                      Upload Variant Images
+                    </span>
+                    <input
+                      type="file"
+                      multiple
+                      className="hidden"
+                      onChange={(e) => handleVariantImageUpload(index, e)}
+                    />
+                  </label>
+                </div>
+              ))}
+
+              <Button type="button" onClick={addVariant}>
+                + Add Color Variant
+              </Button>
+            </div>
+
 
           <div className="mt-6">
-            <Button disabled={isLoading} type="submit" className="w-full md:w-auto bg-blue-600">
+            <Button disabled={isLoading} type="submit" className="w-full md:w-auto">
               <Plus /> {isLoading ? 'Adding' : 'Add Frame'}
             </Button>
           </div>
