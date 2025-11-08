@@ -127,8 +127,9 @@ export type TOtherImages = {
   colorName: string;
   fromColor: string;
   toColor: string;
-  images: File[];
+  images: any;
   previews: string[];
+  imagesToKeep?: any;
 };
 
 export interface IFrame {

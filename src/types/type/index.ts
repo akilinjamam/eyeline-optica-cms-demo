@@ -1,3 +1,5 @@
+import type { TOtherImages } from "../interface";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export type THandler = (id: number) => void;
 export type TableColumn = {
@@ -33,6 +35,7 @@ export type FrameFormData = {
   _id: string;
   name: string;
   images: File[] | string[]; // string[] if editing with existing image URLs
+  otherImages: TOtherImages[];
   newImages?: File[];
   type:
     | "sunglasses"

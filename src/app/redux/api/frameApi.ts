@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { Frame, IFrame } from "../../../types/interface";
 import type { ApiDataType } from "../../../types/type";
 import { baseApi } from "./baseApi";
@@ -19,7 +20,7 @@ export const frameApi = baseApi.injectEndpoints({
           const { otherImages } = remaining;
 
           otherImages?.forEach((group, index) => {
-            group.images.forEach((file) =>
+            group.images.forEach((file: File) =>
               formData.append(`otherImages_${index}`, file)
             );
           });
@@ -39,13 +40,9 @@ export const frameApi = baseApi.injectEndpoints({
 
       updateFrame: builder.mutation<
         ApiDataType<Frame>,
-        { id: string; data: IFrame; images?: File[] }
+        { id: string; formData: any }
       >({
-        query: ({ id, data, images }) => {
-          const formData = new FormData();
-          images?.forEach((file) => formData.append("images", file));
-          formData.append("data", JSON.stringify(data));
-
+        query: ({ id, formData }) => {
           return {
             url: `products/update-product/${id}`,
             method: "PUT",
