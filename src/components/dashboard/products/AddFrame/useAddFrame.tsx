@@ -46,6 +46,17 @@ const useAddFrame = () => {
     frameDetails?: string;
     prescriptionDetails?: string;
     otherImages: TOtherImages[];
+    frameWidth: string;
+	  bridge: string;
+	  lensWidth: string;
+	  lensHeight: string;
+	  templeLength: string;
+	  size: string;
+	  weight: string;
+	  pdRange: string;
+	  prescriptionRange: string;
+	  availableAsProBi: boolean;
+	  availableAsReader: boolean;
   };
 
   const { register, handleSubmit, control, setValue, watch, reset } = useForm<FrameFormData>({
@@ -69,6 +80,17 @@ const useAddFrame = () => {
       badge: "",
       description: "",
       weeklyDeals: false,
+      frameWidth: "",
+      bridge: "",
+      lensWidth: "",
+      lensHeight: "",
+      templeLength: "",
+      size: "",
+      weight: "",
+      pdRange: "",
+      prescriptionRange: "",
+      availableAsProBi: false,
+      availableAsReader: false,
     },
   });
 

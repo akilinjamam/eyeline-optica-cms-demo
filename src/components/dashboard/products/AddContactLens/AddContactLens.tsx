@@ -124,10 +124,10 @@ const AddContactLens = () => {
             </div>
 
             {/* REPLACEMENT SCHEDULE */}
-            <div className="space-y-3">
+            {/* <div className="space-y-3">
               <Label>Replacement Schedule</Label>
               <Input placeholder="Monthly" {...register("replacementSchedule")} />
-            </div>
+            </div> */}
 
             {/* COLOR */}
             <div className="space-y-3">

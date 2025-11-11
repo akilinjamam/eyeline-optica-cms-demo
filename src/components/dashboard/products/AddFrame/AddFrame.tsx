@@ -193,6 +193,42 @@ const AddFrame = () => {
                 )}
               />
             </div>
+            <div className="space-y-3">
+              <Label>Frame Width</Label>
+             <Input placeholder="130 mm / 5.1 in" {...register("frameWidth")}/>
+            </div>
+            <div className="space-y-3">
+              <Label>Bridge</Label>
+             <Input placeholder="16 mm / 0.6 in" {...register("bridge")}/>
+            </div>
+            <div className="space-y-3">
+              <Label>Lens Width</Label>
+             <Input placeholder="57 mm / 2.2 in" {...register("lensWidth")}/>
+            </div>
+            <div className="space-y-3">
+              <Label>Lens Height</Label>
+             <Input placeholder="49 mm / 1.9 in" {...register("lensHeight")}/>
+            </div>
+            <div className="space-y-3">
+              <Label>Temple Length</Label>
+             <Input placeholder="147 mm / 5.8 in" {...register("templeLength")}/>
+            </div>
+            <div className="space-y-3">
+              <Label>Size</Label>
+             <Input placeholder=" Adult Medium (126 - 132 mm / 5.0 - 5.2 in)" {...register("size")}/>
+            </div>
+            <div className="space-y-3">
+              <Label>Weight</Label>
+             <Input placeholder="Lightweight (14 grams / 0.5 ounces)" {...register("weight")}/>
+            </div>
+            <div className="space-y-3">
+              <Label>PD Range</Label>
+             <Input placeholder="7 - 79 mm" {...register("pdRange")}/>
+            </div>
+            <div className="space-y-3">
+              <Label>Prescription Range</Label>
+             <Input placeholder="7 - 79 mm" {...register("prescriptionRange")}/>
+            </div>
           </div>
 
           {/* Features */}
@@ -227,6 +263,22 @@ const AddFrame = () => {
               render={({ field }) => <Switch checked={field.value} onCheckedChange={field.onChange} />}
             />
             <span className="text-gray-700">Weekly Deals</span>
+          </div>
+          <div className="mt-2 flex items-center gap-3">
+            <Controller
+              name="availableAsProBi"
+              control={control}
+              render={({ field }) => <Switch checked={field.value} onCheckedChange={field.onChange} />}
+            />
+            <span className="text-gray-700">Available as Progressive Bifocal</span>
+          </div>
+          <div className="mt-2 flex items-center gap-3">
+            <Controller
+              name="availableAsReader"
+              control={control}
+              render={({ field }) => <Switch checked={field.value} onCheckedChange={field.onChange} />}
+            />
+            <span className="text-gray-700">Available as Reader</span>
           </div>
 
           {/* Description */}

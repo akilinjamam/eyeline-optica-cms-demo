@@ -82,6 +82,17 @@ export type FrameFormData = {
   frameMeasurements?: string;
   frameDetails?: string;
   prescriptionDetails?: string;
+  frameWidth: string;
+  bridge: string;
+  lensWidth: string;
+  lensHeight: string;
+  templeLength: string;
+  size: string;
+  weight: string;
+  pdRange: string;
+  prescriptionRange: string;
+  availableAsProBi: boolean;
+  availableAsReader: boolean;
 };
 
 export type TRegistration = {

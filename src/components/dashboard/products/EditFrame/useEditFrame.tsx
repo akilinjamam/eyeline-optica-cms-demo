@@ -38,6 +38,17 @@ const { register, handleSubmit, control, setValue, watch} = useForm<FrameFormDat
     frameMeasurements: "",
     frameDetails: "",
     prescriptionDetails: "",
+    frameWidth: "",
+    bridge: "",
+    lensWidth: "",
+    lensHeight: "",
+    templeLength: "",
+    size: "",
+    weight: "",
+    pdRange: "",
+    prescriptionRange: "",
+    availableAsProBi: false,
+    availableAsReader: false,
     },
   });
 
