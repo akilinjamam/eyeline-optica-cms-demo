@@ -27,7 +27,7 @@ const { register, handleSubmit, control, setValue, watch, formState} = useForm<I
     },
   });
 
-  const [previewImages, setPreviewImages] = useState<string[]>([]);
+  const [previewImages, setPreviewImages] = useState<any>();
    const [successMsg, setSuccessMsg] = useState<string>("");
   const [editFrame, { isLoading:loading, error:errorMsg, }] = useUpdateBannerMutation();
   const dispatch = useDispatch();
@@ -46,13 +46,13 @@ const { register, handleSubmit, control, setValue, watch, formState} = useForm<I
     if (!e.target.files) return;
     const files = Array.from(e.target.files);
     setValue("newImages", [...files as any]);
-    setPreviewImages((prev) => [...prev, ...files.map((f) => URL.createObjectURL(f))]);
+    setPreviewImages((prev:any) => files ? files.map((f) => URL.createObjectURL(f)) : prev);
   };
 
-  const removeImage = (index: number) => {
-    const currentFiles:any = watch("images") || [];
-    setValue("images", currentFiles.filter((_:any, i:any) => i !== index));
-    setPreviewImages((prev) => prev.filter((_, i) => i !== index));
+  const removeImage = () => {
+  
+    setValue("images", []);
+    setPreviewImages("");
   };
 
   const onSubmit = async (data: IBanner) => {

@@ -37,7 +37,7 @@ export const EditBanner = () => {
 
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            {/* Category Type (ShadCN Select) */}
+            {/* Category Type*/}
             <div>
               <label className="block text-sm font-medium mb-1">
                 Category
@@ -70,20 +70,19 @@ export const EditBanner = () => {
             <div className="mt-4 space-y-3">
                         
             <Label>Upload Images</Label>
-            {previewImages.length > 0 && (
-            <div className="flex gap-3 mt-3 flex-wrap">
-                {previewImages.map((img, idx) => (
-                    <div key={idx} className="relative">
-                        <img src={img} alt="preview" className="w-20 h-20 object-cover rounded-lg border" />
+            {(
+              previewImages && 
+              <div className="flex gap-3 mt-3 flex-wrap">
+                <div  className="relative">
+                        <img src={previewImages} alt="preview" className="w-20 h-20 object-cover rounded-lg border" />
                         <button
                             type="button"
-                            onClick={() => removeImage(idx)}
+                            onClick={() => removeImage()}
                             className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 shadow hover:bg-red-600"
                         >
                         <X className="w-3 h-3" />
                         </button>
                     </div>
-                ))}
             </div>
             )}
             <label className="flex flex-col items-center justify-center w-full p-6 border-2 border-dashed rounded-2xl cursor-pointer hover:bg-gray-50 transition">

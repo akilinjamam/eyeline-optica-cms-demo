@@ -34,7 +34,7 @@ export const bannerCategories: string[] = [
   "Popular Brand Logo Five",
   "Popular Brand Logo Six",
   "Popular Brand Logo Seven",
-  "Popular Brand Logo Eight",
+  "Popular Brand Logo  Eight",
   "Popular Brand Logo Nine",
 
   // 👓 Popular Brand Glasses (One → Nine)
