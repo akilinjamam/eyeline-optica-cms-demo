@@ -1,3 +1,4 @@
+import ManageBannerList from "../../components/dashboard/banner/manageBanner/ManageBannerList";
 import AccessoryList from "../../components/dashboard/products/AccessoryList/AccessoryList";
 import AddAccessory from "../../components/dashboard/products/AddAccessory/AddAccessory";
 import AddContactLens from "../../components/dashboard/products/AddContactLens/AddContactLens";
@@ -55,5 +56,13 @@ export const products = [
         {
           path: 'category_list',
           element: <CategoryList/>
+        },
+        // {
+        //   path: 'add_banner',
+        //   element: <AddBanner/>
+        // },
+        {
+          path: 'manage_banner_list',
+          element: <ManageBannerList/>
         },
       ]

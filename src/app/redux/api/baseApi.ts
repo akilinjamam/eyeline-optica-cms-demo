@@ -26,5 +26,6 @@ export const baseApi = createApi({
     "Sale",
     "Accessory",
     "Category",
+    "Banner",
   ],
 });

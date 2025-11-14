@@ -23,6 +23,7 @@ import ContactLensAccessoryDetail from "../components/dashboard/detailsInfo/Cont
 import EyePrescriptionDetail from "../components/dashboard/detailsInfo/EyePrescriptionDetail";
 import EditAccessory from "../components/dashboard/products/EditAccessory/EditAccessory";
 import { EditCategory } from "../components/dashboard/products/Category/EditCategory/EditCategory";
+import { EditBanner } from "../components/dashboard/banner/editBanner/EditBanner";
 
 
 const VarticalDrawer = () => {
@@ -66,6 +67,7 @@ const VarticalDrawer = () => {
                 {editProductName === 'details-contactLens-and-accessory' && <ContactLensAccessoryDetail accessory={editableData.accessory} contactLens={editableData.contactLens}/>}
                 {editProductName === 'eye-prescription' && <EyePrescriptionDetail pd={editableData?.pd} submitType={editableData?.submitType} prescriptionImg={editableData.prescriptionImg} leftEye={editableData?.leftEye} rightEye={editableData?.rightEye} />}
                 {editProductName === 'category' && <EditCategory/>}
+                {editProductName === 'banner' && <EditBanner/>}
                 {editProductName === 'sales-order-status' && <EditSalesOrderStatus/>}
                 {editProductName === 'prescription-detail' && 
                 <div className="mt-8 p-4 border rounded-xl shadow bg-white">

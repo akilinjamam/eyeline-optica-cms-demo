@@ -47,7 +47,7 @@ const Sidebar = ({ isOpen, setIsOpen, isDesktop }: SidebarProps) => {
     },
     { 
       name: "Products", 
-      path: ["/dashboard/product", "/dashboard/add_frame", "/dashboard/frame_list", "/dashboard/add_lens", "/dashboard/lens_list", "/dashboard/add_contact_lens", "/dashboard/contact_lens_list", "/dashboard/add_accessory", "/dashboard/accessory_list", "/dashboard/add_category", "/dashboard/category_list" ], 
+      path: ["/dashboard/product", "/dashboard/add_frame", "/dashboard/frame_list", "/dashboard/add_lens", "/dashboard/lens_list", "/dashboard/add_contact_lens", "/dashboard/contact_lens_list", "/dashboard/add_accessory", "/dashboard/accessory_list", "/dashboard/add_category", "/dashboard/category_list", "/dashboard/add_banner", "/dashboard/manage_banner_list" ], 
       icon: ShoppingCart,
       show: roll === 'employee'|| roll === 'admin' || roll === 'doctor & admin' || roll === 'employee & admin'
     },

@@ -423,3 +423,10 @@ export interface ICategory {
   categoryType: string;
   category: string;
 }
+
+export interface IBanner {
+  _id?: string;
+  category: string;
+  images?: any;
+  newImages?: any;
+}
