@@ -1,20 +1,31 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { motion } from "framer-motion";
+import { useAddBlog } from "./useAddBlog";
 import { Card, CardContent, CardHeader, CardTitle } from "../../../ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../ui/select";
 import { Button } from "../../../ui/button";
 import { Label } from "../../../ui/label";
 import { ImagePlus, X } from "lucide-react";
-import { bannerCategories } from "../bannerCategory";
-import useEditBanner from "./useEditBanner";
+import { blogCategories } from "../blogCategory";
+import { Input } from "../../../ui/input";
+import { Textarea } from "../../../ui/textarea";
 
-export const EditBanner = () => {
+export const AddBlog = () => {
 
-  const { 
+  const { form,
+    loading,
+    successMsg,
+    errorMsg,
     previewImages,
     handleImageUpload,
     removeImage,
-    onSubmit, handleSubmit, setValue, formState:{errors}, watch, loading, successMsg, errorMsg } = useEditBanner();
+    onSubmit, register } = useAddBlog();
+  const {
+    handleSubmit,
+    setValue,
+    formState: { errors },
+    watch,
+  } = form;
 
   const category = watch("category");
 
@@ -28,13 +39,17 @@ export const EditBanner = () => {
       <Card className="p-4 shadow-md rounded-2xl">
         <CardHeader>
           <CardTitle className="text-xl font-semibold text-center">
-            Add Banner
+            Add Blog
           </CardTitle>
         </CardHeader>
 
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            {/* Category Type*/}
+            <div className="space-y-4">
+                <Label>Title</Label>
+                <Input placeholder="Take Care of your Eye" {...register("title")} required/>
+            </div>
+            {/* Category Type (ShadCN Select) */}
             <div>
               <label className="block text-sm font-medium mb-1">
                 Category
@@ -48,7 +63,7 @@ export const EditBanner = () => {
                 </SelectTrigger>
                 <SelectContent>
                   {
-                    bannerCategories?.map((category:string) => (
+                    blogCategories?.map((category:string) => (
                         <SelectItem value={category}>{category}</SelectItem>
                     ))
                   }
@@ -61,16 +76,18 @@ export const EditBanner = () => {
                 </p>
               )}
             </div>
-
+            <div className="mt-4 space-y-4">
+            <Label>Description</Label>
+            <Textarea placeholder="description" {...register("description")} required/>
+          </div>
             
              {/* Images */}
             <div className="mt-4 space-y-3">
                         
             <Label>Upload Images</Label>
-            {(
-              previewImages && 
-              <div className="flex gap-3 mt-3 flex-wrap">
-                <div  className="relative">
+            {previewImages && (
+            <div className="flex gap-3 mt-3 flex-wrap">
+                {previewImages && <div  className="relative">
                         <img src={previewImages} alt="preview" className="w-20 h-20 object-cover rounded-lg border" />
                         <button
                             type="button"
@@ -79,7 +96,7 @@ export const EditBanner = () => {
                         >
                         <X className="w-3 h-3" />
                         </button>
-                    </div>
+                    </div>}
             </div>
             )}
             <label className="flex flex-col items-center justify-center w-full p-6 border-2 border-dashed rounded-2xl cursor-pointer hover:bg-gray-50 transition">
@@ -95,7 +112,7 @@ export const EditBanner = () => {
               disabled={loading}
               className="w-full mt-2"
             >
-              {loading ? "Adding..." : "Edit Banner"}
+              {loading ? "Adding..." : "Add Banner"}
             </Button>
 
             {/* Status Messages */}
@@ -106,7 +123,7 @@ export const EditBanner = () => {
             )}
             {errorMsg && (
               <p className="text-red-600 text-center text-sm mt-2">
-                {errorMsg as string}
+                {errorMsg}
               </p>
             )}
           </form>

@@ -7,6 +7,8 @@ import { customers } from "./routes/Customers/customers.route"
 import { orders } from "./routes/orders/orders.route"
 import { control_user_access } from "./routes/controll-user-access/controllUserAccess.route"
 import { doctors } from "./routes/doctor/doctor.route"
+import { weeklyDeals } from "./routes/weeklyDeals/weeklyDeals.route"
+import { blog } from "./routes/blog/blog.route"
 // import LoadingGlass from "./reusableComponent/LoadingGlass"
 
 function App() {
@@ -29,7 +31,9 @@ function App() {
         ...customers,
         ...orders,
         ...control_user_access,
-        ...doctors
+        ...doctors,
+        ...weeklyDeals,
+        ...blog
       ]
     },
 

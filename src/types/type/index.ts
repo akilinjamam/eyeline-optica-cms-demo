@@ -30,6 +30,12 @@ export type ApiDataType<T> = {
     };
   };
 };
+export type ApiDataTypeWithoutMeta<T> = {
+  success: boolean;
+  statusCode: number;
+  message: string;
+  data: T;
+};
 
 export type FrameFormData = {
   _id: string;

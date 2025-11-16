@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Menu, LayoutDashboard, ShoppingCart, Users,  LogOut, ShoppingBag, User, ListChecks, UserPlus, CalendarDays, NotebookTabs,Accessibility } from "lucide-react";
+import { Menu, LayoutDashboard, ShoppingCart, Users,  LogOut, ShoppingBag, User, ListChecks, UserPlus, CalendarDays, NotebookTabs,Accessibility, Calendar, BookAIcon } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { clearToken } from "../../app/redux/features/authSlice";
@@ -54,6 +54,16 @@ const Sidebar = ({ isOpen, setIsOpen, isDesktop }: SidebarProps) => {
     { name: "Customers", 
       path: ["/dashboard/customer", "/dashboard/customer_list"], 
       icon: Users ,
+      show: roll === 'employee'|| roll === 'admin' || roll === 'doctor & admin' || roll === 'employee & admin'
+    },
+    { name: "Weekly Deals", 
+      path: ["/dashboard/weeklyDeals", "/dashboard/manage_deals", "/dashboard/edit_weeklyDeals"], 
+      icon: Calendar ,
+      show: roll === 'employee'|| roll === 'admin' || roll === 'doctor & admin' || roll === 'employee & admin'
+    },
+    { name: "Blog", 
+      path: ["/dashboard/blog", "/dashboard/add_blog", "/dashboard/blog_list"], 
+      icon: BookAIcon ,
       show: roll === 'employee'|| roll === 'admin' || roll === 'doctor & admin' || roll === 'employee & admin'
     },
     { name: "Doctor List", 

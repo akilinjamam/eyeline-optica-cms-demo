@@ -10,6 +10,7 @@ import { useDeleteContactLensMutation } from "../app/redux/api/contactLensApi";
 import { useDeleteUsersMutation } from "../app/redux/api/authApi";
 import { useDeleteAccessoryMutation } from "../app/redux/api/accessoryApi";
 import { useDeleteCategoryMutation } from "../app/redux/api/categoryApi";
+import { useDeleteBlogMutation } from "../app/redux/api/blogApi";
 
 interface ModalProps {
   title?: string;
@@ -33,6 +34,7 @@ export default function Modal({
    const [deleteUser, {isLoading:isLoadingUser, error:errorUsers}] = useDeleteUsersMutation();
    const [deleteAcessory, {isLoading:isLoadingAccessory, error:errorAccessory}] = useDeleteAccessoryMutation();
    const [deleteCategory, {isLoading:isLoadingCategory, error:errorCategory}] = useDeleteCategoryMutation();
+   const [deleteBlog, {isLoading:isLoadingBlog, error:errorBlog}] = useDeleteBlogMutation();
 
     const handleDelete = async() => {
       if(deleteProductName === '/dashboard/frame_list'){
@@ -106,6 +108,17 @@ export default function Modal({
           toast.error(errorAccessory as string)
         }
       }
+      if(deleteProductName === '/dashboard/blog_list'){
+        const res =  await deleteBlog(ids).unwrap();
+        if(res.success){
+          toast.success(res.message)
+          dispatch(deleteIds())
+          dispatch(closeModal())
+          
+        }else{
+          toast.error(errorBlog as string)
+        }
+      }
     }
     
 
@@ -143,7 +156,7 @@ export default function Modal({
                 onClick={handleDelete}
                 className="px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 shadow-md transition"
               >
-                {(isLoadingFrame || isLoadingLens ||isLoadingContactLens || isLoadingUser || isLoadingAccessory || isLoadingCategory) ? 'Deleting': 'Confirm'}
+                {(isLoadingFrame || isLoadingLens ||isLoadingContactLens || isLoadingUser || isLoadingAccessory || isLoadingCategory || isLoadingBlog) ? 'Deleting': 'Confirm'}
               </button>
             </div>
           </motion.div>

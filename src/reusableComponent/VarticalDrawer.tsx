@@ -24,6 +24,7 @@ import EyePrescriptionDetail from "../components/dashboard/detailsInfo/EyePrescr
 import EditAccessory from "../components/dashboard/products/EditAccessory/EditAccessory";
 import { EditCategory } from "../components/dashboard/products/Category/EditCategory/EditCategory";
 import { EditBanner } from "../components/dashboard/banner/editBanner/EditBanner";
+import { EditBlog } from "../components/dashboard/blog/editBlog/EditBlog";
 
 
 const VarticalDrawer = () => {
@@ -68,6 +69,7 @@ const VarticalDrawer = () => {
                 {editProductName === 'eye-prescription' && <EyePrescriptionDetail pd={editableData?.pd} submitType={editableData?.submitType} prescriptionImg={editableData.prescriptionImg} leftEye={editableData?.leftEye} rightEye={editableData?.rightEye} />}
                 {editProductName === 'category' && <EditCategory/>}
                 {editProductName === 'banner' && <EditBanner/>}
+                {editProductName === 'blog' && <EditBlog/>}
                 {editProductName === 'sales-order-status' && <EditSalesOrderStatus/>}
                 {editProductName === 'prescription-detail' && 
                 <div className="mt-8 p-4 border rounded-xl shadow bg-white">

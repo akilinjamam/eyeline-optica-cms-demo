@@ -66,20 +66,28 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
       </AnimatePresence>
 
       {/* Left button */}
-      <button
+      {
+        images?.length > 1
+        &&
+        <button
         onClick={prevSlide}
         className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-2 rounded-full"
       >
         <ChevronLeft className="w-6 h-6" />
       </button>
+      }
 
       {/* Right button */}
-      <button
+      {
+        images?.length > 1
+        &&
+        <button
         onClick={nextSlide}
         className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white p-2 rounded-full"
       >
         <ChevronRight className="w-6 h-6" />
       </button>
+      }
 
       {/* Dots */}
       <div className="absolute bottom-3 w-full flex justify-center gap-2">

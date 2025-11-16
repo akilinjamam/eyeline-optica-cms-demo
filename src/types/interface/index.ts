@@ -49,6 +49,26 @@ export interface ILens {
   sold?: number;
 }
 
+export interface IBlog {
+  _id?: string;
+  title: string;
+  images?: string[];
+  newImages?: any;
+  category: string;
+  description: string;
+}
+
+export interface IWeeklyDeals {
+  _id?: string;
+  title: string;
+  description?: string;
+  startDate: any;
+  endDate: any;
+  discountPercent: number;
+  active: boolean;
+  available?: boolean;
+}
+
 export type ContactLens = {
   _id?: string;
   id?: string;
