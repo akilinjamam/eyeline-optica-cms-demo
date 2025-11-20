@@ -90,7 +90,7 @@ const SlotList: React.FC = () => {
         ?
         <SlotCardSkeleton/>
         :
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
         { filtered.map((slot) => (
           <SlotCard key={slot._id} slot={slot} />
         ))}

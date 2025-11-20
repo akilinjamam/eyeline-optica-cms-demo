@@ -25,6 +25,7 @@ import EditAccessory from "../components/dashboard/products/EditAccessory/EditAc
 import { EditCategory } from "../components/dashboard/products/Category/EditCategory/EditCategory";
 import { EditBanner } from "../components/dashboard/banner/editBanner/EditBanner";
 import { EditBlog } from "../components/dashboard/blog/editBlog/EditBlog";
+import DoctorVideoCall from "../components/dashboard/doctor/Schedule/DoctorVideoCall";
 
 
 const VarticalDrawer = () => {
@@ -67,6 +68,7 @@ const VarticalDrawer = () => {
                 {editProductName === 'details-accesory' && <AccessoryDetail accessory={editableData.accessory}/>}
                 {editProductName === 'details-contactLens-and-accessory' && <ContactLensAccessoryDetail accessory={editableData.accessory} contactLens={editableData.contactLens}/>}
                 {editProductName === 'eye-prescription' && <EyePrescriptionDetail pd={editableData?.pd} submitType={editableData?.submitType} prescriptionImg={editableData.prescriptionImg} leftEye={editableData?.leftEye} rightEye={editableData?.rightEye} />}
+                {editProductName === 'video' && <DoctorVideoCall doctorId={editableData?.doctorId} roomId={editableData?.roomId}/>}
                 {editProductName === 'category' && <EditCategory/>}
                 {editProductName === 'banner' && <EditBanner/>}
                 {editProductName === 'blog' && <EditBlog/>}

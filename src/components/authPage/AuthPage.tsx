@@ -46,8 +46,9 @@ const AuthPage = () => {
   const dispatch = useDispatch();
 
   const onSubmit = async (data: FormValues) => {
-    console.log("Form Data:", data);
+   
     const {confirmPassword, ...remaining} = data;
+    console.log(data)
     
    if(isLogin){
     const {name, role, ...rest} = remaining;

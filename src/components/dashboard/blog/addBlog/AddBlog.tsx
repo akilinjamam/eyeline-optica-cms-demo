@@ -34,7 +34,7 @@ export const AddBlog = () => {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="w-full px-2 mx-auto mt-8"
+      className="w-full px-2 mx-auto mt-8 h-[80vh] overflow-y-scroll hide-scrollbar"
     >
       <Card className="p-4 shadow-md rounded-2xl">
         <CardHeader>

@@ -228,6 +228,7 @@ export interface IDoctor {
   experienceDetail?: string;
   newImages?: any;
   images?: any;
+  appointmentFee?: number;
 }
 
 export interface IEyeInfo {

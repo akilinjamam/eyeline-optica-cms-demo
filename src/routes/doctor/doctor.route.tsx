@@ -8,9 +8,6 @@ import AddSchedule from "../../components/dashboard/doctor/Schedule/AddSchedule"
 import ScheduleLanding from "../../components/dashboard/doctor/Schedule/ScheduleLanding";
 import ScheduleList from "../../components/dashboard/doctor/Schedule/ScheduleList";
 
-
-
-
 export const doctors = [       
       
   {

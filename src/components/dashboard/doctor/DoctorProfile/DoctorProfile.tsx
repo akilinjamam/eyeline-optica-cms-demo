@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { motion } from "framer-motion";
-import { Briefcase, BookOpen,  MapPin, Edit, UserPlus, BriefcaseBusiness } from "lucide-react";
+import { Briefcase, BookOpen,  MapPin, Edit, UserPlus, BriefcaseBusiness, DollarSign } from "lucide-react";
 
 import useFindUser from "../../../../reusableComponent/useFindUser";
 import type { IDoctor } from "../../../../types/interface";
@@ -17,7 +17,7 @@ const DoctorProfile = () => {
   console.log(email)
 
   const doctor = singleDoctorData as IDoctor | undefined;
-  console.log(doctor);
+ 
   
 
   if(isLoadingSingleDoctor){
@@ -91,6 +91,13 @@ const DoctorProfile = () => {
             <p className="flex items-center gap-2 text-gray-600">
               <MapPin size={18} className="text-blue-500" />{" "}
               {doctor?.currentlyWorking}
+            </p>
+          )}
+          {doctor?.appointmentFee && (
+            <p className="flex items-center gap-2 text-gray-600">
+              <DollarSign size={18} className="text-blue-500" />{" "}
+              Appointment Fee:
+              {doctor?.appointmentFee}
             </p>
           )}
         </div>

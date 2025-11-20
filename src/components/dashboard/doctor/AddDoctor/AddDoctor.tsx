@@ -32,6 +32,7 @@ const AddDoctor = () => {
       currentlyWorking: "",
       description: "",
       experienceDetail: "",
+      appointmentFee:0
     
     },
   });
@@ -130,6 +131,10 @@ const AddDoctor = () => {
             <div className="space-y-2">
               <Label>Name</Label>
               <Input {...register("name")} placeholder="Doctor Name" />
+            </div>
+             <div className="space-y-2">
+              <Label>Appointment Fee</Label>
+              <Input type="number" {...register("appointmentFee")} placeholder="appointment fee" />
             </div>
 
             {/* BMDC Number */}
