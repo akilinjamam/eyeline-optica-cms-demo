@@ -53,6 +53,8 @@ const AuthPage = () => {
    if(isLogin){
     const {name, role, ...rest} = remaining;
     try {
+        toast.error("Access Denied")
+        return;
         const res =  await createLogin(rest as any).unwrap();
         console.log(res.data.token)
         if(res.success){
@@ -68,6 +70,8 @@ const AuthPage = () => {
 
    }else{
       try {
+        toast.error("Access Denied")
+        return;
         const res =  await createRegistration(remaining as any).unwrap();
         console.log(res.data.token)
         if(res.success){
