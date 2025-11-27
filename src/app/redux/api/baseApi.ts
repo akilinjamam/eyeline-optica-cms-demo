@@ -30,5 +30,6 @@ export const baseApi = createApi({
     "Blog",
     "Prescription",
     "Wishlist",
+    "Patient",
   ],
 });

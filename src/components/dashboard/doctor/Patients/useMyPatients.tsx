@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import {  useSelector } from "react-redux";
-import { useGetAllSlotQuery } from "../../../../app/redux/api/scheduleApi";
 import useFindUser from "../../../../reusableComponent/useFindUser";
-import { useGetSingleDoctorQuery } from "../../../../app/redux/api/doctorApi";
+
 import type { TableColumn } from "../../../../types/type";
 import { useEffect, useMemo, useState } from "react";
 import type { RootState } from "../../../../app/store";
+import { useGetAllPatientQuery } from "../../../../app/redux/api/patientApi";
 
 export type TPatient = {
 
@@ -25,41 +25,38 @@ export type TPatient = {
 
 const usePatienteList = () => {
 
-const {email} = useFindUser();
-const { data:doctor } = useGetSingleDoctorQuery(email);
+const {doctorId} = useFindUser();
+// const { data:doctor } = useGetSingleDoctorQuery(email);
+const {data:allData, isLoading} = useGetAllPatientQuery(doctorId) as any;
+
        
-const {data:allData, isLoading} = useGetAllSlotQuery(doctor?.data?._id as string) as any;
 const modifiedData = useMemo(() => {
 
-    const isBooked = allData?.data?.filter((f:any) => f?.isBooked === true)
+   
     
-    const data = isBooked; 
+    const data = allData?.data; 
     console.log(data)
     
    
 
     const newData = data?.map((item:any) => {
-         const d = new Date(item?.startAt);
-        const startTime = item?.startAt?.split("T")[1].substring(0,5);
-        const endTime = item?.endAt?.split("T")[1].substring(0,5);
+         const d = new Date(item?.createdAt);
+      
 
-    const name = item?.patient?.name;
-    const phone = item?.patient?.phone;
-    const age = item?.patient?.age;
-    const address =item?.patient?.address;
+    const name = item?.name;
+    const phone = item?.phone;
+    const age = item?.age;
+    const address =item?.address;
     const date =  d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
-    const time = `${startTime} to ${endTime}`
+
            
     return {
         name,
         phone,
         age,
         address,
-        appointmentFee:item?.doctor?.appointmentFee,
+        appointmentFee:item?.doctorId?.appointmentFee,
         date,
-        time,
-        isVideo:item?.isVideo,
-        isPrescription:item?.isPrescription
     }
 })
 
@@ -75,10 +72,7 @@ console.log(modifiedData)
   { key: "age", label: "Patient Age", align: "left" },
   { key: "address", label: "Address", align: "left" },
   { key: "date", label: "Date", align: "left" },
-  { key: "time", label: "Time", align: "left" },
   { key: "appointmentFee", label: "Fee", align: "left" },
-  { key: "isVideo", label: "Video", align: "left" },
-  { key: "isPrescription", label: "Prescription", align: "left" },
 ];
 
   const [patient, setPatient] = useState<TPatient[]>([]);
