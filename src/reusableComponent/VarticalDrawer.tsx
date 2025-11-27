@@ -26,11 +26,10 @@ import { EditCategory } from "../components/dashboard/products/Category/EditCate
 import { EditBanner } from "../components/dashboard/banner/editBanner/EditBanner";
 import { EditBlog } from "../components/dashboard/blog/editBlog/EditBlog";
 import DoctorVideoCall from "../components/dashboard/doctor/Schedule/DoctorVideoCall";
-
+import AddPrescription from "../components/dashboard/doctor/prescription/AddPrescription";
 
 const VarticalDrawer = () => {
 
-    
     const dispatch = useDispatch();
     const {isEditOpen, editProductName, editableData} = useSelector((state:RootState) => state.modal)
     
@@ -69,6 +68,7 @@ const VarticalDrawer = () => {
                 {editProductName === 'details-contactLens-and-accessory' && <ContactLensAccessoryDetail accessory={editableData.accessory} contactLens={editableData.contactLens}/>}
                 {editProductName === 'eye-prescription' && <EyePrescriptionDetail pd={editableData?.pd} submitType={editableData?.submitType} prescriptionImg={editableData.prescriptionImg} leftEye={editableData?.leftEye} rightEye={editableData?.rightEye} />}
                 {editProductName === 'video' && <DoctorVideoCall doctorId={editableData?.doctorId} roomId={editableData?.roomId}/>}
+                {editProductName === 'add-prescription' && <AddPrescription/>}
                 {editProductName === 'category' && <EditCategory/>}
                 {editProductName === 'banner' && <EditBanner/>}
                 {editProductName === 'blog' && <EditBlog/>}

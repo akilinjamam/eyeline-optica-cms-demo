@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // SlotList.tsx
 import { useEffect, useState } from "react";
 import { SlotCard } from "./ScheduleCard";
@@ -23,6 +24,8 @@ const SlotList: React.FC = () => {
   console.log(email)
   
   const { data:doctor } = useGetSingleDoctorQuery(email);
+
+  console.log(doctor?.data?._id)
       
   const { data: allSlot, isLoading } = useGetAllSlotQuery(doctor?.data?._id as string );
   console.log(allSlot?.message);
@@ -55,7 +58,6 @@ const SlotList: React.FC = () => {
     setFiltered(newFiltered);
   }, [range, statusFilter, allSlot]);
 
-  
 
   return (
     <div className="p-4 overflow-x-scroll h-[90vh] hide-scrollbar">
@@ -92,7 +94,7 @@ const SlotList: React.FC = () => {
         :
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
         { filtered.map((slot) => (
-          <SlotCard key={slot._id} slot={slot} />
+          <SlotCard key={slot._id} slot={slot as any} />
         ))}
       </div>
       }

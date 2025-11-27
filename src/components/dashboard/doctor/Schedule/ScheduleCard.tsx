@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { openEdit } from "../../../../app/redux/features/modalSlice";
 type TDoctor = {
   _id:string;
+  name?:string;
 }
 
 type Slot = {
@@ -15,7 +16,7 @@ type Slot = {
   startAt: string;
   endAt: string;
   isBooked: boolean;
-  patient?: { name: string };
+  patient?: {_id:string ,name: string };
   isVideo?:boolean;
   isPrescription?:boolean;
 };
@@ -38,13 +39,25 @@ const startDate = new Date(slot.startAt);
   const dispatch = useDispatch();
 
   const handleVideoCall = (value:Slot) => {
-    console.log("first")
-      const videoData = {
+  
+      const prescriptionData = {
         doctorId: value?.doctor?._id,
         roomId:value?._id
       };
 
-       dispatch(openEdit({name:'video',data:videoData}));
+       dispatch(openEdit({name:'video',data:prescriptionData}));
+  }
+  const handlePrescription = (value:Slot) => {
+    
+      const prescriptionData = {
+        doctorId: value?.doctor?._id,
+        doctorName: value?.doctor?.name,
+        patientId: value?.patient?._id,
+        patientName:value?.patient?.name,
+        slotId:value?._id,
+      };
+
+       dispatch(openEdit({name:'add-prescription',data:prescriptionData}));
   }
 
   return (
@@ -56,11 +69,12 @@ const startDate = new Date(slot.startAt);
       <Card className="rounded-2xl shadow-sm border p-2 h-auto">
         <CardHeader className="pb-2">
           <CardTitle className="lg:flex md:flex flex-wrap justify-between items-center text-sm">
-            <span>{day}th {monthName}  / {start} - {end}</span>
+            <span className="mb-2">{day}th {monthName}  / {start} - {end}</span>
             {slot.isBooked ? (
               <div className="flex items-center">
                 <Badge className="mr-2" variant="destructive"><ListChecks/> Booked</Badge>
-                <Badge onClick={() => handleVideoCall(slot)} className="cursor-pointer" variant="blue"><Video/> Video Call</Badge>
+                <Badge onClick={() => handleVideoCall(slot)} className="cursor-pointer mr-2" variant="blue"><Video/> Video Call</Badge>
+                <Badge onClick={() => handlePrescription(slot)} className="cursor-pointer" variant="blue"><Video/>Prescription</Badge>
               </div>
             ) : (
              <div className="flex items-center"><Badge variant="blue"><SquareStack/> Available</Badge></div>

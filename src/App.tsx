@@ -9,6 +9,7 @@ import { control_user_access } from "./routes/controll-user-access/controllUserA
 import { doctors } from "./routes/doctor/doctor.route"
 import { weeklyDeals } from "./routes/weeklyDeals/weeklyDeals.route"
 import { blog } from "./routes/blog/blog.route"
+import { wishlist } from "./routes/wishlist/wishlist.route"
 // import LoadingGlass from "./reusableComponent/LoadingGlass"
 
 function App() {
@@ -33,7 +34,8 @@ function App() {
         ...control_user_access,
         ...doctors,
         ...weeklyDeals,
-        ...blog
+        ...blog,
+        ...wishlist
       ]
     },
 

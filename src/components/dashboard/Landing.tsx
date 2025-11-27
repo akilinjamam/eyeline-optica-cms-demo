@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import '../../layout.css';
 import { motion } from "framer-motion";
-import { ShoppingCart, Users, Box, UserPlus, CalendarDays, NotebookTabs, Accessibility, ShieldPlus, Book } from "lucide-react";
+import { ShoppingCart, Users, Box, UserPlus, CalendarDays, NotebookTabs, Accessibility, ShieldPlus, Book, HeartPulse } from "lucide-react";
 import { Link } from 'react-router-dom';
 import { decodeToken } from '../../utils/decodeToken';
 import { useGetAllUsersQuery } from '../../app/redux/api/authApi';
@@ -31,6 +31,7 @@ const Landing = () => {
   { title: "Patients", icon: <Accessibility className="w-8 h-8" />, color: "from-purple-400 to-pink-500", path: "/dashboard/doctor_patients", show: role === 'doctor' || role === 'admin' || role === 'doctor & admin' || role === 'employee & admin' },
   { title: "Blog", icon: <Book className="w-8 h-8" />, color: "from-orange-300 to-red-900", path: "/dashboard/blog", show: role === 'admin' || role === 'doctor & admin' || role === 'employee & admin' },
   { title: "Weekly Deals", icon: <Book className="w-8 h-8" />, color: "from-green-500 to-indigo-900", path: "/dashboard/weeklyDeals", show:  role === 'admin' || role === 'doctor & admin' || role === 'employee & admin' },
+  { title: "Wish List", icon: <HeartPulse className="w-8 h-8" />, color: "from-red-500 to-yellow-400", path: "/dashboard/wishlist", show:  role === 'admin' || role === 'doctor & admin' || role === 'employee & admin' },
 ];
 
 

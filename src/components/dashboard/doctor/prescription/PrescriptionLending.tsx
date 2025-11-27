@@ -1,6 +1,6 @@
 import '../../../../layout.css';
 import { motion } from "framer-motion";
-import { Box, Layers } from "lucide-react";
+import { Layers } from "lucide-react";
 import { Link } from 'react-router-dom';
 import useFindUser from '../../../../reusableComponent/useFindUser';
 
@@ -9,7 +9,7 @@ const PrescriptionLanding = () => {
   const {role} = useFindUser()
 
   const productCategories = [
-  { title: "Add Prescription", icon: <Box className="w-8 h-8" />, color: "from-indigo-500 to-purple-500", path: '/dashboard/add_prescription', role: role === 'admin' || role === 'doctor & admin' || role === 'employee & admin' },
+  // { title: "Add Prescription", icon: <Box className="w-8 h-8" />, color: "from-indigo-500 to-purple-500", path: '/dashboard/add_prescription', role: role === 'admin' || role === 'doctor & admin' || role === 'employee & admin' },
   { title: "My Prescriptions", icon: <Layers className="w-8 h-8" />, color: "from-blue-400 to-indigo-400", path: '/dashboard/my_prescriptions', role: role === 'doctor & admin' || role === 'doctor' }
 ];
 

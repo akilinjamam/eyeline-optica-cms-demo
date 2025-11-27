@@ -17,6 +17,8 @@ type Prescription = {
   patientName: string;
   age?: string;
   gender?: string;
+  phone?:string;
+  address?:string;
   date: string;
   diagnosis: string;
   medicines: Medicine[];
@@ -60,6 +62,16 @@ export const PrescriptionPreview = forwardRef<HTMLDivElement, { prescription: Pr
           {prescription.gender && (
             <p>
               <span className="font-medium">Gender:</span> {prescription.gender}
+            </p>
+          )}
+          {prescription.phone && (
+            <p>
+              <span className="font-medium">Phone:</span> {prescription.phone}
+            </p>
+          )}
+          {prescription.address && (
+            <p>
+              <span className="font-medium">Address:</span> {prescription.address}
             </p>
           )}
         </div>

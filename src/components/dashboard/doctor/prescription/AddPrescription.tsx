@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // PrescriptionForm.tsx
 import { useForm, useFieldArray } from "react-hook-form";
 import { motion } from "framer-motion";
@@ -6,6 +7,12 @@ import { Input } from "../../../ui/input";
 import { Button } from "../../../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../../../ui/card";
 import { Label } from "../../../ui/label";
+import {  useSelector } from "react-redux";
+import type { RootState } from "../../../../app/store";
+import { useCreatePrescriptionMutation } from "../../../../app/redux/api/prescriptionApi";
+import { toast } from "react-toastify";
+import { useGetAllSlotQuery, useUpdatePrescriptionSlotMutation } from "../../../../app/redux/api/scheduleApi";
+
 
 type Medicine = {
   name: string;
@@ -25,15 +32,19 @@ type PrescriptionFormData = {
 };
 
  const AddPrescription = () => {
+  const {editableData:initialData} = useSelector((state:RootState) => state.modal);
+
+  const {doctorName, patientName, slotId} = initialData;
   const {
     register,
     control,
     handleSubmit,
-    formState: { errors },
+    reset,
+    formState: { errors }
   } = useForm<PrescriptionFormData>({
     defaultValues: {
-      doctorName: "",
-      patientName: "",
+      doctorName: doctorName,
+      patientName: patientName,
       date: new Date().toISOString().split("T")[0], // today
       diagnosis: "",
       medicines: [{ name: "", dosage: "", frequency: "", duration: "" }],
@@ -47,8 +58,37 @@ type PrescriptionFormData = {
     name: "medicines",
   });
 
-  const onSubmit = (data: PrescriptionFormData) => {
+  const [createPrescription] = useCreatePrescriptionMutation(); 
+  const {refetch} = useGetAllSlotQuery(initialData?.doctorId)
+  const [updatePesSlot] = useUpdatePrescriptionSlotMutation();
+  
+  const onSubmit = async (data: PrescriptionFormData) => {
     console.log("Prescription submitted:", data);
+
+    const prescriptionData = {
+      doctorId: initialData?.doctorId,
+      patientId: initialData?.patientId,
+      date:data?.date,
+      diagnosis:data?.diagnosis,
+      medicines: data?.medicines,
+      tests: data?.tests,
+      advice:data?.advice
+    };
+
+    console.log(prescriptionData)
+
+    const res = await createPrescription({data:prescriptionData}) as any;
+    console.log(res)
+    if(res?.data?.success){
+      toast.success(res?.data?.message);
+      await updatePesSlot(slotId);
+      reset()
+      refetch()
+    }
+
+    console.log(res);
+
+
   };
 
   return (
@@ -191,6 +231,7 @@ type PrescriptionFormData = {
             <Button type="submit" className="w-full">
               Submit Prescription
             </Button>
+            <br />
           </form>
         </CardContent>
       </Card>

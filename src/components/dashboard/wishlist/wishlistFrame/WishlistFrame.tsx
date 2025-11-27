@@ -8,15 +8,15 @@ import type { TableColumn } from "../../../../types/type";
 import { useState } from "react";
 import type { ILens } from "../../../../types/interface";
 import ColumnManager from "../../../../reusableComponent/ColumnManager";
-import usePatienteList from "./useMyPatients";
+import useWishlistFrameList from "./useWishlistFrame";
 
-const MyPatient = () => {
+const WishlistFrame = () => {
 
-const { columns, filterSummary, filteredDataa, filters,  page, setPage, paginatedData, search, setPaginatedData, setSearch, isLoading, showCheck} = usePatienteList();
+  const {columns, setSearch, search,  filterSummary, paginatedData, setPaginatedData,  filters, page, setPage, filteredDataa, isLoading, showCheck} = useWishlistFrameList();
 
-const defaultColumn = columns?.slice(0,8)
+   const defaultColumn = columns?.slice(0,8)
           
-const [dynamicColumns, setDynamicColumns] = useState<TableColumn[]>(defaultColumn);
+  const [dynamicColumns, setDynamicColumns] = useState<TableColumn[]>(defaultColumn);
            
   // Table data
   const tableData = filteredDataa.map((clens: ILens) =>
@@ -27,7 +27,7 @@ const [dynamicColumns, setDynamicColumns] = useState<TableColumn[]>(defaultColum
   const header = dynamicColumns.map(item => item.label);
         
   // PDF hook
-  const { handleDownloadPDF } = usePdfDownloader(tableData, header, "patient-List");
+  const { handleDownloadPDF } = usePdfDownloader(tableData, header, "wishlist-Frame-List");
 
   return (
     <div className="px-4 py-2 bg-gray-50 min-h-screen">
@@ -39,6 +39,7 @@ const [dynamicColumns, setDynamicColumns] = useState<TableColumn[]>(defaultColum
           </div>
         </div>
 
+  
       <div className="w-full h-[70vh] overflow-y-scroll overflow-x-hidden hide-scrollbar ">
         {/* Accordion for Search + Filters */}
         {
@@ -60,4 +61,4 @@ const [dynamicColumns, setDynamicColumns] = useState<TableColumn[]>(defaultColum
   );
 };
 
-export default MyPatient;
+export default WishlistFrame;

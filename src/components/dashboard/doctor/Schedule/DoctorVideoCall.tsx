@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import { useGetAllSlotQuery, useUpdateSlotMutation } from "../../../../app/redux/api/scheduleApi";
 
 export default function DoctorVideoCall({
   roomId,
@@ -46,8 +47,13 @@ export default function DoctorVideoCall({
 
     loadAgora();
   }, []);
+  const {refetch} = useGetAllSlotQuery(doctorId)
+  const [updateSlot] = useUpdateSlotMutation()
 
   const joinCall = async () => {
+
+    
+
     if (!client || !AgoraRTC) return;
 
     const res = await axios.post(
@@ -74,8 +80,9 @@ export default function DoctorVideoCall({
     }
 
     await client.publish(tracks);
-
     setJoined(true);
+    await updateSlot(roomId);
+    refetch()
   };
 
   const leaveCall = async () => {

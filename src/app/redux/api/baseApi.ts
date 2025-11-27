@@ -28,5 +28,7 @@ export const baseApi = createApi({
     "Banner",
     "WeeklyDeals",
     "Blog",
+    "Prescription",
+    "Wishlist",
   ],
 });

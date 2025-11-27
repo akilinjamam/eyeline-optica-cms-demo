@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Menu, LayoutDashboard, ShoppingCart, Users,  LogOut, ShoppingBag, User, ListChecks, UserPlus, CalendarDays, NotebookTabs,Accessibility, Calendar, BookAIcon } from "lucide-react";
+import { Menu, LayoutDashboard, ShoppingCart, Users,  LogOut, ShoppingBag, User, ListChecks, UserPlus, CalendarDays, NotebookTabs,Accessibility, Calendar, BookAIcon, Heart } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { clearToken } from "../../app/redux/features/authSlice";
@@ -59,6 +59,11 @@ const Sidebar = ({ isOpen, setIsOpen, isDesktop }: SidebarProps) => {
     { name: "Weekly Deals", 
       path: ["/dashboard/weeklyDeals", "/dashboard/manage_deals", "/dashboard/edit_weeklyDeals"], 
       icon: Calendar ,
+      show: roll === 'employee'|| roll === 'admin' || roll === 'doctor & admin' || roll === 'employee & admin'
+    },
+    { name: "Wish List", 
+      path: ["/dashboard/wishlist", "/dashboard/wishlist_frame", "/dashboard/wishlist_lens", "/dashboard/wishlist_contactLens"], 
+      icon: Heart ,
       show: roll === 'employee'|| roll === 'admin' || roll === 'doctor & admin' || roll === 'employee & admin'
     },
     { name: "Blog", 
