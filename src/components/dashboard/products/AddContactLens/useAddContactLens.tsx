@@ -27,7 +27,9 @@ const useAddContactLens = () => {
     features: [] as string[],
     description: "",
     powerType:"",
-    quantity: 1
+    quantity: 1,
+    rating:0,
+    badge: ""
     },
   });
 
@@ -58,8 +60,8 @@ const useAddContactLens = () => {
 
   const onSubmit = async (data: ContactLens) => {
    
-    const {images, diameter, baseCurve, offer,purchasePrice, salesPrice,  quantity, waterContent, ...remaining} = data;
-    console.log(data)
+    const {images, diameter, baseCurve, offer,purchasePrice, salesPrice,  quantity, waterContent, rating, ...remaining} = data;
+
     const formData = {
       data: {
         diameter: +diameter,
@@ -69,6 +71,7 @@ const useAddContactLens = () => {
         salesPrice: salesPrice != null && salesPrice !== 0 ? +salesPrice : 0,
         waterContent: `${waterContent}%`,
         quantity: +quantity,
+        rating: +rating,
         ...remaining
       },
       images

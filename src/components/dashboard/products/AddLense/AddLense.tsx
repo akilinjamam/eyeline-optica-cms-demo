@@ -165,14 +165,14 @@ const AddLens = () => {
             </div>
 
             {/* OFFER */}
-            <div className="space-y-3">
+            {/* <div className="space-y-3">
               <Label>Offer (%)</Label>
               <Input
                 type="number"
                 placeholder="10"
                 {...register("offer")}
               />
-            </div>
+            </div> */}
 
             {/* RATING */}
             <div className="space-y-3">
@@ -200,7 +200,16 @@ const AddLens = () => {
                 {...register("deliveryTime")}
               />
             </div>
-          </div>
+            {/* BADGE */}
+            <div className="space-y-3">
+              <Label>Badge</Label>
+              <Input
+                placeholder="premium/budget-friendly/trendy"
+                {...register("badge")}
+                required
+              />
+            </div>
+            </div>
 
           {/* COATINGS */}
           <div className="mt-6 space-y-3">

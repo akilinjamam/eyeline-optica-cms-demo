@@ -152,17 +152,20 @@ const AddContactLens = () => {
               <Input type="number" placeholder="120" {...register("quantity")} />
             </div>
             
-
-            {/* STOCK */}
-            {/* <div className="space-y-3">
-              <Label>Stock</Label>
-              <Input type="number" placeholder="50" {...register("stock")} />
-            </div> */}
-
             {/* OFFER */}
-            <div className="space-y-3">
+            {/* <div className="space-y-3">
               <Label>Offer (%)</Label>
               <Input type="number" placeholder="10" {...register("offer")} />
+            </div> */}
+            {/* RATING */}
+            <div className="space-y-3">
+              <Label>Rating</Label>
+              <Input type="number" placeholder="1-5" {...register("rating")} />
+            </div>
+            {/* BADGE */}
+            <div className="space-y-3">
+              <Label>Badge</Label>
+              <Input type="text" placeholder="premium/trendy/budget" {...register("badge")} />
             </div>
           </div>
 

@@ -57,6 +57,7 @@ const useAddFrame = () => {
 	  prescriptionRange: string;
 	  availableAsProBi: boolean;
 	  availableAsReader: boolean;
+    rating:number;
   };
 
   const { register, handleSubmit, control, setValue, watch, reset } = useForm<FrameFormData>({
@@ -73,7 +74,7 @@ const useAddFrame = () => {
       color: "",
       purchase: null,
       salesPrice: null,
-      discount: null,
+      discount: 0,
       quantity: 1,
       features: [],
       brand: "raybon",
@@ -91,6 +92,7 @@ const useAddFrame = () => {
       prescriptionRange: "",
       availableAsProBi: false,
       availableAsReader: false,
+      rating:0
     },
   });
 
@@ -182,7 +184,6 @@ const useAddFrame = () => {
       data: { ...data, otherImages: cleanOtherImages, barcode }
     };
 
-
     try {
       const response = await createFrame(formData as any).unwrap();
       if (response.success) {
@@ -194,6 +195,8 @@ const useAddFrame = () => {
       toast.error(err?.data?.message || "Error creating frame");
     }
   };
+
+  console.log(error)
 
   return {
     availableFeatures,

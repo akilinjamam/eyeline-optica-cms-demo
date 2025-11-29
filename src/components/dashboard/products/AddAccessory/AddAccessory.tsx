@@ -36,7 +36,7 @@ export default function AddAccessory() {
     removeImage,
   } = useAddAccessory();
 
-  const { register, handleSubmit, control } = form;
+  const { register, control } = form;
   const { fields, append, remove } = useFieldArray({
     control,
     name: "items",
@@ -58,7 +58,7 @@ export default function AddAccessory() {
 
         <CardContent>
           <form
-            onSubmit={handleSubmit(onSubmit as any)}
+            onSubmit={onSubmit}
             className="space-y-6"
             encType="multipart/form-data"
           >
@@ -140,6 +140,15 @@ export default function AddAccessory() {
                 </SelectContent>
               </Select>
             </div>
+
+            <div>
+                    <Label className="block mb-2 text-base font-medium text-black">Rating</Label>
+                    <Input
+                      type="number"
+                      {...register("rating")}
+                      placeholder="1-5"
+                    />
+                  </div>
 
             {/* Accessory Items */}
             <div className="space-y-4">

@@ -99,6 +99,7 @@ export type ContactLens = {
   quantity: number;
   powerType: string;
   stock: boolean;
+  badge?: string;
 };
 
 export type ProductType =
@@ -212,6 +213,7 @@ export interface LensFormData {
   description: string;
   featured: boolean;
   quantity: string;
+  badge: string;
 }
 
 // Doctor type

@@ -152,10 +152,10 @@ const AddFrame = () => {
               <Input type="number" {...register("salesPrice", { valueAsNumber: true })} required/>
             </div>
 
-            <div className="space-y-3">
+            {/* <div className="space-y-3">
               <Label>Discount</Label>
               <Input type="number" {...register("discount", { valueAsNumber: true })} required />
-            </div>
+            </div> */}
 
             <div className="space-y-3">
               <Label>Quantity</Label>
@@ -192,6 +192,10 @@ const AddFrame = () => {
                   </Select>
                 )}
               />
+            </div>
+            <div className="space-y-3">
+              <Label>Rating</Label>
+              <Input type="number" {...register("rating", { valueAsNumber: true })} required/>
             </div>
             <div className="space-y-3">
               <Label>Frame Width</Label>

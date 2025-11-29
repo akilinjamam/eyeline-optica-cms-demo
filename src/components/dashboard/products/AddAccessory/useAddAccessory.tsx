@@ -29,6 +29,7 @@ export const accessoryItemSchema = z.object({
 
 export const addAccessorySchema = z.object({
   images: z.array(z.instanceof(File)).optional(),
+  rating: z.coerce.number().min(1).max(5).optional(),
   type: z.enum([
     "With Solution",
     "With Bag",
@@ -56,6 +57,7 @@ export const useAddAccessory = () => {
     defaultValues: {
       images: [],
       type: "others",
+      rating:0,
       items: [
         {
           name: "",

@@ -40,7 +40,8 @@ const useAddLens = () => {
       deliveryTime: "",
       description: "",
       featured: false,
-      quantity:""
+      quantity:"",
+      badge: ""
     },
   });
 
