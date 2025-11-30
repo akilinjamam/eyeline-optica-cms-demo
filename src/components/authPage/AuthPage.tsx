@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import photo from "../../images/optical-photo.jpg";
+import byteDynamo from "../../images/Byte-Dynamo.png"
 import { useNavigate } from "react-router-dom";
 import {
   Select,
@@ -107,7 +108,6 @@ if(!wait){
   return <LoadingGlass/>
 }
   
-console.log(wait)
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-tr from-indigo-400 via-purple-400 to-pink-400 p-4">
       <motion.div
@@ -117,22 +117,33 @@ console.log(wait)
         className="bg-white rounded-3xl shadow-2xl w-full max-w-3xl overflow-hidden flex flex-col md:flex-row min-h-[650px]"
       >
         {/* Left Illustration */}
-        <div className="hidden md:flex w-1/2 bg-gradient-to-tr from-indigo-500 to-purple-500 items-center justify-center p-6 flex-wrap">
+        <div className="hidden md:flex w-1/2 bg-gradient-to-tr from-indigo-500 to-purple-500 items-center justify-start p-4 flex-col gap-2 relative">
           <motion.img
             src={photo}
             alt="Auth Illustration"
-            className="rounded-2xl w-full"
+            className="rounded-2xl w-full bg-red-400"
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.7 }}
           />
           <div className="text-3xl font-bold text-white">EYELINE OPTICA CMS</div>
+          <div className="absolute bottom-5">
+            <p className="text-center text-white font-semibold text-sm mb-1">DEVELOPED BY</p>
+            <motion.img
+            src={byteDynamo}
+            alt="Auth Illustration"
+            className="rounded-2xl w-[60%] mx-auto"
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.7 }}
+          />
+          </div>
         </div>
 
         {/* Right Form */}
-        <div className="w-full md:w-1/2 p-8">
+        <div className="w-full md:w-1/2 bg-white">
           {/* Tabs */}
-          <div className="flex justify-center mb-6">
+          <div className="flex justify-center mb-6 ">
             <button
               onClick={() => setIsLogin(true)}
               className={`px-4 py-2 font-semibold ${
@@ -154,19 +165,19 @@ console.log(wait)
               Register
             </button>
           </div>
-
           <motion.div
             key={isLogin ? "login" : "register"}
             variants={formVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
+            className="mx-6"
           >
             <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
               {isLogin ? "Welcome" : "Create Account"}
             </h2>
 
-            <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
+            <form className="space-y-4 h-full" onSubmit={handleSubmit(onSubmit)}>
               {!isLogin && (
                 <div>
                   <label className="block text-gray-700 mb-1">Full Name</label>
@@ -270,18 +281,31 @@ console.log(wait)
                 </div>
               )}
 
-              <button
-                type="submit"
-                className="w-full py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-lg transition"
-                disabled={(isLoadingLogin || isLoadingReg) ? true : false}
-              >
-                {isLogin ? ((isLoadingLogin || isLoadingReg)? 'Initializing' : 'Login') : (`${(isLoadingLogin || isLoadingReg) ? 'Initializing' : 'Register'}`)}
-              </button>
+                <button
+                  type="submit"
+                  className="w-full py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-lg transition"
+                  disabled={(isLoadingLogin || isLoadingReg) ? true : false}
+                >
+                  {isLogin ? ((isLoadingLogin || isLoadingReg)? 'Initializing' : 'Login') : (`${(isLoadingLogin || isLoadingReg) ? 'Initializing' : 'Register'}`)}
+                </button>
+              <div className="bottom-5 block md:hidden lg:hidden ">
+            <p className="text-center font-semibold text-sm mb-1 text-gray-600 ">DEVELOPED BY</p>
+            <motion.img
+            src={byteDynamo}
+            alt="Auth Illustration"
+            className="rounded-2xl w-[50%] mx-auto"
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.7 }}
+          />
+              </div>
             </form>
           </motion.div>
+          
         </div>
       </motion.div>
       <ToastContainer/>
+      
     </div>
   );
 };
