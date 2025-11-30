@@ -293,7 +293,7 @@ if(!wait){
             <motion.img
             src={byteDynamo}
             alt="Auth Illustration"
-            className="rounded-2xl w-[50%] mx-auto"
+            className="rounded-2xl w-[50%] mx-auto mb-3"
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.7 }}
