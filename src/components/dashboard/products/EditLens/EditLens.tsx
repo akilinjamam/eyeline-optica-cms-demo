@@ -10,7 +10,7 @@ import useEditLens from './useEditLens';
 
 const EditLens = () => {
 
-    const {register, handleSubmit, control, previewImages, handleImageUpload, removeImage, toggleCoating, onSubmit, watch, availableCoatings, isLoading} = useEditLens()
+    const {register, handleSubmit, control, previewImages, handleImageUpload, removeImage, toggleCoating, onSubmit, watch, availableCoatings, isLoading, setImageIds} = useEditLens()
 
     return (
         <div className="p-4 bg-gray-50 h-screen overflow-y-scroll hide-scrollbar">
@@ -20,7 +20,7 @@ const EditLens = () => {
                 transition={{ duration: 0.4 }}
                 className="w-full mx-auto bg-white rounded-3xl shadow-xl p-6 flex flex-col h-[90%]"
               >
-                <h2 className="text-2xl font-bold mb-4">Add New Lens</h2>
+                <h2 className="text-2xl font-bold mb-4">Edit Lens</h2>
         
                 <form
                   onSubmit={handleSubmit(onSubmit)}
@@ -233,7 +233,12 @@ const EditLens = () => {
                             <img src={img} alt="preview" className="w-20 h-20 object-cover rounded-lg border" />
                             <button
                               type="button"
-                              onClick={() => removeImage(idx)}
+                              onClick={() => {
+                                if(!img.includes("blob")){
+                                  setImageIds((prev) => [...prev, img])
+                                }
+                                removeImage(idx)
+                              }}
                               className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full p-1 shadow hover:bg-red-600"
                             >
                               <X className="w-3 h-3" />

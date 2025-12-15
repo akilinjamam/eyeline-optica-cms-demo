@@ -46,10 +46,11 @@ const { register, handleSubmit, control, setValue, watch} = useForm<LensFormData
   });
 
   const [previewImages, setPreviewImages] = useState<string[]>([]);
+  const [imageIds,setImageIds] = useState<string[]>([]);
+  console.log(imageIds)
   const [editFrame, { isLoading, error }] = useUpdateLensMutation();
   const dispatch = useDispatch();
-  
-  console.log(isLoading)
+
   console.log(error)
   // Load initial images if editing
   useEffect(() => {
@@ -85,10 +86,11 @@ const { register, handleSubmit, control, setValue, watch} = useForm<LensFormData
     
     const formData = {
       id:_id,
-      data: {...remaining, images},
+      data: {...remaining, images, imageIds},
       images:newImages,
+      
     };
-    console.log(formData)
+    console.log(formData?.data)
     try {
       const response = await editFrame(formData as any).unwrap();
       if (response.success) {
@@ -103,7 +105,7 @@ const { register, handleSubmit, control, setValue, watch} = useForm<LensFormData
     }
   };
 
-  return {register, handleSubmit, control, previewImages, handleImageUpload, removeImage, toggleCoating, onSubmit, watch, availableCoatings, isLoading}
+  return {register, handleSubmit, control, previewImages, handleImageUpload, removeImage, toggleCoating, onSubmit, watch, availableCoatings, isLoading, setImageIds}
 
 };
 
