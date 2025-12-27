@@ -237,6 +237,10 @@ const EditFrame = () => {
                           <Label>Prescription Range</Label>
                           <Input placeholder="7 - 79 mm" {...register("prescriptionRange")}/>
                       </div>
+                      <div className="space-y-3">
+                          <Label>Size Code</Label>
+                          <Input placeholder="7 - 79 mm" {...register("sizeCode")}/>
+                      </div>
                    </div>
          
                    {/* Features */}

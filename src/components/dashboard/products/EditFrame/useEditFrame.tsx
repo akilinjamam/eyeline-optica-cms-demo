@@ -49,6 +49,7 @@ const { register, handleSubmit, control, setValue, watch} = useForm<FrameFormDat
     prescriptionRange: "",
     availableAsProBi: false,
     availableAsReader: false,
+    sizeCode:""
     },
   });
 

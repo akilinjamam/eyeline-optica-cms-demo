@@ -99,6 +99,7 @@ export type FrameFormData = {
   prescriptionRange: string;
   availableAsProBi: boolean;
   availableAsReader: boolean;
+  sizeCode: string;
 };
 
 export type TRegistration = {

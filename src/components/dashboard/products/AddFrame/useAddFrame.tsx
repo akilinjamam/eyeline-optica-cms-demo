@@ -58,6 +58,7 @@ const useAddFrame = () => {
 	  availableAsProBi: boolean;
 	  availableAsReader: boolean;
     rating:number;
+    sizeCode:string;
   };
 
   const { register, handleSubmit, control, setValue, watch, reset } = useForm<FrameFormData>({
@@ -92,7 +93,8 @@ const useAddFrame = () => {
       prescriptionRange: "",
       availableAsProBi: false,
       availableAsReader: false,
-      rating:0
+      rating:0,
+      sizeCode:""
     },
   });
 
@@ -183,7 +185,7 @@ const useAddFrame = () => {
     const formData = {
       data: { ...data, otherImages: cleanOtherImages, barcode }
     };
-
+    
     try {
       const response = await createFrame(formData as any).unwrap();
       if (response.success) {
