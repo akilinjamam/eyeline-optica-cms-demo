@@ -63,6 +63,7 @@ const AddContactLens = () => {
                       <SelectItem value="weekly">Weekly</SelectItem>
                       <SelectItem value="monthly (colored)">Monthly (colored)</SelectItem>
                       <SelectItem value="monthly">Monthly</SelectItem>
+                      <SelectItem value="yearly">Yearly</SelectItem>
                       <SelectItem value="toric">Toric</SelectItem>
                       <SelectItem value="multifocal">Multifocal</SelectItem>
                     </SelectContent>
@@ -108,13 +109,13 @@ const AddContactLens = () => {
             {/* DIAMETER */}
             <div className="space-y-3">
               <Label>Diameter (mm)</Label>
-              <Input type="number" placeholder="14.2" {...register("diameter")} />
+              <Input step="any"  type="number" placeholder="14.2" {...register("diameter")} />
             </div>
 
             {/* BASE CURVE */}
             <div className="space-y-3">
               <Label>Base Curve</Label>
-              <Input type="number" placeholder="8.6" {...register("baseCurve")} />
+              <Input step="any" type="number" placeholder="8.6" {...register("baseCurve")} />
             </div>
 
             {/* POWER RANGE */}

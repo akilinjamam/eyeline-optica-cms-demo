@@ -8,12 +8,17 @@ import useCategory from "../../../../reusableComponent/useCategory";
 const useAddFrame = () => {
   const { category: categoryFrameFeatures, isLoading: isLoadingCategory } =
     useCategory("Frame Feature");
+  const { category: categoryFrameShape, isLoading: isLoadingCategoryShape } =
+    useCategory("Frame Shape");
   const { category: badges, isLoading: isLoadingBadge } = useCategory("Frame Badge");
 
   const availableFeatures = isLoadingCategory
     ? ["Loading..."]
     : categoryFrameFeatures?.map((feature) => feature?.category);
-  const brands = ["raybon", "Alex Perry", "Oakley"];
+  const availableShape = isLoadingCategoryShape
+    ? ["Loading..."]
+    : categoryFrameShape?.map((shape) => shape?.category);
+ 
 
   type TOtherImages = {
     colorName: string;
@@ -66,12 +71,12 @@ const useAddFrame = () => {
       name: "",
       images: [],
       otherImages: [],
-      type: "sunglasses",
-      materialsCategory: "metal",
-      frameCategory: "full-rim",
-      sizeCategory: "medium",
-      shapeCategory: "round",
-      biologyCategory: "men",
+      type: "",
+      materialsCategory: "",
+      frameCategory: "",
+      sizeCategory: "",
+      shapeCategory: "",
+      biologyCategory: "",
       color: "",
       purchase: null,
       salesPrice: null,
@@ -202,7 +207,7 @@ const useAddFrame = () => {
 
   return {
     availableFeatures,
-    brands,
+    availableShape,
     badges,
     register,
     handleSubmit,

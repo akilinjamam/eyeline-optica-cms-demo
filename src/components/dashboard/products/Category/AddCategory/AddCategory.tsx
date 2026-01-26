@@ -54,6 +54,7 @@ export const AddCategory = () => {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="Frame Feature">Frame Feature</SelectItem>
+                  <SelectItem value="Frame Shape">Frame Shape</SelectItem>
                   <SelectItem value="Lens Coating">Lens Coating</SelectItem>
                   <SelectItem value="Accessory Type">Accessory Type</SelectItem>
                   <SelectItem value="Contact Lens Feature">

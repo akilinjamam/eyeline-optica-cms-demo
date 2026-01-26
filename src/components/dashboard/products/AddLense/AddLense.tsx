@@ -71,12 +71,13 @@ const AddLens = () => {
                 control={control}
                 render={({ field }) => (
                   <Select  onValueChange={field.onChange} value={field.value} required>
-                    <SelectTrigger className="w-full"><SelectValue placeholder="Select type" /></SelectTrigger>
+                    <SelectTrigger className="w-full"><SelectValue placeholder="Select Material" /></SelectTrigger>
                     <SelectContent className="w-full">
                       <SelectItem value="polycarbonate">Polycarbonate</SelectItem>
                       <SelectItem value="high-index">High-Index</SelectItem>
-                      <SelectItem value="plastic">Plastic</SelectItem>
+                      <SelectItem value="optical fiber">Optical Fiber</SelectItem>
                       <SelectItem value="glass">Glass</SelectItem>
+                      <SelectItem value="CR-39">CR-39</SelectItem>
                     </SelectContent>
                   </Select>
                 )}

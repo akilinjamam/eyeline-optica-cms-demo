@@ -13,7 +13,7 @@ import useAddFrame from "./useAddFrame";
 
 const AddFrame = () => {
 
-  const {availableFeatures, brands, badges, register, handleSubmit, control, watch, toggleFeature,  onSubmit, isLoading, addVariant,removeVariant,handleVariantImageUpload,removeVariantImage} = useAddFrame()
+  const {availableFeatures, availableShape, badges, register, handleSubmit, control, watch, toggleFeature,  onSubmit, isLoading, addVariant,removeVariant,handleVariantImageUpload,removeVariantImage} = useAddFrame()
 
   return (
     <div className="p-4 bg-gray-50 h-screen overflow-y-scroll hide-scrollbar">
@@ -112,7 +112,7 @@ const AddFrame = () => {
                   <Select onValueChange={field.onChange} value={field.value} required>
                     <SelectTrigger className="w-full"><SelectValue placeholder="Select shape" /></SelectTrigger>
                     <SelectContent>
-                      {["oval","round","square","cats eye","rectangle","avietor","browline","horn"].map((s) => (
+                      {availableShape.map((s) => (
                         <SelectItem key={s} value={s}>{s}</SelectItem>
                       ))}
                     </SelectContent>
@@ -162,7 +162,7 @@ const AddFrame = () => {
               <Input type="number" {...register("quantity", { valueAsNumber: true })} required/>
             </div>
 
-            <div className="space-y-3">
+            {/* <div className="space-y-3">
               <Label>Brand</Label>
               <Controller
                 name="brand"
@@ -176,6 +176,10 @@ const AddFrame = () => {
                   </Select>
                 )}
               />
+            </div> */}
+            <div className="space-y-3">
+              <Label>Brand</Label>
+              <Input type="text" {...register("brand", { valueAsNumber: true })} required/>
             </div>
 
             <div className="space-y-3">
