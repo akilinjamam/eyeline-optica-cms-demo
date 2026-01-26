@@ -179,7 +179,7 @@ const AddFrame = () => {
             </div> */}
             <div className="space-y-3">
               <Label>Brand</Label>
-              <Input type="text" {...register("brand", { valueAsNumber: true })} required/>
+              <Input type="text" {...register("brand")} placeholder="Brand"  required/>
             </div>
 
             <div className="space-y-3">
