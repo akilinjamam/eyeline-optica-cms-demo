@@ -54,7 +54,9 @@ const AddLens = () => {
                   <Select  onValueChange={field.onChange} value={field.value} required>
                     <SelectTrigger className="w-full"><SelectValue placeholder="Select type" /></SelectTrigger>
                     <SelectContent className="w-full">
-                      <SelectItem value="single vision">Single Vision</SelectItem>
+                      <SelectItem value="single vision">Single Vision (eye glass)</SelectItem>
+                      <SelectItem value="single vision sunglass">Single Vision (sunglass)</SelectItem>
+                      <SelectItem value="single vision kids">Single Vision (kids)</SelectItem>
                       <SelectItem value="bifocal">Bifocal</SelectItem>
                       <SelectItem value="progressive">Progressive</SelectItem>
                       <SelectItem value="zero power">Zero Power</SelectItem>
