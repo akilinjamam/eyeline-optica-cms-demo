@@ -36,6 +36,7 @@ const { register, handleSubmit, control, setValue, watch} = useForm<LensFormData
       salesPrice: "",
       stock: 0,
       brand: "",
+      badge: "",
       offer: 0,
       rating: 0,
       warranty: "",

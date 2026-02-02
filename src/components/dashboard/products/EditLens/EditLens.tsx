@@ -187,6 +187,14 @@ const EditLens = () => {
                         {...register("deliveryTime")}
                       />
                     </div>
+                    {/* BADGE */}
+                    <div className="space-y-3">
+                      <Label>Badge</Label>
+                      <Input
+                        placeholder="3-5 business days"
+                        {...register("badge")}
+                      />
+                    </div>
                   </div>
         
                   {/* COATINGS */}
