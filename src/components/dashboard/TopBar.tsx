@@ -72,9 +72,9 @@ const TopBar = () => {
 
       {/* Right Section - Icons */}
       <div className="flex items-center gap-4">
-        <p className="font-bold bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+        {/* <p className="font-bold bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
             BYTE DYNAMO
-        </p>
+        </p> */}
         {/* Notification Bell */}
         {/* <button className="relative p-2 rounded-full hover:bg-gray-100 transition">
           <Bell className="w-5 h-5 text-gray-700" />

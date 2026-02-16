@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import photo from "../../images/optical-photo.jpg";
-import byteDynamo from "../../images/Byte-Dynamo.png"
+// import byteDynamo from "../../images/Byte-Dynamo.png"
 import { useNavigate } from "react-router-dom";
 import {
   Select,
@@ -127,7 +127,7 @@ if(!wait){
             transition={{ duration: 0.7 }}
           />
           <div className="text-3xl font-bold text-white">EYELINE OPTICA CMS</div>
-          <div className="absolute bottom-5">
+          {/* <div className="absolute bottom-5">
             <p className="text-center text-white font-semibold text-sm mb-1">DEVELOPED BY</p>
             <motion.img
             src={byteDynamo}
@@ -137,7 +137,7 @@ if(!wait){
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.7 }}
           />
-          </div>
+          </div> */}
         </div>
 
         {/* Right Form */}
@@ -202,6 +202,7 @@ if(!wait){
                 <input
                   type="email"
                   placeholder="example@mail.com"
+                  value="testdoctor@gmail.com"
                   {...register("email", { required: "Email is required" })}
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
                 />
@@ -246,6 +247,7 @@ if(!wait){
                 <label className="block text-gray-700 mb-1">Password</label>
                 <input
                   type="password"
+                  value="test1234"
                   placeholder="********"
                   {...register("password", { required: "Password is required" })}
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
@@ -286,18 +288,20 @@ if(!wait){
                   className="w-full py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-lg transition"
                   disabled={(isLoadingLogin || isLoadingReg) ? true : false}
                 >
-                  {isLogin ? ((isLoadingLogin || isLoadingReg)? 'Initializing' : 'Login') : (`${(isLoadingLogin || isLoadingReg) ? 'Initializing' : 'Register'}`)}
+                  {isLogin ? ((isLoadingLogin || isLoadingReg)? 'Initializing' : 'Login') : (`${(isLoadingLogin || isLoadingReg) ? 'Initializing' : 'Register'}`)
+                  }
                 </button>
+                <p className="text-red-600 font-bold text-sm ">Note*: The server is hosted to render free plan. so first time API call can take few times. </p>
               <div className="bottom-5 block md:hidden lg:hidden ">
-            <p className="text-center font-semibold text-sm mb-1 text-gray-600 ">DEVELOPED BY</p>
-            <motion.img
+            {/* <p className="text-center font-semibold text-sm mb-1 text-gray-600 ">DEVELOPED BY</p> */}
+            {/* <motion.img
             src={byteDynamo}
             alt="Auth Illustration"
             className="rounded-2xl w-[50%] mx-auto mb-3"
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.7 }}
-          />
+          /> */}
               </div>
             </form>
           </motion.div>
