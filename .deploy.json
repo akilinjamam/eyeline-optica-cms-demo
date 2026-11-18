@@ -1,0 +1,7 @@
+{
+"DEPLOYPATH": "/home/akilinja/public_html/cms",
+"task": [
+    "dist/*",
+    ".htaccess"
+]
+}

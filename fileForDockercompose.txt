@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  eyelineoptica-cms:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=https://server.eyelineoptica.com  # <--- Replace with your actual production API URL
+    container_name: eyelineoptica-cms-container
+    ports:
+      - "3009:80"
+    restart: unless-stopped
